@@ -20,6 +20,8 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
+    /// To Do:
+    ///         I Have to change the string array for file extension to normal string with string.contain
     public partial class HomePage : Page
     {
         double PageHeight, PageWidth;
@@ -102,6 +104,12 @@ namespace Desktop_Manger
             }
             return false;
         }
+
+        private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            canv1.Focus();
+        }
+
         private string GetOriginalFileURL(string Location)
         {
             if (System.IO.File.Exists(Location))

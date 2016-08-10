@@ -6,9 +6,10 @@
       xmlns:local="clr-namespace:Desktop_Manger"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1366"
+      MouseLeftButtonDown="Page_MouseLeftButtonDown"
       Title="HomePage">
 
-    <Canvas Name="canv1" Background="Transparent" AllowDrop="True" Drop="canv1_Drop">
+    <Canvas Name="canv1" Background="Transparent" Focusable="True" AllowDrop="True" Drop="canv1_Drop">
        <!--<MediaElement Source="D:\videos\BF4.MP4" Width="1008" Height="612"></MediaElement>-->
     </Canvas>
 </Page>
