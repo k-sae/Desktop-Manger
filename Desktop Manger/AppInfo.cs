@@ -12,12 +12,15 @@ using System.Windows.Input;
 using System.Diagnostics;
 namespace Desktop_Manger
 {
+
+    // to do: 
+    //The Create Functions should be added to serprate Class File
     class AppInfo
     {
         public Canvas ParentCanvas { get; set; }
         public Canvas HolderCanvas { get; set; }
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
-        public TextBlock Text { get; set; }
+        public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
         public static ImageSource GetIcon(string fileName)
         {
@@ -71,7 +74,7 @@ namespace Desktop_Manger
             tb.TextAlignment = TextAlignment.Center;
             tb.VerticalAlignment = VerticalAlignment.Center;
             tb.TextWrapping = TextWrapping.Wrap;
-            Text = tb;
+            FileName = tb;
 
         }
         public void AddElements()
@@ -80,7 +83,7 @@ namespace Desktop_Manger
             
            // stp.Height = 100;
             stp.Children.Add(ShortcutIcon);
-            stp.Children.Add(Text);
+            stp.Children.Add(FileName);
             HolderCanvas.Children.Add(stp);
            
             //ParentCanvas.Children.Add(HolderCanvas);
@@ -99,11 +102,74 @@ namespace Desktop_Manger
         private ContextMenu CreateContextMenu()
         {
             ContextMenu mnu = new ContextMenu();
+            //add Remove To ContextMenu
             MenuItem RemoveItem = new MenuItem();
             RemoveItem.Header = "Remove";
-            mnu.Items.Add(RemoveItem);
             RemoveItem.Click += RemoveItem_Click;
+            //Add Open with to ContextMenu
+            MenuItem OpenWith = new MenuItem();
+            OpenWith.Header = "Open With";
+            OpenWith.Click += OpenWith_Click;
+            //add Rename to ContextMenu
+            MenuItem Rename = new MenuItem();
+            Rename.Header = "Rename";
+            Rename.Click += Rename_Click;
+            mnu.Items.Add(OpenWith);
+            mnu.Items.Add(Rename);
+            mnu.Items.Add(RemoveItem);
             return mnu;
+        }
+
+        private void Rename_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            StackPanel mystp = null;
+            if (mnu != null)
+            {
+                ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
+                mystp = MyContextMenu.PlacementTarget as StackPanel;
+            }
+            TextBox mytb = CreateTextBox();
+            FileName.Visibility = Visibility.Collapsed;
+            mytb.Focus();
+            mystp.Children.Add(mytb);
+        }
+
+        private TextBox CreateTextBox()
+        {
+            TextBox tb = new TextBox();
+            tb.Text = FileName.Text;
+            tb.Focusable = true;
+            tb.LostFocus += Tb_LostFocus;
+            tb.TextWrapping = TextWrapping.Wrap;
+            return tb;
+        }
+
+        private void Tb_LostFocus(object sender, RoutedEventArgs e)
+        {
+            FileName.Text = (sender as TextBox).Text;
+            FileName.Visibility = Visibility.Visible;
+            StackPanel mystp = null;
+            mystp = (StackPanel)(sender as TextBox).Parent;
+            mystp.Children.Remove(sender as TextBox);
+        }
+
+        private void OpenWith_Click(object sender, RoutedEventArgs e) 
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            var process = new Process { StartInfo = startInfo };
+            process.Start();
+            process.StandardInput.WriteLine(@"openwith " + ShortCutLocation);
+            process.StandardInput.WriteLine("exit");
+            process.WaitForExit();
         }
 
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
