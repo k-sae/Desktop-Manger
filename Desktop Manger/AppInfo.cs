@@ -76,17 +76,47 @@ namespace Desktop_Manger
         }
         public void AddElements()
         {
-            StackPanel stp = new StackPanel();
-            stp.Orientation = Orientation.Vertical;
-            stp.Width = 70;
-            stp.MouseEnter += Stp_MouseEnter;
-            stp.MouseLeave += Stp_MouseLeave;
+            StackPanel stp = CreateStackPanel();
+            
            // stp.Height = 100;
             stp.Children.Add(ShortcutIcon);
             stp.Children.Add(Text);
             HolderCanvas.Children.Add(stp);
            
             //ParentCanvas.Children.Add(HolderCanvas);
+        }
+
+        private StackPanel CreateStackPanel()
+        {
+            StackPanel stp = new StackPanel();
+            stp.Orientation = Orientation.Vertical;
+            stp.Width = 70;
+            stp.MouseEnter += Stp_MouseEnter;
+            stp.MouseLeave += Stp_MouseLeave;
+            stp.ContextMenu = CreateContextMenu();
+            return stp;
+        }
+        private ContextMenu CreateContextMenu()
+        {
+            ContextMenu mnu = new ContextMenu();
+            MenuItem RemoveItem = new MenuItem();
+            RemoveItem.Header = "Remove";
+            mnu.Items.Add(RemoveItem);
+            RemoveItem.Click += RemoveItem_Click;
+            return mnu;
+        }
+
+        private void RemoveItem_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            StackPanel mystp = null;
+            if (mnu != null)
+            {
+                ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
+                mystp = MyContextMenu.PlacementTarget as StackPanel;
+            }
+            Canvas mycanvas = (Canvas)mystp.Parent;
+            ParentCanvas.Children.Remove(mycanvas);
         }
 
         private void Stp_MouseLeave(object sender, MouseEventArgs e)
@@ -127,14 +157,12 @@ namespace Desktop_Manger
         Stopwatch stp = new Stopwatch();
         private void Cnv_MouseMove(object sender, MouseEventArgs e)
         {
-            
-            if ((sender as Canvas).IsMouseCaptured && stp.Elapsed > new TimeSpan(0,0,0,0,50))
+
+            if ((sender as Canvas).IsMouseCaptured && stp.Elapsed > new TimeSpan(0, 0, 0, 0, 50))
             {
                 Canvas.SetTop((sender as Canvas), e.GetPosition(ParentCanvas).Y - (sender as Canvas).Height / 2);
                 Canvas.SetLeft((sender as Canvas), e.GetPosition(ParentCanvas).X - (sender as Canvas).Width / 2);
             }
-        
-
         }
 
         private void Cnv_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
