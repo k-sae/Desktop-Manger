@@ -1,0 +1,49 @@
+﻿<Controls:MetroWindow 
+    x:Class="Desktop_Manger.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Desktop_Manger"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        mc:Ignorable="d"
+        Name="MainPage"
+        WindowStyle="None"
+        Title="win1" StateChanged="win1_StateChanged" 
+                       IsWindowDraggable="False" 
+                       ShowCloseButton="False" 
+                       ShowMinButton="False" 
+                       ShowTitleBar="False" 
+                       IgnoreTaskbarOnMaximize="False"
+                       ResizeMode="CanMinimize">
+    <Grid x:Name="grid1" Background="Black"   >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+
+        </Grid.RowDefinitions>
+        <Frame Name="mainframe" Grid.ColumnSpan="2" ContentRendered="myFrame_ContentRendered" />
+        <StackPanel Orientation="Horizontal" Name="NavBar_stpanel" MouseLeave="NavBar_stpanel_MouseLeave" MouseEnter="NavBar_stpanel_MouseEnter">
+            <Border Name="NavBar" HorizontalAlignment="Left" Width="0">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                    <StackPanel  Name="HomePage_stp" Orientation="Vertical"  MouseLeave="NaveItemsDefault" MouseEnter="NaveItemsHover" MouseLeftButtonUp="HomePage_stp_MouseLeftButtonUp">
+                        <TextBlock Name="HomePage_Icon" FontSize="50" HorizontalAlignment="Center" Padding="0,20,0,0" FontFamily="Segoe MDL2 Assets" Text="&#xE80F;" />
+                        <TextBlock Name="HomePage_Text"  Text="Desktop" HorizontalAlignment="Center" FontSize="20" Padding="10"  VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <StackPanel  Name="Apps_stp"  Orientation="Vertical" MouseLeave="NaveItemsDefault" MouseEnter="NaveItemsHover" MouseLeftButtonUp="Apps_stp_MouseLeftButtonUp">
+                        <TextBlock Name="Apps_Icon" FontSize="50" Padding="0,20,0,0" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE8FC;" />
+                        <TextBlock Name="Apps_Text"  Text="Apps" FontSize="20" Padding="10" HorizontalAlignment="Center"   VerticalAlignment="Top"/>
+                    </StackPanel>
+                    <StackPanel  Name="Power_stp" Orientation="Vertical" MouseLeave="NaveItemsDefault" MouseEnter="NaveItemsHover" MouseLeftButtonUp="Apps_stp_MouseLeftButtonUp">
+                        <TextBlock Name="Power_Icon" FontSize="50" HorizontalAlignment="Center" Padding="0,20,0,0" FontFamily="Segoe MDL2 Assets" Text="&#xE8FD;" />
+                        <TextBlock Name="Power_Text"  Text="power" HorizontalAlignment="Center" FontSize="20" Padding="10"  VerticalAlignment="Top"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <Rectangle Name="Extender" Fill="Green" HorizontalAlignment="Left" Width="40" Height="40" 
+                    VerticalAlignment="Top"/>
+        </StackPanel>
+    </Grid>
+</Controls:MetroWindow>
