@@ -45,9 +45,9 @@ namespace Desktop_Manger
         private void canv1_Drop(object sender, DragEventArgs e)
         {
             HomePageLayout layout = new HomePageLayout();
-            string[] audiofile = { ".MP3", ".wav" };
-            string[] ImageFile = { ".gif", ".png", ".jpg", ".jpeg" };
-            string[] VideoFile = { ".mp4", ".avi", ".mkv" };
+            string audiofile = ".MP3 .wav";
+            string ImageFile = ".gif .png .jpg .jpeg" ;
+            string VideoFile = ".mp4 .avi .mkv";
             string[] Files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach (string file in Files)
             {
@@ -93,16 +93,13 @@ namespace Desktop_Manger
 
             }
         }
-        private bool checkExtension(string[] Extensions,string FileExt )
+        private bool checkExtension(string Extensions,string FileExt )
         {
-            foreach (string item in Extensions)
+            if ((Extensions.ToUpper()).Contains(FileExt.ToUpper()))
             {
-                if (item.ToUpper() == FileExt.ToUpper())
-                {
-                    return true;
-                }
+                return true;
             }
-            return false;
+            else return false;
         }
 
         private void Page_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
