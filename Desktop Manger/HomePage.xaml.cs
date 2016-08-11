@@ -73,7 +73,7 @@ namespace Desktop_Manger
                     app.AddElements();
                     AppsList.Add(app);
                 }
-                else if (checkExtension(ImageFile, System.IO.Path.GetExtension(file)))
+                else if (checkExtension(ImageFile,System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage(file);
                     app.AddElements();
@@ -115,6 +115,18 @@ namespace Desktop_Manger
                     app.AddElements();
                     AppsList.Add(app);
                 }
+                else if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
+                    app.AddElements();
+                    AppsList.Add(app);
+                }
+                else if(System.IO.Path.GetExtension(file).ToUpper() == ".HTML")
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/Html_Icon.png");
+                    app.AddElements();
+                    AppsList.Add(app);
+                }
 
 
 
@@ -122,6 +134,10 @@ namespace Desktop_Manger
         }
         private bool checkExtension(string Extensions,string FileExt )
         {
+            if(FileExt == "" || FileExt == null || FileExt.Length < 3)
+            {
+                return false;
+            }
             if ((Extensions.ToUpper()).Contains(FileExt.ToUpper()))
             {
                 return true;
@@ -142,7 +158,7 @@ namespace Desktop_Manger
                 WshShell shell = new WshShell(); //Create a new WshShell Interface
                 IWshShortcut link = (IWshShortcut)shell.CreateShortcut(Location); //Link the interface to our shortcut
 
-                return link.TargetPath; //Show the target in a MessageBox using IWshShortcut
+                return link.TargetPath;
             }
             else return "";
         }
