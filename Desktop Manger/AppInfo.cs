@@ -147,7 +147,12 @@ namespace Desktop_Manger
 
         private void Tb_LostFocus(object sender, RoutedEventArgs e)
         {
+            if ((sender as TextBox).Text.Length > 34)
+            {
+                (sender as TextBox).Text = (sender as TextBox).Text.Substring(0, 34) + "...";
+            }
             FileName.Text = (sender as TextBox).Text;
+
             FileName.Visibility = Visibility.Visible;
             StackPanel mystp = null;
             mystp = (StackPanel)(sender as TextBox).Parent;
