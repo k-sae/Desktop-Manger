@@ -50,6 +50,7 @@ namespace Desktop_Manger
             string VideoFile = ".mp4 .avi .mkv";
             string WordFile = ".doc .dot .docx .docm .dotx .dotm .docb";
             string ExcelFile = ".xls .xlt .xlm .xlsx .xlsm .xltx .xltm";
+            string PowerPointFile = ".ppt .pot .pps .pptx .pptm .potx .potm .ppam .ppsx .ppsm .sldx .sldm";
             string[] Files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach (string file in Files)
             {
@@ -105,6 +106,12 @@ namespace Desktop_Manger
                 else if (checkExtension(ExcelFile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Excel_Icon.png");
+                    app.AddElements();
+                    AppsList.Add(app);
+                }
+                else if (checkExtension(PowerPointFile, System.IO.Path.GetExtension(file)))
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/PowerPoint_Icon.png");
                     app.AddElements();
                     AppsList.Add(app);
                 }
