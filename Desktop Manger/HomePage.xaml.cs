@@ -48,6 +48,8 @@ namespace Desktop_Manger
             string audiofile = ".MP3 .wav";
             string ImageFile = ".gif .png .jpg .jpeg" ;
             string VideoFile = ".mp4 .avi .mkv";
+            string WordFile = ".doc .dot .docx .docm .dotx .dotm .docb";
+            string ExcelFile = ".xls .xlt .xlm .xlsx .xlsm .xltx .xltm";
             string[] Files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach (string file in Files)
             {
@@ -85,6 +87,24 @@ namespace Desktop_Manger
                 else if (checkExtension(VideoFile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Video_Icon.png");
+                    app.AddElements();
+                    AppsList.Add(app);
+                }
+                else if (System.IO.Path.GetExtension(file).ToUpper() == ".TXT")
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/Txt_File_Icon.png");
+                    app.AddElements();
+                    AppsList.Add(app);
+                }
+                else if (checkExtension(WordFile, System.IO.Path.GetExtension(file)))
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/Word_Icon.png");
+                    app.AddElements();
+                    AppsList.Add(app);
+                }
+                else if (checkExtension(ExcelFile, System.IO.Path.GetExtension(file)))
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/Excel_Icon.png");
                     app.AddElements();
                     AppsList.Add(app);
                 }
