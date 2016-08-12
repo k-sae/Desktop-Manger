@@ -59,7 +59,7 @@ namespace Desktop_Manger
                 app.HolderCanvas = app.CreateCanvas(PageHeight, PageWidth);
                 app.ShortCutLocation = file;
                 app.CreateTextBlock(System.IO.Path.GetFileName(file));
-                if (System.IO.Path.GetExtension(file) ==".lnk" )
+                if (System.IO.Path.GetExtension(file).ToUpper() ==".LNK" )
                 {
                     app.ShortCutLocation = GetOriginalFileURL(file);
                     app.CreateIconFromexe(app.ShortCutLocation);
@@ -67,7 +67,7 @@ namespace Desktop_Manger
                     app.AddElements();
                     AppsList.Add(app);
                 }
-                else if (System.IO.Path.GetExtension(file) == ".exe")
+                else if (System.IO.Path.GetExtension(file).ToUpper() == ".EXE")
                 {
                     app.CreateIconFromexe(file);
                     app.AddElements();

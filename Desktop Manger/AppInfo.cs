@@ -172,7 +172,7 @@ namespace Desktop_Manger
 
             var process = new Process { StartInfo = startInfo };
             process.Start();
-            process.StandardInput.WriteLine(@"openwith " + ShortCutLocation);
+            process.StandardInput.WriteLine(@"openwith " + "\""+ ShortCutLocation + "\"");
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
         }
