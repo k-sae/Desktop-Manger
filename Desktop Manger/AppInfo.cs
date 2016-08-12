@@ -60,10 +60,11 @@ namespace Desktop_Manger
         }
         public void CreateTextBlock(string text)
         {
+           
             TextBlock tb = new TextBlock();
-            if (text.Length > 34)
+            if (text.Length > 31)
             {
-                text = text.Substring(0, 34) + "...";
+                text = text.Substring(0, 31) + "... " + text[text.Length - 4] + text[text.Length - 3] + text[text.Length - 2] + text[text.Length - 1];
             }
             tb.Text = text;
             tb.FontSize = 12;
@@ -296,5 +297,7 @@ namespace Desktop_Manger
             }
            
         }
+
+        //save the changes made by User to Local drive
     }
 }

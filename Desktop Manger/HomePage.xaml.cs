@@ -64,8 +64,6 @@ namespace Desktop_Manger
                     app.ShortCutLocation = GetOriginalFileURL(file);
                     app.CreateIconFromexe(app.ShortCutLocation);
                     app.CreateTextBlock(System.IO.Path.GetFileName(app.ShortCutLocation));
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (System.IO.Path.GetExtension(file).ToUpper() == ".EXE")
                 {
@@ -76,59 +74,47 @@ namespace Desktop_Manger
                 else if (checkExtension(ImageFile,System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage(file);
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (checkExtension(audiofile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Audio_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (checkExtension(VideoFile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Video_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (System.IO.Path.GetExtension(file).ToUpper() == ".TXT")
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Txt_File_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (checkExtension(WordFile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Word_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (checkExtension(ExcelFile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Excel_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
+
                 }
                 else if (checkExtension(PowerPointFile, System.IO.Path.GetExtension(file)))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/PowerPoint_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if(System.IO.Path.GetExtension(file).ToUpper() == ".HTML")
                 {
                     app.CreateIconFromImage("pack://application:,,,/Resources/Html_Icon.png");
-                    app.AddElements();
-                    AppsList.Add(app);
+                }
+                else
+                {
+                    app.CreateIconFromImage("pack://application:,,,/Resources/Unknown_Icon.png");
                 }
 
-
+                app.AddElements();
+                AppsList.Add(app);
 
             }
         }
