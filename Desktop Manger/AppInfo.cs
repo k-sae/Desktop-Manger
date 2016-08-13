@@ -10,6 +10,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using System.Windows.Input;
 using System.Diagnostics;
+using System.IO;
+
 namespace Desktop_Manger
 {
 
@@ -53,10 +55,14 @@ namespace Desktop_Manger
              bimage.BeginInit();
              bimage.UriSource = new Uri(Location, UriKind.Relative);
              bimage.EndInit();*/
+            img.Source = GetImageSource(Location);
+            ShortcutIcon = img;
+        }
+        public ImageSource GetImageSource(string Location)
+        {
             var converter = new ImageSourceConverter();
 
-            img.Source = (ImageSource)converter.ConvertFromString(Location); ;
-            ShortcutIcon = img;
+            return (ImageSource)converter.ConvertFromString(Location); ;
         }
         public void CreateTextBlock(string text)
         {
@@ -115,10 +121,57 @@ namespace Desktop_Manger
             MenuItem Rename = new MenuItem();
             Rename.Header = "Rename";
             Rename.Click += Rename_Click;
+            MenuItem ChangeIcon = new MenuItem();
+            ChangeIcon.Header = "Change Icon";
+            ChangeIcon.Click += ChangeIcon_Click;
             mnu.Items.Add(OpenWith);
             mnu.Items.Add(Rename);
+            mnu.Items.Add(ChangeIcon);
             mnu.Items.Add(RemoveItem);
             return mnu;
+        }
+
+        private void ChangeIcon_Click(object sender, RoutedEventArgs e)
+        {
+            MenuItem mnu = sender as MenuItem;
+            StackPanel mystp = null;
+            if (mnu != null)
+            {
+                ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
+                mystp = MyContextMenu.PlacementTarget as StackPanel;
+            }
+
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = "Image Files (*.jp*, *.png,...)|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Icon (*.ico)|*.Ico|Excutable file (*.exe) |*.exe|BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                if (Path.GetExtension(dlg.FileName).ToUpper() == ".ICO" || Path.GetExtension(dlg.FileName).ToUpper() == ".EXE")
+                {
+                    ChangeImage(mystp, GetIcon(dlg.FileName));
+                }
+                else
+                {
+                    ChangeImage(mystp, GetImageSource(dlg.FileName));
+                }
+                
+            }
+        }
+        private void ChangeImage(StackPanel mystp, ImageSource imgsrc)
+        {
+
+            object img = new object();
+            foreach (object child in mystp.Children)
+            {
+                
+               if (child is System.Windows.Controls.Image)
+                {
+                    img = child;
+                    break;
+                }
+            }
+            (img as System.Windows.Controls.Image).Source = imgsrc;
         }
 
         private void Rename_Click(object sender, RoutedEventArgs e)
@@ -185,7 +238,7 @@ namespace Desktop_Manger
             if (mnu != null)
             {
                 ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
-                mystp = MyContextMenu.PlacementTarget as StackPanel;
+                 mystp = MyContextMenu.PlacementTarget as StackPanel;
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             ParentCanvas.Children.Remove(mycanvas);
