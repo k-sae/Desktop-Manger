@@ -14,13 +14,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
+using System.Diagnostics;
+
 namespace Desktop_Manger
 {
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
+        private bool isNavBarShown = false;
+
         StackPanel selectedStP = new StackPanel();
         public MainWindow()
         {
@@ -103,19 +108,24 @@ namespace Desktop_Manger
         }
         private async void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
         {
+            if (isNavBarShown) return;
             for (int i = 0; i < 100; i++)
             {
                 await sleep(1);
                 NavBar.Width += 1;
             }
+            isNavBarShown = true;
         }
         private async void NavBar_stpanel_MouseLeave(object sender, MouseEventArgs e)
         {
+            Trace.WriteLine(e.GetPosition(null).X);
+            if (e.GetPosition(null).X < 100 || !isNavBarShown) return;
             for (int i = 0; i < 100; i++)
             {
                 await sleep(1);
                 NavBar.Width -= 1;
             }
+            isNavBarShown = false;
         }
 
         private void NaveItemsHover(object sender, MouseEventArgs e)
