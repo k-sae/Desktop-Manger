@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.Diagnostics;
 using System.IO;
+using IWshRuntimeLibrary;
 
 namespace Desktop_Manger
 {
@@ -24,9 +25,16 @@ namespace Desktop_Manger
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
 
+        private static List<Extension> Extensions = null;
+
         //Constructor
         public AppInfo()
         {
+            if (Object.ReferenceEquals(Extensions, null))
+            {
+                Extensions = new List<Extension>();
+                LoadCustomExtensionsIcons();
+            }
             Width = 70;
             Height = 100;
             Background = System.Windows.Media.Brushes.Transparent;
@@ -34,7 +42,60 @@ namespace Desktop_Manger
             MouseMove += Cnv_MouseMove;
             MouseLeftButtonUp += Cnv_MouseLeftButtonUp;
             Cursor = Cursors.Hand;
-            //  cnv.MouseLeave += Cnv_MouseLeave;
+        }
+
+        public AppInfo(string file) : this()
+        {
+            ShortCutLocation = file;
+            CreateTextBlock(System.IO.Path.GetFileName(file));
+            //Check if a directory
+            if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
+            {
+                CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
+            }
+            else
+            {
+                string iconUrl = GetExtensionIconUrl(file);
+                if (!Object.ReferenceEquals(iconUrl, null))
+                {
+                    CreateIconFromImage(iconUrl != "" ? iconUrl : file);
+                }
+                else
+                {
+                    CreateIconFromexe(file);
+                }
+            }
+            AddElements();
+            return;
+
+        }
+
+        private void LoadCustomExtensionsIcons()
+        {
+            Debug.WriteLine("Loading Extensions ...");
+            //TODO Load from a file
+            Extensions.Add(new Extension(".mp3 .wav", "pack://application:,,,/Resources/Audio_Icon.png"));
+            Extensions.Add(new Extension(".gif .png .jpg .jpeg", ""));
+            Extensions.Add(new Extension(".mp4 .avi .mkv", "pack://application:,,,/Resources/Video_Icon.png"));
+            Extensions.Add(new Extension(".doc .dot .docx .docm .dotx .dotm .docb", "pack://application:,,,/Resources/Word_Icon.png"));
+            Extensions.Add(new Extension(".xls .xlt .xlm .xlsx .xlsm .xltx .xltm", "pack://application:,,,/Resources/Excel_Icon.png"));
+            Extensions.Add(new Extension(".ppt .pot .pps .pptx .pptm .potx .potm .ppam .ppsx .ppsm .sldx .sldm", "pack://application:,,,/Resources/PowerPoint_Icon.png"));
+            Extensions.Add(new Extension(".txt", "pack://application:,,,/Resources/Txt_File_Icon.png"));
+            Extensions.Add(new Extension(".html", "pack://application:,,,/Resources/Html_Icon.png"));
+        }
+
+
+        private string GetExtensionIconUrl(string fileExt)
+        {
+            string extension = System.IO.Path.GetExtension(fileExt);
+            foreach (Extension ex in Extensions)
+            {
+                if ((ex.Extensions.ToLower()).Contains(extension.ToLower()))
+                {
+                    return ex.URL;
+                }
+            }
+            return null;
         }
 
         public static ImageSource GetIcon(string fileName)
