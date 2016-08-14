@@ -17,13 +17,26 @@ namespace Desktop_Manger
 
     // to do: 
     //The Create Functions should be added to serprate Class File
-    class AppInfo
+    class AppInfo : Canvas
     {
         public Canvas ParentCanvas { get; set; }
-        public Canvas HolderCanvas { get; set; }
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
+
+        //Constructor
+        public AppInfo()
+        {
+            Width = 70;
+            Height = 100;
+            Background = System.Windows.Media.Brushes.Transparent;
+            MouseLeftButtonDown += Cnv_MouseLeftButtonDown;
+            MouseMove += Cnv_MouseMove;
+            MouseLeftButtonUp += Cnv_MouseLeftButtonUp;
+            Cursor = Cursors.Hand;
+            //  cnv.MouseLeave += Cnv_MouseLeave;
+        }
+
         public static ImageSource GetIcon(string fileName)
         {
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
@@ -91,7 +104,7 @@ namespace Desktop_Manger
            // stp.Height = 100;
             stp.Children.Add(ShortcutIcon);
             stp.Children.Add(FileName);
-            HolderCanvas.Children.Add(stp);
+            Children.Add(stp);
            
             //ParentCanvas.Children.Add(HolderCanvas);
         }
@@ -234,11 +247,11 @@ namespace Desktop_Manger
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem mnu = sender as MenuItem;
-            StackPanel mystp = null;
+            Panel mystp = null;
             if (mnu != null)
             {
                 ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
-                 mystp = MyContextMenu.PlacementTarget as StackPanel;
+                 mystp = MyContextMenu.PlacementTarget as Panel;
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             ParentCanvas.Children.Remove(mycanvas);
@@ -246,12 +259,12 @@ namespace Desktop_Manger
 
         private void Stp_MouseLeave(object sender, MouseEventArgs e)
         {
-            (sender as StackPanel).Background = System.Windows.Media.Brushes.Transparent; 
+            (sender as Panel).Background = System.Windows.Media.Brushes.Transparent; 
         }
 
         private void Stp_MouseEnter(object sender, MouseEventArgs e)
         {
-            (sender as StackPanel).Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(AppTheme.HomePageShortCutsHover));
+            (sender as Panel).Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(AppTheme.HomePageShortCutsHover));
         }
 
         public Canvas CreateCanvas(double height, double width, double left = 0, double top = 0)

@@ -28,8 +28,7 @@ namespace Desktop_Manger
         List<AppInfo> AppsList = new List<AppInfo>();
         //int AppsListCount = 0;
         public HomePage(double height, double width)
-        {
-            
+        {   
             InitializeComponent();
             PageHeight = height;
             PageWidth = width;
@@ -55,8 +54,10 @@ namespace Desktop_Manger
             foreach (string file in Files)
             {
                 AppInfo app = new AppInfo();
+                Canvas.SetLeft(app, e.GetPosition(canv1).X);
+                Canvas.SetTop(app, e.GetPosition(canv1).Y);
+                canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
-                app.HolderCanvas = app.CreateCanvas(PageHeight, PageWidth);
                 app.ShortCutLocation = file;
                 app.CreateTextBlock(System.IO.Path.GetFileName(file));
                 if (System.IO.Path.GetExtension(file).ToUpper() ==".LNK" )
