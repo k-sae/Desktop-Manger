@@ -68,8 +68,6 @@ namespace Desktop_Manger
                 else if (System.IO.Path.GetExtension(file).ToUpper() == ".EXE")
                 {
                     app.CreateIconFromexe(file);
-                    app.AddElements();
-                    AppsList.Add(app);
                 }
                 else if (checkExtension(ImageFile,System.IO.Path.GetExtension(file)))
                 {
