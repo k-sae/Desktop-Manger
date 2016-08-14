@@ -106,12 +106,11 @@ namespace Desktop_Manger
                         new Int32Rect(0, 0, icon.Width, icon.Height),
                         BitmapSizeOptions.FromEmptyOptions());
         }
-        private System.Windows.Controls.Image CreateImage()
+        //create image with custom thickness to enable resizing later
+        private System.Windows.Controls.Image CreateImage(int thickness = 10)
         {
             System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            img.Width = 50;
-            img.Height = 50;
-            img.Margin = new Thickness(0, 0, 0, 10);
+            img.Margin = new Thickness(thickness, thickness, thickness,10);
             img.HorizontalAlignment = HorizontalAlignment.Center;
             return img;
         }
@@ -166,8 +165,6 @@ namespace Desktop_Manger
             stp.Children.Add(ShortcutIcon);
             stp.Children.Add(FileName);
             Children.Add(stp);
-           
-            //ParentCanvas.Children.Add(HolderCanvas);
         }
 
         private StackPanel CreateStackPanel()
