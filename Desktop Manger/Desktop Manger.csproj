@@ -69,6 +69,7 @@
       <DependentUpon>Apps.xaml</DependentUpon>
     </Compile>
     <Compile Include="HomePageLayout.cs" />
+    <Compile Include="LayoutObjects.cs" />
     <Compile Include="StartUp.cs" />
     <Page Include="Apps.xaml">
       <SubType>Designer</SubType>

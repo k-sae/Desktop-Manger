@@ -17,53 +17,28 @@ namespace Desktop_Manger
 
     // to do: 
     //The Create Functions should be added to serprate Class File
-    class AppInfo
+   public class AppInfo
     {
         public Canvas ParentCanvas { get; set; }
         public Canvas HolderCanvas { get; set; }
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
-        public static ImageSource GetIcon(string fileName)
-        {
-            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
-            return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                        icon.Handle,
-                        new Int32Rect(0, 0, icon.Width, icon.Height),
-                        BitmapSizeOptions.FromEmptyOptions());
-        }
-        private System.Windows.Controls.Image CreateImage()
-        {
-            System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            img.Width = 50;
-            img.Height = 50;
-            img.Margin = new Thickness(0, 0, 0, 10);
-            img.HorizontalAlignment = HorizontalAlignment.Center;
-            return img;
-        }
+       
         public void CreateIconFromexe(string Location)
         {
-            System.Windows.Controls.Image img = CreateImage();
-            img.Source = GetIcon(Location);
+            System.Windows.Controls.Image img = LayoutObjects.CreateImage();
+            img.Source = LayoutObjects.GetIcon(Location);
             ShortcutIcon = img;
             
         }
         public void CreateIconFromImage(string Location)
         {
-            System.Windows.Controls.Image img = CreateImage();
-            /* BitmapImage bimage = new BitmapImage();
-             bimage.BeginInit();
-             bimage.UriSource = new Uri(Location, UriKind.Relative);
-             bimage.EndInit();*/
-            img.Source = GetImageSource(Location);
+            System.Windows.Controls.Image img = LayoutObjects.CreateImage();
+            img.Source = LayoutObjects.GetImageSource(Location);
             ShortcutIcon = img;
         }
-        public ImageSource GetImageSource(string Location)
-        {
-            var converter = new ImageSourceConverter();
-
-            return (ImageSource)converter.ConvertFromString(Location); ;
-        }
+        
         public void CreateTextBlock(string text)
         {
            
@@ -87,13 +62,9 @@ namespace Desktop_Manger
         public void AddElements()
         {
             StackPanel stp = CreateStackPanel();
-            
-           // stp.Height = 100;
             stp.Children.Add(ShortcutIcon);
             stp.Children.Add(FileName);
             HolderCanvas.Children.Add(stp);
-           
-            //ParentCanvas.Children.Add(HolderCanvas);
         }
 
         private StackPanel CreateStackPanel()
@@ -149,11 +120,11 @@ namespace Desktop_Manger
             {
                 if (Path.GetExtension(dlg.FileName).ToUpper() == ".ICO" || Path.GetExtension(dlg.FileName).ToUpper() == ".EXE")
                 {
-                    ChangeImage(mystp, GetIcon(dlg.FileName));
+                    ChangeImage(mystp, LayoutObjects.GetIcon(dlg.FileName));
                 }
                 else
                 {
-                    ChangeImage(mystp, GetImageSource(dlg.FileName));
+                    ChangeImage(mystp, LayoutObjects.GetImageSource(dlg.FileName));
                 }
                 
             }

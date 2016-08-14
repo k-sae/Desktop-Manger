@@ -25,7 +25,7 @@ namespace Desktop_Manger
     public partial class HomePage : Page
     {
         double PageHeight, PageWidth;
-        List<AppInfo> AppsList = new List<AppInfo>();
+        public static List<AppInfo> AppsList = new List<AppInfo>();
         //int AppsListCount = 0;
         public HomePage(double height, double width)
         {
