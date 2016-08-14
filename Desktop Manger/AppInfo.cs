@@ -46,8 +46,9 @@ namespace Desktop_Manger
 
         public AppInfo(string file) : this()
         {
-            ShortCutLocation = file;
-            CreateTextBlock(System.IO.Path.GetFileName(file));
+            //To get the original exe file instead of shortcut
+            ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? GetOriginalFileURL(file) : file;
+            CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
             //Check if a directory
             if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
             {
@@ -62,7 +63,7 @@ namespace Desktop_Manger
                 }
                 else
                 {
-                    CreateIconFromexe(file);
+                    CreateIconFromexe(ShortCutLocation);
                 }
             }
             AddElements();
@@ -84,7 +85,19 @@ namespace Desktop_Manger
             Extensions.Add(new Extension(".html", "pack://application:,,,/Resources/Html_Icon.png"));
         }
 
+        //get the original exe file Location instead of the shortcut
+        private string GetOriginalFileURL(string Location)
+        {
+            if (System.IO.File.Exists(Location))
+            {
+                // WshShellClass shell = new WshShellClass();
+                WshShell shell = new WshShell(); 
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(Location);
 
+                return link.TargetPath;
+            }
+            else return "";
+        }
         private string GetExtensionIconUrl(string fileExt)
         {
             string extension = System.IO.Path.GetExtension(fileExt);
@@ -160,8 +173,6 @@ namespace Desktop_Manger
         public void AddElements()
         {
             StackPanel stp = CreateStackPanel();
-            
-           // stp.Height = 100;
             stp.Children.Add(ShortcutIcon);
             stp.Children.Add(FileName);
             Children.Add(stp);

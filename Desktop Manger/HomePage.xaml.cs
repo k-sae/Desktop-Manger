@@ -20,8 +20,6 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
-    /// To Do:
-    ///         I Have to change the string array for file extension to normal string with string.contain
     public partial class HomePage : Page
     {
         double PageHeight, PageWidth;
