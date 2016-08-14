@@ -25,6 +25,7 @@ namespace Desktop_Manger
     public partial class MainWindow : MetroWindow
     {
         private bool isNavBarShown = false;
+        private readonly double NavBarWidth = 100;
 
         StackPanel selectedStP = new StackPanel();
         public MainWindow()
@@ -109,7 +110,7 @@ namespace Desktop_Manger
         private async void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
         {
             if (isNavBarShown) return;
-            for (int i = 0; i < 100; i++)
+            for (int i = 0; i < NavBarWidth; i++)
             {
                 await sleep(1);
                 NavBar.Width += 1;
@@ -119,8 +120,8 @@ namespace Desktop_Manger
         private async void NavBar_stpanel_MouseLeave(object sender, MouseEventArgs e)
         {
             Trace.WriteLine(e.GetPosition(null).X);
-            if (e.GetPosition(null).X < 100 || !isNavBarShown) return;
-            for (int i = 0; i < 100; i++)
+            if (e.GetPosition(null).X < NavBarWidth || !isNavBarShown) return;
+            for (int i = 0; i < NavBarWidth; i++)
             {
                 await sleep(1);
                 NavBar.Width -= 1;
