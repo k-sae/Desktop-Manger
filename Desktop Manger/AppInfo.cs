@@ -123,7 +123,7 @@ namespace Desktop_Manger
         private System.Windows.Controls.Image CreateImage(int thickness = 10)
         {
             System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            img.Margin = new Thickness(thickness, thickness, thickness,10);
+            img.Margin = new Thickness(thickness, thickness, thickness,2);
             img.HorizontalAlignment = HorizontalAlignment.Center;
             return img;
         }
@@ -167,6 +167,7 @@ namespace Desktop_Manger
             tb.TextAlignment = TextAlignment.Center;
             tb.VerticalAlignment = VerticalAlignment.Center;
             tb.TextWrapping = TextWrapping.Wrap;
+            tb.Margin = new Thickness(2,2,2,5);
             FileName = tb;
 
         }
