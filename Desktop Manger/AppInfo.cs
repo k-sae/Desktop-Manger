@@ -11,20 +11,123 @@ using System.Windows.Media;
 using System.Windows.Input;
 using System.Diagnostics;
 using System.IO;
+using IWshRuntimeLibrary;
 
 namespace Desktop_Manger
 {
 
     // to do: 
     //The Create Functions should be added to serprate Class File
-   public class AppInfo
+
+    public class AppInfo : Canvas
+
     {
         public Canvas ParentCanvas { get; set; }
-        public Canvas HolderCanvas { get; set; }
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
-       
+        private static List<Extension> Extensions = null;
+
+        //Constructor
+        public AppInfo()
+        {
+            if (Object.ReferenceEquals(Extensions, null))
+            {
+                Extensions = new List<Extension>();
+                LoadCustomExtensionsIcons();
+            }
+            Width = 70;
+            Height = 100;
+            Background = System.Windows.Media.Brushes.Transparent;
+            MouseLeftButtonDown += Cnv_MouseLeftButtonDown;
+            MouseMove += Cnv_MouseMove;
+            MouseLeftButtonUp += Cnv_MouseLeftButtonUp;
+            Cursor = Cursors.Hand;
+        }
+
+        public AppInfo(string file) : this()
+        {
+            //To get the original exe file instead of shortcut
+            ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? GetOriginalFileURL(file) : file;
+            CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
+            //Check if a directory
+            if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
+            {
+                CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
+            }
+            else
+            {
+                string iconUrl = GetExtensionIconUrl(file);
+                if (!Object.ReferenceEquals(iconUrl, null))
+                {
+                    CreateIconFromImage(iconUrl != "" ? iconUrl : file);
+                }
+                else
+                {
+                    CreateIconFromexe(ShortCutLocation);
+                }
+            }
+            AddElements();
+            return;
+
+        }
+
+        private void LoadCustomExtensionsIcons()
+        {
+            Debug.WriteLine("Loading Extensions ...");
+            //TODO Load from a file
+            Extensions.Add(new Extension(".mp3 .wav", "pack://application:,,,/Resources/Audio_Icon.png"));
+            Extensions.Add(new Extension(".gif .png .jpg .jpeg", ""));
+            Extensions.Add(new Extension(".mp4 .avi .mkv", "pack://application:,,,/Resources/Video_Icon.png"));
+            Extensions.Add(new Extension(".doc .dot .docx .docm .dotx .dotm .docb", "pack://application:,,,/Resources/Word_Icon.png"));
+            Extensions.Add(new Extension(".xls .xlt .xlm .xlsx .xlsm .xltx .xltm", "pack://application:,,,/Resources/Excel_Icon.png"));
+            Extensions.Add(new Extension(".ppt .pot .pps .pptx .pptm .potx .potm .ppam .ppsx .ppsm .sldx .sldm", "pack://application:,,,/Resources/PowerPoint_Icon.png"));
+            Extensions.Add(new Extension(".txt", "pack://application:,,,/Resources/Txt_File_Icon.png"));
+            Extensions.Add(new Extension(".html", "pack://application:,,,/Resources/Html_Icon.png"));
+        }
+
+        //get the original exe file Location instead of the shortcut
+        private string GetOriginalFileURL(string Location)
+        {
+            if (System.IO.File.Exists(Location))
+            {
+                // WshShellClass shell = new WshShellClass();
+                WshShell shell = new WshShell(); 
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(Location);
+
+                return link.TargetPath;
+            }
+            else return "";
+        }
+        private string GetExtensionIconUrl(string fileExt)
+        {
+            string extension = System.IO.Path.GetExtension(fileExt);
+            foreach (Extension ex in Extensions)
+            {
+                if ((ex.Extensions.ToLower()).Contains(extension.ToLower()))
+                {
+                    return ex.URL;
+                }
+            }
+            return null;
+        }
+
+        public static ImageSource GetIcon(string fileName)
+        {
+            Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
+            return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
+                        icon.Handle,
+                        new Int32Rect(0, 0, icon.Width, icon.Height),
+                        BitmapSizeOptions.FromEmptyOptions());
+        }
+        //create image with custom thickness to enable resizing later
+        private System.Windows.Controls.Image CreateImage(int thickness = 10)
+        {
+            System.Windows.Controls.Image img = new System.Windows.Controls.Image();
+            img.Margin = new Thickness(thickness, thickness, thickness,10);
+            img.HorizontalAlignment = HorizontalAlignment.Center;
+            return img;
+        }
         public void CreateIconFromexe(string Location)
         {
             System.Windows.Controls.Image img = LayoutObjects.CreateImage();
@@ -64,7 +167,7 @@ namespace Desktop_Manger
             StackPanel stp = CreateStackPanel();
             stp.Children.Add(ShortcutIcon);
             stp.Children.Add(FileName);
-            HolderCanvas.Children.Add(stp);
+            Children.Add(stp);
         }
 
         private StackPanel CreateStackPanel()
@@ -205,11 +308,11 @@ namespace Desktop_Manger
         private void RemoveItem_Click(object sender, RoutedEventArgs e)
         {
             MenuItem mnu = sender as MenuItem;
-            StackPanel mystp = null;
+            Panel mystp = null;
             if (mnu != null)
             {
                 ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
-                 mystp = MyContextMenu.PlacementTarget as StackPanel;
+                 mystp = MyContextMenu.PlacementTarget as Panel;
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             ParentCanvas.Children.Remove(mycanvas);
@@ -217,12 +320,12 @@ namespace Desktop_Manger
 
         private void Stp_MouseLeave(object sender, MouseEventArgs e)
         {
-            (sender as StackPanel).Background = System.Windows.Media.Brushes.Transparent; 
+            (sender as Panel).Background = System.Windows.Media.Brushes.Transparent; 
         }
 
         private void Stp_MouseEnter(object sender, MouseEventArgs e)
         {
-            (sender as StackPanel).Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(AppTheme.HomePageShortCutsHover));
+            (sender as Panel).Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(AppTheme.HomePageShortCutsHover));
         }
 
         public Canvas CreateCanvas(double height, double width, double left = 0, double top = 0)
@@ -281,7 +384,7 @@ namespace Desktop_Manger
         }
 
         //Auto Correct Location of Canvas
-        private void autoCorrectLocation(object sender)
+        public static void autoCorrectLocation(object sender)
         {
             if ((Canvas.GetTop(sender as Canvas) % 160) < 80)
             {
