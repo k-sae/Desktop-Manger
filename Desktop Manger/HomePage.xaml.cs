@@ -51,6 +51,7 @@ namespace Desktop_Manger
                 canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
                 AppsList.Add(app);
+                Data.save(AppsList);
             }
         }
       

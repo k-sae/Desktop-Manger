@@ -26,10 +26,7 @@ namespace Desktop_Manger
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
-<<<<<<< HEAD
-=======
         private Stopwatch stp = new Stopwatch();
->>>>>>> v0.1a
         private static List<Extension> Extensions = null;
 
         //Constructor
@@ -236,6 +233,7 @@ namespace Desktop_Manger
                 }
                 
             }
+            Data.save(HomePage.AppsList);
         }
         private void ChangeImage(StackPanel mystp, ImageSource imgsrc)
         {
@@ -290,6 +288,7 @@ namespace Desktop_Manger
             StackPanel mystp = null;
             mystp = (StackPanel)(sender as TextBox).Parent;
             mystp.Children.Remove(sender as TextBox);
+            Data.save(HomePage.AppsList);
         }
 
         private void OpenWith_Click(object sender, RoutedEventArgs e) 
@@ -321,6 +320,7 @@ namespace Desktop_Manger
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             ParentCanvas.Children.Remove(mycanvas);
+            Data.save(HomePage.AppsList);
         }
 
         private void Stp_MouseLeave(object sender, MouseEventArgs e)
@@ -345,7 +345,7 @@ namespace Desktop_Manger
 
         private void Cnv_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            autoCorrectLocation(sender);
+            
             (sender as Canvas).ReleaseMouseCapture();
             stp.Stop();
             
@@ -353,7 +353,13 @@ namespace Desktop_Manger
             {
                 StartProccess();
             }
+            else
+            {
+                autoCorrectLocation(sender);
+                Data.save(HomePage.AppsList);
+            }
             stp.Reset();
+            
         }
 
         private void Cnv_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
