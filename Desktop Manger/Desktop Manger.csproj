@@ -96,6 +96,7 @@
     <Compile Include="Apps.xaml.cs">
       <DependentUpon>Apps.xaml</DependentUpon>
     </Compile>
+    <Compile Include="data.cs" />
     <Compile Include="Extension.cs" />
     <Compile Include="HomePageLayout.cs" />
     <Compile Include="LayoutObjects.cs" />

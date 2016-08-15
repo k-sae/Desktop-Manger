@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,11 @@ namespace Desktop_Manger
         //check if the app opened for the first time
         public static bool IsFirstTime()
         {
+            if (!Directory.Exists(Location()))
+            {
+                Directory.CreateDirectory(Location());
+                return true;
+            }
             return true;
         }
         //set defualt dark theme
@@ -34,9 +40,38 @@ namespace Desktop_Manger
         {
             if (IsFirstTime())
             {
-               //LightTheme();
                 DarkTheme();
+
             }
+        }
+        public static string Location()
+        {
+            string path = Path.GetPathRoot(Environment.SystemDirectory);
+            string userName = pickusername();
+            string URI = path + @"Users\" + userName + @"\Documents\Desktop Manger\";
+            return URI;
+        }
+        private static string pickusername()
+        {
+            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            userName = ReverseString(userName);
+            string temp = "";
+            foreach (char item in userName)
+            {
+                if (item == '\\')
+                {
+                    break;
+                }
+                temp += item;
+            }
+            userName = ReverseString(temp);
+            return userName;
+        }
+        private static string ReverseString(string mystring)
+        {
+            char[] arr = mystring.ToCharArray();
+            Array.Reverse(arr);
+            return new string(arr);
         }
     }
 }
