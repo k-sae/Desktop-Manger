@@ -24,7 +24,7 @@ namespace Desktop_Manger
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
-
+        private Stopwatch stp = new Stopwatch();
         private static List<Extension> Extensions = null;
 
         //Constructor
@@ -337,32 +337,6 @@ namespace Desktop_Manger
             (sender as Panel).Background = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString(AppTheme.HomePageShortCutsHover));
         }
 
-        public Canvas CreateCanvas(double height, double width, double left = 0, double top = 0)
-        {
-            Canvas cnv = new Canvas();
-            cnv.Width = 70;
-            cnv.Height = 100;
-            cnv.Background = System.Windows.Media.Brushes.Transparent;
-            if (left == 0 && top == 0)
-            {
-                Canvas.SetTop(cnv, height / 2 - cnv.Height / 2);
-                Canvas.SetLeft(cnv, width / 2 - cnv.Width / 2);
-            }
-            else
-            {
-                Canvas.SetTop(cnv, top);
-                Canvas.SetLeft(cnv, left);
-            }
-            cnv.MouseLeftButtonDown += Cnv_MouseLeftButtonDown;
-            cnv.MouseMove += Cnv_MouseMove;
-            cnv.MouseLeftButtonUp += Cnv_MouseLeftButtonUp;    
-            cnv.Cursor = Cursors.Hand;
-            //  cnv.MouseLeave += Cnv_MouseLeave;
-            ParentCanvas.Children.Add(cnv);
-            return cnv;
-        }
-
-        Stopwatch stp = new Stopwatch();
         private void Cnv_MouseMove(object sender, MouseEventArgs e)
         {
 
