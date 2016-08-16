@@ -27,6 +27,7 @@ namespace Desktop_Manger
                 lines[i] += "ShortCutLocation=\"" + App.ShortCutLocation + "\"\t";
                 lines[i] += "ShortCutIcon=\"" + App.IconSourceLocation + "\"\t";
                 lines[i] += "Text=\"" + App.FileName.Text + "\"\t";
+                lines[i] += "Parameters=\"" + App.Parameters + "\"\t";
                 i++;
             }
             File.WriteAllLines(StartUp.Location() + "AppInfo.dms", lines);
@@ -43,10 +44,15 @@ namespace Desktop_Manger
                     Canvas.SetTop(app, Int32.Parse(GetVariable("Top", line)));
                     Canvas.SetLeft(app, Int32.Parse(GetVariable("Left", line)));
                     app.FileName.Text = GetVariable("Text", line);
+                    app.Parameters = GetVariable("Parameters", line);
                     Parent.Children.Add(app);
                     app.ParentCanvas = Parent;
                     AppsList.Add(app);
                 }
+            }
+            else
+            {
+                AppsList = Initialize(AppsList, Parent);
             }
             return AppsList;
         }
@@ -57,6 +63,26 @@ namespace Desktop_Manger
             int start = line.IndexOf(variable) + variable.Length;
             int end = line.IndexOf("\"", start);
             return line.Substring(start, end - start);
+        }
+        private static List<AppInfo> Initialize(List<AppInfo> AppsList, Canvas ParentCanvas)
+        {
+            AppInfo ThisPc = new AppInfo(@"C:\Windows\explorer.exe", "pack://application:,,,/Resources/This_Pc.png");
+            Canvas.SetLeft(ThisPc, 0);
+            Canvas.SetTop(ThisPc, 160);
+            ParentCanvas.Children.Add(ThisPc);
+            ThisPc.FileName.Text = "This PC";
+            ThisPc.ParentCanvas = ParentCanvas;
+            AppsList.Add(ThisPc);
+            AppInfo ControlPanel = new AppInfo(@"C:\Windows\explorer.exe", "pack://application:,,,/Resources/Control_Panel_Icon.png");
+            Canvas.SetLeft(ControlPanel, 0);
+            Canvas.SetTop(ControlPanel, 160 * 2);
+            ControlPanel.Parameters = "::{20D04FE0-3AEA-1069-A2D8-08002B30309D}\\::{21EC2020-3AEA-1069-A2DD-08002B30309D}";
+            ParentCanvas.Children.Add(ControlPanel);
+            ControlPanel.FileName.Text = "Controll Panel";
+            ControlPanel.ParentCanvas = ParentCanvas;
+            AppsList.Add(ControlPanel);
+            Data.save(AppsList);
+            return AppsList;
         }
     }
 }

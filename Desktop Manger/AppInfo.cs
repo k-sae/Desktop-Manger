@@ -30,7 +30,7 @@ namespace Desktop_Manger
         public string IconSourceLocation { get; set; }
         private Stopwatch stp = new Stopwatch();
         private static List<Extension> Extensions = null;
-
+        public string Parameters = "";
         //Constructor
         public AppInfo()
         {
@@ -386,23 +386,23 @@ namespace Desktop_Manger
         //Auto Correct Location of Canvas
         public static void autoCorrectLocation(object sender)
         {
-            if ((Canvas.GetTop(sender as Canvas) % 160) < 80)
+            if ((Canvas.GetTop(sender as Canvas) % HomePageLayout.CanvasHeight) < HomePageLayout.CanvasHeight/2)
             {
-                Canvas.SetTop(sender as Canvas, (Canvas.GetTop(sender as Canvas))-(Canvas.GetTop(sender as Canvas) % 160));
+                Canvas.SetTop(sender as Canvas, (Canvas.GetTop(sender as Canvas))-(Canvas.GetTop(sender as Canvas) % HomePageLayout.CanvasHeight));
             }
             else
             {
-                Canvas.SetTop(sender as Canvas, (Canvas.GetTop(sender as Canvas)) + (160 - (Canvas.GetTop(sender as Canvas) % 160)));
+                Canvas.SetTop(sender as Canvas, (Canvas.GetTop(sender as Canvas)) + (HomePageLayout.CanvasHeight - (Canvas.GetTop(sender as Canvas) % HomePageLayout.CanvasHeight)));
 
             }
-            if ((Canvas.GetLeft(sender as Canvas) % 100) < 50)
+            if ((Canvas.GetLeft(sender as Canvas) % HomePageLayout.CanvasWidth) < HomePageLayout.CanvasWidth/2)
             {
-                Canvas.SetLeft(sender as Canvas, (Canvas.GetLeft(sender as Canvas)) - (Canvas.GetLeft(sender as Canvas) % 100));
+                Canvas.SetLeft(sender as Canvas, (Canvas.GetLeft(sender as Canvas)) - (Canvas.GetLeft(sender as Canvas) % HomePageLayout.CanvasWidth));
 
             }
             else
             {
-                Canvas.SetLeft(sender as Canvas, (Canvas.GetLeft(sender as Canvas)) + (100 - (Canvas.GetLeft(sender as Canvas) % 100)));
+                Canvas.SetLeft(sender as Canvas, (Canvas.GetLeft(sender as Canvas)) + (HomePageLayout.CanvasWidth - (Canvas.GetLeft(sender as Canvas) % HomePageLayout.CanvasWidth)));
 
             }
 
@@ -412,7 +412,7 @@ namespace Desktop_Manger
         {
             try
             {
-                Process.Start(ShortCutLocation);
+                Process.Start(ShortCutLocation, Parameters);
             }
             catch(System.IO.FileNotFoundException)
             {
