@@ -25,7 +25,7 @@ namespace Desktop_Manger
                 lines[i] += "Width=\"" + App.Width + "\"\t";
                 lines[i] += "Height=\"" + App.Height + "\"\t";
                 lines[i] += "ShortCutLocation=\"" + App.ShortCutLocation + "\"\t";
-                lines[i] += "ShortCutIcon=\"" + App.ShortcutIcon.Source.ToString() + "\"\t";
+                lines[i] += "ShortCutIcon=\"" + App.IconSourceLocation + "\"\t";
                 lines[i] += "Text=\"" + App.FileName.Text + "\"\t";
                 i++;
             }
@@ -39,11 +39,10 @@ namespace Desktop_Manger
                 string[] lines = File.ReadAllLines(StartUp.Location() + "AppInfo.dms");
                 foreach (string line in lines)
                 {
-                    AppInfo app = new AppInfo(GetVariable("ShortCutLocation", line));
+                    AppInfo app = new AppInfo(GetVariable("ShortCutLocation", line), GetVariable("ShortCutIcon", line));
                     Canvas.SetTop(app, Int32.Parse(GetVariable("Top", line)));
                     Canvas.SetLeft(app, Int32.Parse(GetVariable("Left", line)));
                     app.FileName.Text = GetVariable("Text", line);
-                    app.ShortcutIcon.Source = LayoutObjects.GetImageSource(GetVariable("ShortCutIcon", line));
                     Parent.Children.Add(app);
                     app.ParentCanvas = Parent;
                     AppsList.Add(app);

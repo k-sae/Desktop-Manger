@@ -17,7 +17,8 @@ namespace Desktop_Manger
 {
 
     // to do: 
-    //The Create Functions should be added to serprate Class File
+    //Figure how to fix the else extension problem
+    //see if public IconSourceLocation Worth it or should be removed 
 
     public class AppInfo : Canvas
 
@@ -26,6 +27,7 @@ namespace Desktop_Manger
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
+        public string IconSourceLocation { get; set; }
         private Stopwatch stp = new Stopwatch();
         private static List<Extension> Extensions = null;
 
@@ -46,11 +48,13 @@ namespace Desktop_Manger
             Cursor = Cursors.Hand;
         }
 
-        public AppInfo(string file) : this()
+        public AppInfo(string file, string IconSource = "Default") : this()
         {
             //To get the original exe file instead of shortcut
             ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? GetOriginalFileURL(file) : file;
             CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
+            
+
             //Check if a directory
             if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
             {
@@ -58,16 +62,22 @@ namespace Desktop_Manger
             }
             else
             {
-                string iconUrl = GetExtensionIconUrl(file);
-                if (!Object.ReferenceEquals(iconUrl, null))
+                //check If Icon is new created or loaded 
+                file = IconSource == "Default" ? file : IconSource; //if loaded the Icon will Be change
+                IconSourceLocation = GetExtensionIconUrl(file);
+
+                if (!Object.ReferenceEquals(IconSourceLocation, null))
                 {
-                    CreateIconFromImage(iconUrl != "" ? iconUrl : file);
+                    IconSourceLocation = IconSourceLocation != "" ? IconSourceLocation : file;
+                    CreateIconFromImage(IconSourceLocation != "" ? IconSourceLocation : file);
                 }
                 else
                 {
+                    IconSourceLocation = ShortCutLocation;
                     CreateIconFromexe(ShortCutLocation);
                 }
             }
+            
             AddElements();
             return;
 
@@ -223,6 +233,7 @@ namespace Desktop_Manger
             bool? result = dlg.ShowDialog();
             if (result == true)
             {
+                IconSourceLocation = dlg.FileName;
                 if (Path.GetExtension(dlg.FileName).ToUpper() == ".ICO" || Path.GetExtension(dlg.FileName).ToUpper() == ".EXE")
                 {
                     ChangeImage(mystp, LayoutObjects.GetIcon(dlg.FileName));
