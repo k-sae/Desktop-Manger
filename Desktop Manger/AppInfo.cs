@@ -73,8 +73,8 @@ namespace Desktop_Manger
                 }
                 else
                 {
-                    IconSourceLocation = ShortCutLocation;
-                    CreateIconFromexe(ShortCutLocation);
+                    IconSourceLocation = file;
+                    CreateIconFromexe(file);
                 }
             }
             
@@ -113,6 +113,8 @@ namespace Desktop_Manger
         private string GetExtensionIconUrl(string fileExt)
         {
             string extension = System.IO.Path.GetExtension(fileExt);
+            if (extension == "") return "pack://application:,,,/Resources/Unknown_Icon.png";
+
             foreach (Extension ex in Extensions)
             {
                 if ((ex.Extensions.ToLower()).Contains(extension.ToLower()))
@@ -330,6 +332,8 @@ namespace Desktop_Manger
                  mystp = MyContextMenu.PlacementTarget as Panel;
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
+            //Remove it from the List as well as from the parent Canvas
+            HomePage.AppsList.RemoveAt(ParentCanvas.Children.IndexOf(mycanvas));
             ParentCanvas.Children.Remove(mycanvas);
             Data.save(HomePage.AppsList);
         }
