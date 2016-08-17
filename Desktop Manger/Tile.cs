@@ -53,9 +53,5 @@ namespace Desktop_Manger
             //TODO
         }
 
-
-
-
-
     }
 }
