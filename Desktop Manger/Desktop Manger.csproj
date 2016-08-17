@@ -238,6 +238,15 @@
   <ItemGroup>
     <Resource Include="Resources\Control_Panel_Icon.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Recycle_Bin_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Network_Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\My_Documents_Icon.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

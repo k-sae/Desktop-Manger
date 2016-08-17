@@ -14,9 +14,9 @@ namespace Desktop_Manger
     {
         //Set the Parent Canvas
         //you should specify this first before using other functions
+        public Canvas ParentCanvas { get; set; }
         public static int CanvasHeight = 130;
         public static int CanvasWidth = 100;
-        public Canvas ParentCanvas { get; set; }
         public  void onStart( Canvas ParentCanvas)
         { 
         }
