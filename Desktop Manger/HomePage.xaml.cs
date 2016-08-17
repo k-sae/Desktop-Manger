@@ -35,7 +35,7 @@ namespace Desktop_Manger
             HomePageLayout layout = new HomePageLayout();
             layout.ParentCanvas = canv1;
             layout.onStart(canv1);
-            // layout.SetVideoAsBackground(@"D:\Videos\bf4.mp4");
+            layout.SetVideoAsBackground(@"Resources/Videos/p4fun_intro0.mp4");
            AppsList = Data.Load(canv1);
         }
 
