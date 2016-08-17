@@ -101,6 +101,8 @@
     <Compile Include="HomePageLayout.cs" />
     <Compile Include="LayoutObjects.cs" />
     <Compile Include="StartUp.cs" />
+    <Compile Include="Tile.cs" />
+    <Compile Include="TileLayout.cs" />
     <Page Include="Apps.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
