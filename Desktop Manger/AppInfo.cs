@@ -212,13 +212,39 @@ namespace Desktop_Manger
             MenuItem ChangeIcon = new MenuItem();
             ChangeIcon.Header = "Change Icon";
             ChangeIcon.Click += ChangeIcon_Click;
+            MenuItem EditParameters = new MenuItem();
+            EditParameters.Header = "Edit Parameters";
+            EditParameters.Click += EditParameters_Click;
             mnu.Items.Add(OpenWith);
             mnu.Items.Add(Rename);
             mnu.Items.Add(ChangeIcon);
+            mnu.Items.Add(EditParameters);
             mnu.Items.Add(RemoveItem);
             return mnu;
         }
 
+        private void EditParameters_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+        private void ParametersEdit_Layout()
+        {
+
+        }
+        public StackPanel CreateParameters_StackPanel()
+        {
+            StackPanel mystp = new StackPanel();
+            mystp.Orientation = Orientation.Horizontal;
+            mystp.Width = ParentCanvas.Width;
+            mystp.Background = System.Windows.Media.Brushes.Red;
+            mystp.Height = 100;
+            ParentCanvas.Children.Add(mystp);
+            return null;
+        }
+        private TextBox CreateParameters_TextBox()
+        {
+            return null;
+        }
         private void ChangeIcon_Click(object sender, RoutedEventArgs e)
         {
             MenuItem mnu = sender as MenuItem;
@@ -273,13 +299,13 @@ namespace Desktop_Manger
                 ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
                 mystp = MyContextMenu.PlacementTarget as StackPanel;
             }
-            TextBox mytb = CreateTextBox();
+            TextBox mytb = CreateRenameTextBox();
             FileName.Visibility = Visibility.Collapsed;
             mytb.Focus();
             mystp.Children.Add(mytb);
         }
-
-        private TextBox CreateTextBox()
+        //move this later
+        private TextBox CreateRenameTextBox()
         {
             TextBox tb = new TextBox();
             tb.Text = FileName.Text;
@@ -333,7 +359,8 @@ namespace Desktop_Manger
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             //Remove it from the List as well as from the parent Canvas
-            HomePage.AppsList.RemoveAt(ParentCanvas.Children.IndexOf(mycanvas));
+            Debug.WriteLine(ParentCanvas.Children.IndexOf(mycanvas));
+            HomePage.AppsList.Remove((AppInfo)mycanvas);
             ParentCanvas.Children.Remove(mycanvas);
             Data.save(HomePage.AppsList);
         }

@@ -13,7 +13,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
 using IWshRuntimeLibrary;
 namespace Desktop_Manger
 {
@@ -50,6 +49,7 @@ namespace Desktop_Manger
                 AppInfo.autoCorrectLocation(app);
                 canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
+                app.CreateParameters_StackPanel();
                 AppsList.Add(app);
                 Data.save(AppsList);
             }
