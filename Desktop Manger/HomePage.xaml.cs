@@ -49,7 +49,6 @@ namespace Desktop_Manger
                 AppInfo.autoCorrectLocation(app);
                 canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
-                app.CreateParameters_StackPanel();
                 AppsList.Add(app);
                 Data.save(AppsList);
             }

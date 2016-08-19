@@ -17,9 +17,8 @@ namespace Desktop_Manger
 {
 
     // to do: 
-    //Figure how to fix the else extension problem
-    //see if public IconSourceLocation Worth it or should be removed 
-
+    //       add the close button 
+    //       add close on lost focus function
     public class AppInfo : Canvas
 
     {
@@ -225,25 +224,74 @@ namespace Desktop_Manger
 
         private void EditParameters_Click(object sender, RoutedEventArgs e)
         {
-            
+            ParametersEdit_Layout();
         }
-        private void ParametersEdit_Layout()
+        public void ParametersEdit_Layout()
         {
+            StackPanel mystp = CreateParameters_StackPanel();
+            mystp.Children.Add(CreateParameters_WarningTextBlock());
+            TextBox TBlock = CreateParameters_TextBox();
+            mystp.Children.Add(TBlock);
+            mystp.Children.Add(CreateParameters_SaveButton(TBlock));
+            mystp.Children.Add(CreateParameters_CloseButton(mystp));
+            ParentCanvas.Children.Add(mystp);
 
         }
-        public StackPanel CreateParameters_StackPanel()
+        private StackPanel CreateParameters_StackPanel()
         {
             StackPanel mystp = new StackPanel();
             mystp.Orientation = Orientation.Horizontal;
-            mystp.Width = ParentCanvas.Width;
-            mystp.Background = System.Windows.Media.Brushes.Red;
-            mystp.Height = 100;
-            ParentCanvas.Children.Add(mystp);
-            return null;
+            mystp.Background = System.Windows.Media.Brushes.Black;
+            mystp.Focusable = true;
+            //error here u have to think for another way
+            //mystp.LostFocus += (sender, e) => CreateParamerers_Removestp(mystp);
+            Canvas.SetLeft(mystp, ParentCanvas.Width / 2 - 300);
+            return mystp;
         }
         private TextBox CreateParameters_TextBox()
         {
-            return null;
+            TextBox tb = new TextBox();
+            tb.Width = 450;
+            tb.Text = Parameters;
+            return tb;
+        }
+        private TextBlock CreateParameters_WarningTextBlock()
+        {
+            TextBlock tb = new TextBlock();
+            tb.Text = "Warning Don't Change this unless u know what u are doing ";
+            tb.Foreground = System.Windows.Media.Brushes.Red;
+            return tb;
+        }
+        private TextBlock CreateParameters_SaveButton(TextBox tb)
+        {
+            TextBlock TBlock = new TextBlock();
+            TBlock.FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets");
+            TBlock.Text = "\xE001";
+            TBlock.Margin = new Thickness(2);
+            TBlock.FontSize = 16;
+            TBlock.MouseLeftButtonUp += (sender, e) => CreateParameters_SaveButton_LeftButtonUp(TBlock, tb);
+            TBlock.Foreground = System.Windows.Media.Brushes.Yellow;
+            return TBlock;
+        }
+        private TextBlock CreateParameters_CloseButton(StackPanel stb)
+        {
+            TextBlock TBlock = new TextBlock();
+            TBlock.FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets");
+            TBlock.Text = "\xE10A";
+            TBlock.Margin = new Thickness(2);
+            TBlock.MouseLeftButtonUp += (sender, e) => CreateParamerers_Removestp(stb);
+            TBlock.FontSize = 16;
+            TBlock.Foreground = System.Windows.Media.Brushes.Red;
+            return TBlock;
+        }
+        private void CreateParamerers_Removestp(StackPanel stp)
+        {
+            ParentCanvas.Children.Remove(stp);
+        }
+        private void CreateParameters_SaveButton_LeftButtonUp(object sender, TextBox mytb)
+        {
+            Parameters = mytb.Text;
+            Debug.WriteLine(Parameters);
         }
         private void ChangeIcon_Click(object sender, RoutedEventArgs e)
         {
@@ -304,7 +352,7 @@ namespace Desktop_Manger
             mytb.Focus();
             mystp.Children.Add(mytb);
         }
-        //move this later
+        //change the class of this later
         private TextBox CreateRenameTextBox()
         {
             TextBox tb = new TextBox();
@@ -391,7 +439,7 @@ namespace Desktop_Manger
             (sender as Canvas).ReleaseMouseCapture();
             stp.Stop();
             
-            if (stp.Elapsed < new TimeSpan(0, 0, 0, 0, 100))
+            if (stp.Elapsed < new TimeSpan(0, 0, 0, 0, 150))
             {
                 StartProccess();
             }
