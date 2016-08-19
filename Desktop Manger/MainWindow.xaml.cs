@@ -186,6 +186,13 @@ namespace Desktop_Manger
             selectedStP.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackGround));
         }
 
+        private void Power_stp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            RemoveSelection();
+            SelectStP(sender);
+            power page = new power();
+            mainframe.Navigate(page);
+        }
     }
 
 }
