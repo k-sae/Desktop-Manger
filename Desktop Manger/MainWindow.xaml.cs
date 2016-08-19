@@ -97,14 +97,11 @@ namespace Desktop_Manger
             this.Top = (screenHeight / 2) - (windowHeight / 2) - 2;
             
         }
-        public Task sleep(int time)
+        public static Task sleep(int time)
         {
               return Task.Factory.StartNew(() =>
              {
-                 this.Dispatcher.Invoke((Action)(() =>
-                 {
-                     Thread.Sleep(time);
-                 }));
+                     Thread.Sleep(time);  
              });
         }
         private async void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
