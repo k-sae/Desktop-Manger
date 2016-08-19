@@ -17,9 +17,8 @@ namespace Desktop_Manger
 {
 
     // to do: 
-    //Figure how to fix the else extension problem
-    //see if public IconSourceLocation Worth it or should be removed 
-
+    //       add the close button 
+    //       add close on lost focus function
     public class AppInfo : Canvas
 
     {
@@ -212,13 +211,100 @@ namespace Desktop_Manger
             MenuItem ChangeIcon = new MenuItem();
             ChangeIcon.Header = "Change Icon";
             ChangeIcon.Click += ChangeIcon_Click;
+            MenuItem EditParameters = new MenuItem();
+            EditParameters.Header = "Edit Parameters";
+            EditParameters.Click += EditParameters_Click;
             mnu.Items.Add(OpenWith);
             mnu.Items.Add(Rename);
             mnu.Items.Add(ChangeIcon);
+            mnu.Items.Add(EditParameters);
             mnu.Items.Add(RemoveItem);
             return mnu;
         }
 
+        private void EditParameters_Click(object sender, RoutedEventArgs e)
+        {
+            ParametersEdit_Layout();
+        }
+        public async void ParametersEdit_Layout()
+        {
+            StackPanel mystp = CreateParameters_StackPanel();
+            mystp.Children.Add(CreateParameters_WarningTextBlock());
+            TextBox TBlock = CreateParameters_TextBox();
+            mystp.Children.Add(TBlock);
+            mystp.Children.Add(CreateParameters_SaveButton(TBlock));
+            mystp.Children.Add(CreateParameters_CloseButton(mystp));
+            Canvas.SetLeft(mystp, ParentCanvas.Width - 800);
+            ParentCanvas.Children.Add(mystp);
+            for (int i = 0; i < 100; i++)
+            {
+                mystp.Width += 8;
+                mystp.Height += 0.2;
+              await MainWindow.sleep(1);
+            }
+        }
+        private StackPanel CreateParameters_StackPanel()
+        {
+            StackPanel mystp = new StackPanel();
+            mystp.Orientation = Orientation.Horizontal;
+            mystp.Background = System.Windows.Media.Brushes.Black;
+            mystp.Focusable = true;
+            mystp.LostFocus += (sender, e) => CreateParamerers_Removestp(mystp);
+            mystp.Width = 0;
+            mystp.Height = 0;
+            return mystp;
+        }
+        private TextBox CreateParameters_TextBox()
+        {
+            TextBox tb = new TextBox();
+            tb.Width = 400;
+            tb.Text = Parameters;
+            return tb;
+        }
+        private TextBlock CreateParameters_WarningTextBlock()
+        {
+            TextBlock tb = new TextBlock();
+            tb.Width = 350;
+            tb.Text = "Warning Don't Change this unless u know what u are doing ";
+            tb.Foreground = System.Windows.Media.Brushes.Red;
+            return tb;
+        }
+        private TextBlock CreateParameters_SaveButton(TextBox tb)
+        {
+            TextBlock TBlock = new TextBlock();
+            TBlock.FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets");
+            TBlock.Text = "\xE001";
+            TBlock.Margin = new Thickness(2);
+            TBlock.FontSize = 16;
+            TBlock.Width = 25;
+            TBlock.Cursor = Cursors.Hand;
+            TBlock.MouseLeftButtonUp += (sender, e) => CreateParameters_SaveButton_LeftButtonUp(TBlock, tb);
+            TBlock.Foreground = System.Windows.Media.Brushes.Yellow;
+            return TBlock;
+        }
+        private TextBlock CreateParameters_CloseButton(StackPanel stb)
+        {
+            TextBlock TBlock = new TextBlock();
+            TBlock.FontFamily = new System.Windows.Media.FontFamily("Segoe MDL2 Assets");
+            TBlock.Text = "\xE10A";
+            TBlock.Margin = new Thickness(2);
+            TBlock.MouseLeftButtonUp += (sender, e) => CreateParamerers_Removestp(stb);
+            TBlock.FontSize = 16;
+            TBlock.Width = 25;
+            TBlock.Cursor = Cursors.Hand;
+            TBlock.Foreground = System.Windows.Media.Brushes.Red;
+            return TBlock;
+        }
+        private async void CreateParamerers_Removestp(StackPanel stp)
+        {
+            await MainWindow.sleep(100);
+            ParentCanvas.Children.Remove(stp);
+        }
+        private void CreateParameters_SaveButton_LeftButtonUp(object sender, TextBox mytb)
+        {
+            Parameters = mytb.Text;
+            Debug.WriteLine(Parameters);
+        }
         private void ChangeIcon_Click(object sender, RoutedEventArgs e)
         {
             MenuItem mnu = sender as MenuItem;
@@ -273,13 +359,13 @@ namespace Desktop_Manger
                 ContextMenu MyContextMenu = (ContextMenu)mnu.Parent;
                 mystp = MyContextMenu.PlacementTarget as StackPanel;
             }
-            TextBox mytb = CreateTextBox();
+            TextBox mytb = CreateRenameTextBox();
             FileName.Visibility = Visibility.Collapsed;
             mytb.Focus();
             mystp.Children.Add(mytb);
         }
-
-        private TextBox CreateTextBox()
+        //change the class of this later
+        private TextBox CreateRenameTextBox()
         {
             TextBox tb = new TextBox();
             tb.Text = FileName.Text;
@@ -333,7 +419,8 @@ namespace Desktop_Manger
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             //Remove it from the List as well as from the parent Canvas
-            HomePage.AppsList.RemoveAt(ParentCanvas.Children.IndexOf(mycanvas));
+            Debug.WriteLine(ParentCanvas.Children.IndexOf(mycanvas));
+            HomePage.AppsList.Remove((AppInfo)mycanvas);
             ParentCanvas.Children.Remove(mycanvas);
             Data.save(HomePage.AppsList);
         }
@@ -364,7 +451,7 @@ namespace Desktop_Manger
             (sender as Canvas).ReleaseMouseCapture();
             stp.Stop();
             
-            if (stp.Elapsed < new TimeSpan(0, 0, 0, 0, 100))
+            if (stp.Elapsed < new TimeSpan(0, 0, 0, 0, 150))
             {
                 StartProccess();
             }

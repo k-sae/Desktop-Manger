@@ -36,8 +36,8 @@
                         <TextBlock Name="Apps_Icon" FontSize="50" Padding="0,20,0,0" HorizontalAlignment="Center" FontFamily="Segoe MDL2 Assets" Text="&#xE8FC;" />
                         <TextBlock Name="Apps_Text"  Text="Apps" FontSize="20" Padding="10" HorizontalAlignment="Center"   VerticalAlignment="Top"/>
                     </StackPanel>
-                    <StackPanel  Name="Power_stp" Orientation="Vertical" MouseLeave="NaveItemsDefault" MouseEnter="NaveItemsHover" MouseLeftButtonUp="Apps_stp_MouseLeftButtonUp">
-                        <TextBlock Name="Power_Icon" FontSize="50" HorizontalAlignment="Center" Padding="0,20,0,0" FontFamily="Segoe MDL2 Assets" Text="&#xE8FD;" />
+                    <StackPanel  Name="Power_stp" Orientation="Vertical" MouseLeave="NaveItemsDefault" MouseEnter="NaveItemsHover" MouseLeftButtonUp="Power_stp_MouseLeftButtonUp">
+                        <TextBlock Name="Power_Icon" FontSize="50" HorizontalAlignment="Center" Padding="0,20,0,0" FontFamily="Segoe MDL2 Assets" Text="&#xE858;" />
                         <TextBlock Name="Power_Text"  Text="power" HorizontalAlignment="Center" FontSize="20" Padding="10"  VerticalAlignment="Top"/>
                     </StackPanel>
                 </StackPanel>

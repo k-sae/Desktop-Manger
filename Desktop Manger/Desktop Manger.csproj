@@ -100,6 +100,9 @@
     <Compile Include="Extension.cs" />
     <Compile Include="HomePageLayout.cs" />
     <Compile Include="LayoutObjects.cs" />
+    <Compile Include="power.xaml.cs">
+      <DependentUpon>power.xaml</DependentUpon>
+    </Compile>
     <Compile Include="StartUp.cs" />
     <Compile Include="Tile.cs" />
     <Compile Include="TileLayout.cs" />
@@ -126,6 +129,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="power.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -248,6 +255,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\My_Documents_Icon.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Resources\Videos\p4fun_intro0.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Videos\p4fun_intro1.mp4">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

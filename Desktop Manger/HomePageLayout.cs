@@ -29,7 +29,7 @@ namespace Desktop_Manger
         //set Video As BackGround
         public  void SetVideoAsBackground(string Location)
         {
-            Uri vLocation = new Uri(Location);
+            Uri vLocation = new Uri(Location,UriKind.RelativeOrAbsolute);
             MediaElement player = new MediaElement();
             player.Source = vLocation;
             player.MediaEnded += BackGroundPlayer_MediaEnded;
