@@ -230,9 +230,9 @@ namespace Desktop_Manger
         {
             StackPanel mystp = CreateParameters_StackPanel();
             mystp.Children.Add(CreateParameters_WarningTextBlock());
-            TextBox TBlock = CreateParameters_TextBox();
-            mystp.Children.Add(TBlock);
-            mystp.Children.Add(CreateParameters_SaveButton(TBlock));
+            TextBox TBox = CreateParameters_TextBox();
+            mystp.Children.Add(TBox);
+            mystp.Children.Add(CreateParameters_SaveButton(TBox));
             mystp.Children.Add(CreateParameters_CloseButton(mystp));
             Canvas.SetLeft(mystp, ParentCanvas.Width - 800);
             ParentCanvas.Children.Add(mystp);
@@ -242,6 +242,7 @@ namespace Desktop_Manger
                 mystp.Height += 0.2;
               await MainWindow.sleep(1);
             }
+            TBox.Focus();
         }
         private StackPanel CreateParameters_StackPanel()
         {
