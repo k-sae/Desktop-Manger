@@ -226,7 +226,7 @@ namespace Desktop_Manger
         {
             ParametersEdit_Layout();
         }
-        public void ParametersEdit_Layout()
+        public async void ParametersEdit_Layout()
         {
             StackPanel mystp = CreateParameters_StackPanel();
             mystp.Children.Add(CreateParameters_WarningTextBlock());
@@ -234,8 +234,14 @@ namespace Desktop_Manger
             mystp.Children.Add(TBlock);
             mystp.Children.Add(CreateParameters_SaveButton(TBlock));
             mystp.Children.Add(CreateParameters_CloseButton(mystp));
+            Canvas.SetLeft(mystp, ParentCanvas.Width - 800);
             ParentCanvas.Children.Add(mystp);
-
+            for (int i = 0; i < 100; i++)
+            {
+                mystp.Width += 8;
+                mystp.Height += 0.2;
+              await MainWindow.sleep(1);
+            }
         }
         private StackPanel CreateParameters_StackPanel()
         {
@@ -243,21 +249,22 @@ namespace Desktop_Manger
             mystp.Orientation = Orientation.Horizontal;
             mystp.Background = System.Windows.Media.Brushes.Black;
             mystp.Focusable = true;
-            //error here u have to think for another way
-            //mystp.LostFocus += (sender, e) => CreateParamerers_Removestp(mystp);
-            Canvas.SetLeft(mystp, ParentCanvas.Width / 2 - 300);
+            mystp.LostFocus += (sender, e) => CreateParamerers_Removestp(mystp);
+            mystp.Width = 0;
+            mystp.Height = 0;
             return mystp;
         }
         private TextBox CreateParameters_TextBox()
         {
             TextBox tb = new TextBox();
-            tb.Width = 450;
+            tb.Width = 400;
             tb.Text = Parameters;
             return tb;
         }
         private TextBlock CreateParameters_WarningTextBlock()
         {
             TextBlock tb = new TextBlock();
+            tb.Width = 350;
             tb.Text = "Warning Don't Change this unless u know what u are doing ";
             tb.Foreground = System.Windows.Media.Brushes.Red;
             return tb;
@@ -269,6 +276,8 @@ namespace Desktop_Manger
             TBlock.Text = "\xE001";
             TBlock.Margin = new Thickness(2);
             TBlock.FontSize = 16;
+            TBlock.Width = 25;
+            TBlock.Cursor = Cursors.Hand;
             TBlock.MouseLeftButtonUp += (sender, e) => CreateParameters_SaveButton_LeftButtonUp(TBlock, tb);
             TBlock.Foreground = System.Windows.Media.Brushes.Yellow;
             return TBlock;
@@ -281,11 +290,14 @@ namespace Desktop_Manger
             TBlock.Margin = new Thickness(2);
             TBlock.MouseLeftButtonUp += (sender, e) => CreateParamerers_Removestp(stb);
             TBlock.FontSize = 16;
+            TBlock.Width = 25;
+            TBlock.Cursor = Cursors.Hand;
             TBlock.Foreground = System.Windows.Media.Brushes.Red;
             return TBlock;
         }
-        private void CreateParamerers_Removestp(StackPanel stp)
+        private async void CreateParamerers_Removestp(StackPanel stp)
         {
+            await MainWindow.sleep(100);
             ParentCanvas.Children.Remove(stp);
         }
         private void CreateParameters_SaveButton_LeftButtonUp(object sender, TextBox mytb)
