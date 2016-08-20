@@ -57,7 +57,8 @@ namespace Desktop_Manger
             Apps_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
             Power_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
             Power_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-
+           Settings_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
+            Settings_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround)); ;
         }
         
         // Maximize Widno
@@ -188,6 +189,14 @@ namespace Desktop_Manger
             RemoveSelection();
             SelectStP(sender);
             power page = new power();
+            mainframe.Navigate(page);
+        }
+
+        private void Settings_stp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            RemoveSelection();
+            SelectStP(sender);
+            Settings page = new Settings();
             mainframe.Navigate(page);
         }
     }

@@ -98,17 +98,34 @@
     </Compile>
     <Compile Include="data.cs" />
     <Compile Include="Extension.cs" />
+    <Compile Include="General_Settings.xaml.cs">
+      <DependentUpon>General_Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="HomePageLayout.cs" />
+    <Compile Include="HomePage_Settings.xaml.cs">
+      <DependentUpon>HomePage_Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LayoutObjects.cs" />
     <Compile Include="power.xaml.cs">
       <DependentUpon>power.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.xaml.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartUp.cs" />
     <Page Include="Apps.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="General_Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="HomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="HomePage_Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -128,6 +145,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="power.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
