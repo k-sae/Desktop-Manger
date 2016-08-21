@@ -28,6 +28,8 @@ namespace Desktop_Manger
             AppTheme.Active = "#FFFF6C18";
             AppTheme.HomePageShortCutsHover = "#3FFF8000";
             AppTheme.HomePageShortCutFontColor = "#ffffffff";
+            AppTheme.POWERFOREGROUND = "#000";
+         
         }
         public static void LightTheme()
         {

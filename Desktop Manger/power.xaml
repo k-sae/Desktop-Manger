@@ -8,18 +8,19 @@
       d:DesignHeight="700" d:DesignWidth="1300"
       Title="power">
 
-    <Grid>
+    <Grid Margin="100,0,0,0">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
-            <RowDefinition Height="3*"></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="3.5*"></RowDefinition>
+            <RowDefinition Height="1.5*"></RowDefinition>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="4*"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+        <Image Source="Resources\power button.png"></Image>
         
-        
+
     </Grid>
 </Page>

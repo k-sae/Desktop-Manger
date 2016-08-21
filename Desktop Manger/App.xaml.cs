@@ -23,5 +23,6 @@ namespace Desktop_Manger
         public static string Active { get; set; }
         public static string HomePageShortCutsHover { get; set; }
         public static string HomePageShortCutFontColor { get; set; }
+        public static string POWERFOREGROUND { get;  set; }
     }
 }

@@ -5,10 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Desktop_Manger"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="700" d:DesignWidth="1300"
       Title="Apps">
 
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            
+        </Grid.ColumnDefinitions>
     </Grid>
 </Page>
