@@ -22,18 +22,16 @@ namespace Desktop_Manger
     /// </summary>
     public partial class power : Page
     {
+        public static string loc = StartUp.Location() + "file.txt";
+        private static List<PowerPlan> CurrentPowerPlanes = new List<PowerPlan>();
         public power()
         {
             InitializeComponent();
             GETplans();
             divdeplans();
         }
-        public static string loc = StartUp.Location() + "file.txt";
+       
 
-        public class plans{
-            public string planname { get; set; }
-            public string planschyema { get; set; }
-        };
         private static void GETplans()
         {
  
@@ -55,16 +53,14 @@ namespace Desktop_Manger
         private static void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
-            int cnt = lines.Count();
-            plans[] bed = new plans[cnt-4];
-
-
-            MessageBox.Show(lines[4]);   
-               bed[0].planname = GetStrBetweenTags(lines[4],"(",")");
-             bed[0].planschyema = GetStrBetweenTags(lines[4], "GUID: ", "  (");
+            for (int i = 0; i < lines.Count(); i++)
+            {
+                PowerPlan bed = new PowerPlan();
+                bed.Name = GetStrBetweenTags(lines[4], "(", ")");
+                bed.Id = GetStrBetweenTags(lines[4], "GUID: ", "  (");
+                CurrentPowerPlanes.Add(bed);
+            }
             
-   
-
         }
         public static string GetStrBetweenTags(string value,
                                        string startTag,

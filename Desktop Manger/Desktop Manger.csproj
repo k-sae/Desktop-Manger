@@ -103,6 +103,7 @@
     <Compile Include="power.xaml.cs">
       <DependentUpon>power.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PowerPlan.cs" />
     <Compile Include="StartUp.cs" />
     <Page Include="Apps.xaml">
       <SubType>Designer</SubType>
