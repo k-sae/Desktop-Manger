@@ -17,8 +17,8 @@ namespace Desktop_Manger
     //set app theme
     public static class AppTheme
     {
-        public static string NavBarBackGround { get; set; }
-        public static string ForeGround { get; set; }
+        public static string NavBarBackground { get; set; }
+        public static string NavBarForeground { get; set; }
         public static string Hover { get; set; }
         public static string Active { get; set; }
         public static string HomePageShortCutsHover { get; set; }

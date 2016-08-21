@@ -50,15 +50,15 @@ namespace Desktop_Manger
         // Hold Window Colors
         private void SetTheme()
         {
-            NavBar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackGround));
-            HomePage_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-            HomePage_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-            Apps_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-            Apps_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-            Power_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-            Power_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-           Settings_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-            Settings_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround)); ;
+            NavBar.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackground));
+            HomePage_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            HomePage_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            Apps_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            Apps_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            Power_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            Power_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+           Settings_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            Settings_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground)); ;
         }
         
         // Maximize Widno
@@ -142,7 +142,7 @@ namespace Desktop_Manger
             {
                 return;
             }
-            ((StackPanel)sender).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackGround));
+            ((StackPanel)sender).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackground));
         }
         
         private bool IsSelectedItem(StackPanel item)
@@ -181,7 +181,7 @@ namespace Desktop_Manger
         }
         private void RemoveSelection()
         {
-            selectedStP.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackGround));
+            selectedStP.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackground));
         }
 
         private void Power_stp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

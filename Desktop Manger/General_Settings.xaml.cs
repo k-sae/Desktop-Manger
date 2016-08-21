@@ -23,6 +23,37 @@ namespace Desktop_Manger
         public General_Settings()
         {
             InitializeComponent();
+            GenerateObj_controlls();
+        }
+        private void GenerateObj_controlls()
+        {
+            NavBarBackground_TBox.Text = AppTheme.NavBarBackground;
+            NavBarBackground_Rectangle.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarBackground));
+            NavBarForeground_TBox.Text = AppTheme.NavBarForeground;
+            NavBarForeground_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+        }
+
+        private void TBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+           StackPanel stp =(StackPanel)(sender as TextBox).Parent;
+            TextBlock color = null;
+           foreach(object child in stp.Children)
+            {
+                if(child is TextBlock)
+                {
+                    color = (child as TextBlock);
+                }
+            }
+            try
+            {
+                color.Text = "";
+                color.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString((sender as TextBox).Text));
+            }
+            catch (Exception)
+            {
+                color.Text = "?";
+                color.Background = Brushes.Transparent;
+            }
         }
     }
 }

@@ -22,8 +22,8 @@ namespace Desktop_Manger
         //set defualt dark theme
         public static void DarkTheme()
         {
-            AppTheme.ForeGround = "#ffffffff";
-            AppTheme.NavBarBackGround = "#ff000000";
+            AppTheme.NavBarForeground = "#ffffffff";
+            AppTheme.NavBarBackground = "#ff000000";
             AppTheme.Hover = "#FFEC670A"; 
             AppTheme.Active = "#FFFF6C18";
             AppTheme.HomePageShortCutsHover = "#3FFF8000";
@@ -31,8 +31,8 @@ namespace Desktop_Manger
         }
         public static void LightTheme()
         {
-            AppTheme.ForeGround = "#000";
-            AppTheme.NavBarBackGround = "#fff";
+            AppTheme.NavBarForeground = "#000";
+            AppTheme.NavBarBackground = "#fff";
             AppTheme.Hover = "#f00"; // "#FFEC670A"
             AppTheme.Active = "#FFFF6C18";
         }
