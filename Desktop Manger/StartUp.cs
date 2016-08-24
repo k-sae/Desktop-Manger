@@ -12,37 +12,50 @@ namespace Desktop_Manger
         //check if the app opened for the first time
         public static bool IsFirstTime()
         {
-            if (!Directory.Exists(Location()))
+            if (Directory.Exists(Location()))
+            {
+                if (File.Exists(Location() + "Theme.dmt"))
+                {
+                    return false;
+                }
+                else return true;
+                
+            }
+            else
             {
                 Directory.CreateDirectory(Location());
                 return true;
             }
-            return true;
+            
         }
         //set defualt dark theme
         public static void DarkTheme()
         {
             AppTheme.NavBarForeground = "#ffffffff";
             AppTheme.NavBarBackground = "#ff000000";
-            AppTheme.Hover = "#FFEC670A"; 
-            AppTheme.Active = "#FFFF6C18";
+            AppTheme.NavBarHover = "#FFEC670A"; 
+            AppTheme.NavBarActive = "#FFFF6C18";
             AppTheme.HomePageShortCutsHover = "#3FFF8000";
             AppTheme.HomePageShortCutFontColor = "#ffffffff";
         }
-        public static void LightTheme()
+        private static void SetCustomMainWindowTheme()
         {
-            AppTheme.NavBarForeground = "#000";
-            AppTheme.NavBarBackground = "#fff";
-            AppTheme.Hover = "#f00"; // "#FFEC670A"
-            AppTheme.Active = "#FFFF6C18";
+            string data = File.ReadAllText(Location() + "Theme.dmt");
+            AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground",data);
+            AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground",data);
+            AppTheme.NavBarHover = Data.GetVariable("NavBarHover", data);
+            AppTheme.NavBarActive = Data.GetVariable("NavBarActive", data);
         }
         public static void Check()
         {
-            if (IsFirstTime())
+            DarkTheme();
+            if (!IsFirstTime())
             {
-                DarkTheme();
-
+                SetCustomMainWindowTheme();
             }
+           
+                
+            
         }
         public static string Location()
         {

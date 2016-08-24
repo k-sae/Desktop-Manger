@@ -14,7 +14,7 @@ namespace Desktop_Manger
     {
         //TODO:
         //      Fix the error for ShotcutSource For exe and icon files
-        public static void save(List<AppInfo> AppsList)
+        public static void SaveIcons(List<AppInfo> AppsList)
         {
             string[] lines = new string[AppsList.Count];
             int i = 0;
@@ -32,7 +32,7 @@ namespace Desktop_Manger
             }
             File.WriteAllLines(StartUp.Location() + "AppInfo.dms", lines);
         }
-        public static List<AppInfo> Load(Canvas Parent)
+        public static List<AppInfo> LoadIcons(Canvas Parent)
         {
             List<AppInfo> AppsList = new List<AppInfo>();
             if(File.Exists(StartUp.Location() + "AppInfo.dms"))
@@ -57,7 +57,7 @@ namespace Desktop_Manger
             return AppsList;
         }
 
-        private static string GetVariable(string variable, string line)
+        public static string GetVariable(string variable, string line)
         {
             variable += "=\"";
             int start = line.IndexOf(variable) + variable.Length;
@@ -109,9 +109,21 @@ namespace Desktop_Manger
             Documents.FileName.Text = "My Douments";
             Documents.ParentCanvas = ParentCanvas;
             AppsList.Add(Documents);
-            Data.save(AppsList);
-            Data.save(AppsList);
+            Data.SaveIcons(AppsList);
+            Data.SaveIcons(AppsList);
             return AppsList;
         }
-    }
+        public static void SaveMainWindowTheme(List<ThemeChanger> data)
+        {
+            string[] Variable = new string[data.Count()];
+            int i = 0;
+            foreach (ThemeChanger item in data)
+            {
+                Variable[i] = item.Name + "=\"" + item.Value + "\"";
+                i++; 
+            }
+            File.WriteAllLines(StartUp.Location() + "Theme.dmt", Variable);
+        }
+       
+    } 
 }

@@ -19,8 +19,8 @@ namespace Desktop_Manger
     {
         public static string NavBarBackground { get; set; }
         public static string NavBarForeground { get; set; }
-        public static string Hover { get; set; }
-        public static string Active { get; set; }
+        public static string NavBarHover { get; set; }
+        public static string NavBarActive { get; set; }
         public static string HomePageShortCutsHover { get; set; }
         public static string HomePageShortCutFontColor { get; set; }
     }

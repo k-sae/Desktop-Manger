@@ -35,7 +35,7 @@ namespace Desktop_Manger
             layout.ParentCanvas = canv1;
             layout.onStart(canv1);
             layout.SetVideoAsBackground(@"Resources/Videos/p4fun_intro0.mp4");
-           AppsList = Data.Load(canv1);
+           AppsList = Data.LoadIcons(canv1);
         }
 
         private void canv1_Drop(object sender, DragEventArgs e)
@@ -50,7 +50,7 @@ namespace Desktop_Manger
                 canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
                 AppsList.Add(app);
-                Data.save(AppsList);
+                Data.SaveIcons(AppsList);
             }
         }
       

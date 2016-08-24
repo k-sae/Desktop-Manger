@@ -332,7 +332,7 @@ namespace Desktop_Manger
                 }
                 
             }
-            Data.save(HomePage.AppsList);
+            Data.SaveIcons(HomePage.AppsList);
         }
         private void ChangeImage(StackPanel mystp, ImageSource imgsrc)
         {
@@ -387,7 +387,7 @@ namespace Desktop_Manger
             StackPanel mystp = null;
             mystp = (StackPanel)(sender as TextBox).Parent;
             mystp.Children.Remove(sender as TextBox);
-            Data.save(HomePage.AppsList);
+            Data.SaveIcons(HomePage.AppsList);
         }
 
         private void OpenWith_Click(object sender, RoutedEventArgs e) 
@@ -422,7 +422,7 @@ namespace Desktop_Manger
             Debug.WriteLine(ParentCanvas.Children.IndexOf(mycanvas));
             HomePage.AppsList.Remove((AppInfo)mycanvas);
             ParentCanvas.Children.Remove(mycanvas);
-            Data.save(HomePage.AppsList);
+            Data.SaveIcons(HomePage.AppsList);
         }
 
         private void Stp_MouseLeave(object sender, MouseEventArgs e)
@@ -458,7 +458,7 @@ namespace Desktop_Manger
             else
             {
                 autoCorrectLocation(sender);
-                Data.save(HomePage.AppsList);
+                Data.SaveIcons(HomePage.AppsList);
             }
             stp.Reset();
             
