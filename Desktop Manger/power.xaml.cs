@@ -29,36 +29,60 @@ namespace Desktop_Manger
             InitializeComponent();
             GETplans();
             divdeplans();
+            CreateStackpanel();
         }
        
 
         private static void GETplans()
         {
- 
-            
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
 
-            var process = new Process { StartInfo = startInfo };
-            process.Start();
-            process.StandardInput.WriteLine(@"powercfg -LIST >> " + "\"" + loc + "\"");
-            process.StandardInput.WriteLine("exit");
-            process.WaitForExit();
+            if (File.Exists(loc))
+            {
+                File.Delete(loc);
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                var process = new Process { StartInfo = startInfo };
+                process.Start();
+                process.StandardInput.WriteLine(@"powercfg -LIST >> " + "\"" + loc + "\"");
+                process.StandardInput.WriteLine("exit");
+                process.WaitForExit();
+            }
+            else
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "cmd.exe",
+                    RedirectStandardInput = true,
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                };
+
+                var process = new Process { StartInfo = startInfo };
+                process.Start();
+                process.StandardInput.WriteLine(@"powercfg -LIST >> " + "\"" + loc + "\"");
+                process.StandardInput.WriteLine("exit");
+                process.WaitForExit();
+            }
         }
         private static void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
-            for (int i = 0; i < lines.Count(); i++)
+            for (int i = 0; i < lines.Count()-4; i++)
             {
                 PowerPlan bed = new PowerPlan();
-                bed.Name = GetStrBetweenTags(lines[4], "(", ")");
-                bed.Id = GetStrBetweenTags(lines[4], "GUID: ", "  (");
+                bed.Name = GetStrBetweenTags(lines[i+3], "(", ")");
+                bed.Id = GetStrBetweenTags(lines[i+3], "GUID: ", "  (");
                 CurrentPowerPlanes.Add(bed);
+                char xz;
+                xz = bed.Id[0];
+                MessageBox.Show("xz");
+
             }
             
         }
@@ -75,7 +99,24 @@ namespace Desktop_Manger
             else
                 return null;
         }
+         private void CreateStackpanel(){
+            StackPanel ST = new StackPanel();
+            Grid.SetColumn(ST, 1);
+            Grid.SetRow(ST, 1);
+            ST.Height = 100;
+            ST.Orientation = Orientation.Vertical;
+            ST.Margin= new Thickness(5, 10, 0, 0);
+            ST.Background = new SolidColorBrush(Colors.Red);
+            ST.VerticalAlignment = VerticalAlignment.Top;
+            Grid1.Children.Add(ST);
+            TextBlock pbname = new TextBlock();
+            
+            ST.Children.Add(pbname);
+           
+
+        }
     }
+    
 
  
 }
