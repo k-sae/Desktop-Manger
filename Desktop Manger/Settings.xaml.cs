@@ -26,12 +26,15 @@ namespace Desktop_Manger
         {
             InitializeComponent();
             selectedStP = General_stp;
-            General_Settings page = new General_Settings();
+            General_Settings page = new General_Settings(this);
             SubFrame.Navigate(page);
-       
+            SetTheme();
         }
 
-
+        public void SetTheme()
+        {
+            Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
+        }
         private void General_stp_MouseEnter(object sender, MouseEventArgs e)
         {
             if ((sender as StackPanel) != selectedStP)
@@ -53,7 +56,7 @@ namespace Desktop_Manger
         {
             RemoveSelection();
             SelectStP(sender);
-            General_Settings page = new General_Settings();
+            General_Settings page = new General_Settings(this);
             SubFrame.Navigate(page); 
         }
         private void RemoveSelection()

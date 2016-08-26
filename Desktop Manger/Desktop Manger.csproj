@@ -109,6 +109,7 @@
     <Compile Include="power.xaml.cs">
       <DependentUpon>power.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SaveFiles.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>

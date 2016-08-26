@@ -14,20 +14,20 @@ namespace Desktop_Manger
     {
         //Set the Parent Canvas
         //you should specify this first before using other functions
-        public Canvas ParentCanvas { get; set; }
+        public static Canvas ParentCanvas { get; set; }
         public static int CanvasHeight = 130;
         public static int CanvasWidth = 100;
         public  void onStart( Canvas ParentCanvas)
         { 
         }
         //Replay the video After it ends
-        private  void BackGroundPlayer_MediaEnded(object sender, RoutedEventArgs e) 
+        private static void BackGroundPlayer_MediaEnded(object sender, RoutedEventArgs e) 
         {
             ((MediaElement)sender).Stop();
             ((MediaElement)sender).Play();
         }
         //set Video As BackGround
-        public  void SetVideoAsBackground(string Location)
+        public static void SetVideoAsBackground(string Location)
         {
             Uri vLocation = new Uri(Location,UriKind.RelativeOrAbsolute);
             MediaElement player = new MediaElement();

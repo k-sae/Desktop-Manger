@@ -21,12 +21,15 @@ namespace Desktop_Manger
     /// next i have to send main window as a parameter to change the theme colors directly
     public partial class General_Settings : Page
     {
+        private Settings SettingsPage { get; set; }
         public static List<ThemeChanger> MyThemeChanger = new List<ThemeChanger>();
-        public General_Settings()
+        public General_Settings(Settings Page)
         {
             InitializeComponent();
+            SetTheme();
             GenerateObj_controlls();
             Initiallize();
+            SettingsPage = Page;
         }
         private void GenerateObj_controlls()
         {
@@ -38,8 +41,29 @@ namespace Desktop_Manger
             NavBarHover_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarHover));
             NavBarActive.Text = AppTheme.NavBarActive;
             NavBarActive_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarActive));
+            MainAppBackground.Text = AppTheme.Background;
+            NavBarActive_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
         }
-
+        private void SetTheme()
+        {
+            Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
+            stp1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(Grid1.Background.ToString())));
+            ThemeSettings_Tb.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(Grid1.Background.ToString())));
+            foreach (object obj1 in Grid2.Children)
+            {
+                if (obj1 is StackPanel)
+                {
+                    foreach(object obj2 in (obj1 as StackPanel).Children)
+                    {
+                        if (obj2 is TextBox)
+                        {
+                            (obj2 as TextBox).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(stp1.Background.ToString())));
+                        }
+                    }
+                }
+            }
+           
+        }
         private void TBox_TextChanged(object sender, TextChangedEventArgs e)
         {
            StackPanel stp =(StackPanel)(sender as TextBox).Parent;
@@ -79,11 +103,15 @@ namespace Desktop_Manger
             MyThemeChanger.Add(new ThemeChanger(NavBarForeground.Name, AppTheme.NavBarForeground));
             MyThemeChanger.Add(new ThemeChanger(NavBarHover.Name, AppTheme.NavBarHover));
             MyThemeChanger.Add(new ThemeChanger(NavBarActive.Name, AppTheme.NavBarActive));
+            MyThemeChanger.Add(new ThemeChanger(MainAppBackground.Name, AppTheme.Background));
         }
         //i have to create a function in data class takes list of certain class that holds the the variable name and the value
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             Data.SaveMainWindowTheme(MyThemeChanger);
+            StartUp.SetCustomTheme();
+            SetTheme();
+            SettingsPage.SetTheme();
         }
     }
 

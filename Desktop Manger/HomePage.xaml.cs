@@ -31,10 +31,8 @@ namespace Desktop_Manger
             PageWidth = width;
             canv1.Height = height;
             canv1.Width = width;
-            HomePageLayout layout = new HomePageLayout();
-            layout.ParentCanvas = canv1;
-            layout.onStart(canv1);
-            layout.SetVideoAsBackground(@"Resources/Videos/p4fun_intro0.mp4");
+            HomePageLayout.ParentCanvas = canv1;
+            HomePageLayout.SetVideoAsBackground(@"Resources/Videos/p4fun_intro0.mp4");
            AppsList = Data.LoadIcons(canv1);
         }
 

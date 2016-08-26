@@ -30,14 +30,14 @@ namespace Desktop_Manger
                 lines[i] += "Parameters=\"" + App.Parameters + "\"\t";
                 i++;
             }
-            File.WriteAllLines(StartUp.Location() + "AppInfo.dms", lines);
+            File.WriteAllLines(SaveFiles.Location() + SaveFiles.AppInfoFile, lines);
         }
         public static List<AppInfo> LoadIcons(Canvas Parent)
         {
             List<AppInfo> AppsList = new List<AppInfo>();
-            if(File.Exists(StartUp.Location() + "AppInfo.dms"))
+            if(File.Exists(SaveFiles.Location() + SaveFiles.AppInfoFile))
             {
-                string[] lines = File.ReadAllLines(StartUp.Location() + "AppInfo.dms");
+                string[] lines = File.ReadAllLines(SaveFiles.Location() + SaveFiles.AppInfoFile);
                 foreach (string line in lines)
                 {
                     AppInfo app = new AppInfo(GetVariable("ShortCutLocation", line), GetVariable("ShortCutIcon", line));
@@ -60,6 +60,10 @@ namespace Desktop_Manger
         public static string GetVariable(string variable, string line)
         {
             variable += "=\"";
+            if (!line.Contains(variable))
+            {
+                throw new Exception("Variable not Found");
+            }
             int start = line.IndexOf(variable) + variable.Length;
             int end = line.IndexOf("\"", start);
             return line.Substring(start, end - start);
@@ -73,7 +77,7 @@ namespace Desktop_Manger
             ThisPc.FileName.Text = "This PC";
             ThisPc.ParentCanvas = ParentCanvas;
             AppsList.Add(ThisPc);
-            //added control panel
+            //control panel
             AppInfo ControlPanel = new AppInfo(@"C:\Windows\explorer.exe", "pack://application:,,,/Resources/Control_Panel_Icon.png");
             Canvas.SetLeft(ControlPanel, 0);
             Canvas.SetTop(ControlPanel, HomePageLayout.CanvasHeight * 5);
@@ -110,7 +114,6 @@ namespace Desktop_Manger
             Documents.ParentCanvas = ParentCanvas;
             AppsList.Add(Documents);
             Data.SaveIcons(AppsList);
-            Data.SaveIcons(AppsList);
             return AppsList;
         }
         public static void SaveMainWindowTheme(List<ThemeChanger> data)
@@ -122,7 +125,7 @@ namespace Desktop_Manger
                 Variable[i] = item.Name + "=\"" + item.Value + "\"";
                 i++; 
             }
-            File.WriteAllLines(StartUp.Location() + "Theme.dmt", Variable);
+            File.WriteAllLines(SaveFiles.Location() + SaveFiles.ThemeFile, Variable);
         }
        
     } 
