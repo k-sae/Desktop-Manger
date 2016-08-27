@@ -34,6 +34,8 @@ namespace Desktop_Manger
         public void SetTheme()
         {
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
+            Settings_TBlock.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+           
         }
         private void General_stp_MouseEnter(object sender, MouseEventArgs e)
         {

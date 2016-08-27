@@ -19,7 +19,7 @@
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <TextBlock Text="DM" FontSize="50" FontWeight="ExtraBold" Foreground="#FF004581" HorizontalAlignment="Left" TextAlignment="Center"  Padding="10" Height="100" Background="#FF001636"/>
-        <TextBlock Text="Settings" FontSize="60" FontWeight="ExtraBold" Grid.Column="1" Foreground="#ccc" HorizontalAlignment="Center" Padding="0,10,0,0"/>
+        <TextBlock Name="Settings_TBlock" Text="Settings" FontSize="60" FontWeight="ExtraBold" Grid.Column="1" Foreground="#ccc" HorizontalAlignment="Center" Padding="0,10,0,0"/>
         <StackPanel Grid.Row="1" Grid.Column="1" Name="Tabs" Orientation="Horizontal">
             <StackPanel Name="General_stp" Background="#FF004581" Width="100" 
                         MouseEnter="General_stp_MouseEnter"

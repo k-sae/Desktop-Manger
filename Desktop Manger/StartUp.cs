@@ -38,12 +38,14 @@ namespace Desktop_Manger
             AppTheme.HomePageShortCutsHover = "#3FFF8000";
             AppTheme.HomePageShortCutFontColor = "#ffffffff";
             AppTheme.Background = "#000";
+            AppTheme.Foreground = "#fff";
         }
         public static void SetCustomTheme()
         {
             string data = File.ReadAllText(SaveFiles.Location() + SaveFiles.ThemeFile);
             try{AppTheme.Background = Data.GetVariable("MainAppBackground", data); }catch (Exception) { }
-            try{AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", data); }catch (Exception) { }
+            try { AppTheme.Foreground = Data.GetVariable("MainAppForeground", data); } catch (Exception) { }
+            try {AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", data); }catch (Exception) { }
             try{AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground",  data); }catch (Exception) { }
             try{AppTheme.NavBarHover = Data.GetVariable("NavBarHover",  data); }catch (Exception) { }
             try{AppTheme.NavBarActive = Data.GetVariable("NavBarActive",  data); }catch (Exception) { }
