@@ -23,6 +23,21 @@ namespace Desktop_Manger
         public HomePage_Settings()
         {
             InitializeComponent();
+            SetTheme();
+        }
+        private void SetTheme()
+        {
+            Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
+        }
+
+        private void TBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
+
+        private void Save_Button_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
