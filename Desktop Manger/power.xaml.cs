@@ -74,17 +74,16 @@ namespace Desktop_Manger
         private void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
-            PowerPlan bed = new PowerPlan();
-            
-                for (int i = 0; i < lines.Count() - 3; i++)
-                {
-                    
-                    bed.Name = GetStrBetweenTags(lines[i + 3], "(", ")");
-                    bed.Id = GetStrBetweenTags(lines[i + 3], "GUID: ", "  (");
-                    CurrentPowerPlanes.Add(bed);
-                    CreateStackpanel(i + 1);
-                    EdiT_Layout(i + 1, CurrentPowerPlanes[i].Name);
-                }
+
+
+            for (int i = 0; i < lines.Count() - 3; i++)
+            {
+                //Constractor
+                PowerPlan bed = new PowerPlan("Put here the parent Panel", GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
+                CurrentPowerPlanes.Add(bed);
+                CreateStackpanel(i + 1);
+                EdiT_Layout(i + 1, CurrentPowerPlanes[i].Name);
+            }
             
 
         }
@@ -172,7 +171,6 @@ namespace Desktop_Manger
                     {
                         if (obj2 is TextBlock)
                         {
-
                             (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerTxtforeground));
                         }
                     }
@@ -195,7 +193,7 @@ namespace Desktop_Manger
         }
         public void stackpanel_click(object sender, EventArgs e)
         {
-           
+            
         }
         
        
