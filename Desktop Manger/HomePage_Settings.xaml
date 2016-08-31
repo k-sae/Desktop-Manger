@@ -48,15 +48,15 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                     </Grid.RowDefinitions>
-                    <TextBlock Text="Background: " Grid.Column="1"  Grid.Row="1"/>
+                    <TextBlock Text="Effects Color: " Grid.Column="1"  Grid.Row="1"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
-                        <TextBox Name="MainAppBackground" Style="{StaticResource ProperyValue_TBox}"  TextChanged="TBox_TextChanged" />
-                        <TextBlock Name="MainAppBackground_TBlock"  Style="{StaticResource AppliedColor_TBlock}"/>
+                        <TextBox Name="ItemHover" Style="{StaticResource ProperyValue_TBox}"  TextChanged="TBox_TextChanged" />
+                        <TextBlock Name="ItemHover_TBlock"  Style="{StaticResource AppliedColor_TBlock}"/>
                     </StackPanel>
-                    <TextBlock Text="Foreground: " Style="{StaticResource ProperyName_TBlock}" Grid.Row="2" Grid.Column="1"/>
+                    <TextBlock Text="Text Color: " Style="{StaticResource ProperyName_TBlock}" Grid.Row="2" Grid.Column="1"/>
                     <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="2" Grid.Column="2">
-                        <TextBox Name="MainAppForeground" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
-                        <TextBlock Name="MainAppForeground_TBlock" Style="{StaticResource AppliedColor_TBlock}" />
+                        <TextBox Name="HomePageFontColor" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
+                        <TextBlock Name="HomePageFontColor_TBlock" Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>
                     
                 </Grid>

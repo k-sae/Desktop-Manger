@@ -116,7 +116,7 @@ namespace Desktop_Manger
             Data.SaveIcons(AppsList);
             return AppsList;
         }
-        public static void SaveMainWindowTheme(List<ThemeChanger> data)
+        public static void SaveMainWindowTheme(List<ThemeChanger> data, string FileName)
         {
             string[] Variable = new string[data.Count()];
             int i = 0;
@@ -125,7 +125,7 @@ namespace Desktop_Manger
                 Variable[i] = item.Name + "=\"" + item.Value + "\"";
                 i++; 
             }
-            File.WriteAllLines(SaveFiles.Location() + SaveFiles.ThemeFile, Variable);
+            File.WriteAllLines(SaveFiles.Location() + FileName, Variable);
         }
        
     } 

@@ -114,6 +114,7 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartUp.cs" />
+    <Compile Include="ThemeChanger.cs" />
     <Page Include="Apps.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -9,7 +9,8 @@ namespace Desktop_Manger
 {
     class SaveFiles
     {
-        public static string ThemeFile = "Theme.dmt";
+        public static string MainThemeFile = "Theme.dmt";
+        public static string HomePageThemeFile = "HomePage.dmt";
         public static string AppInfoFile = "AppInfo.dms";
         public static string Location()
         {

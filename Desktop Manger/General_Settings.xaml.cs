@@ -28,7 +28,7 @@ namespace Desktop_Manger
     public partial class General_Settings : Page
     {
         private Settings SettingsPage { get; set; }
-        public static List<ThemeChanger> MyThemeChanger = new List<ThemeChanger>();
+        public List<ThemeChanger> MyThemeChanger = new List<ThemeChanger>();
         //get the parent settings page as parameters to endable editing its theme after pressing the save button
         public General_Settings(Settings Page)
         {
@@ -81,10 +81,13 @@ namespace Desktop_Manger
             }
            
         }
+        //whenever the text changed the crossponding TextBlock change its Background if possible
         private void TBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            //hold the parent stackpanel for the  TextBox
            StackPanel stp =(StackPanel)(sender as TextBox).Parent;
            TextBlock color = null;
+            //get the Child TextBlock to change its background
            foreach(object child in stp.Children)
             {
                 if(child is TextBlock)
@@ -92,18 +95,21 @@ namespace Desktop_Manger
                     color = (child as TextBlock);
                 }
             }
+           //try change the background if possible
             try
             {
                 color.Text = "";
                 color.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString((sender as TextBox).Text));
                 ChangeColor((sender as TextBox).Name, (sender as TextBox).Text);
             }
+            //if not change its text tp "?"
             catch (Exception)
             {
                 color.Text = "?";
                 color.Background = Brushes.Transparent;
             }
         }
+        //irritate through the ThemeChanger Class to find the object that should be changed
         private void ChangeColor(string Objectname, string Objectvalue)
         {
             foreach(ThemeChanger th in MyThemeChanger)
@@ -126,21 +132,11 @@ namespace Desktop_Manger
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            Data.SaveMainWindowTheme(MyThemeChanger);
+            Data.SaveMainWindowTheme(MyThemeChanger,SaveFiles.MainThemeFile);
             StartUp.SetCustomTheme();
             SetTheme();
             SettingsPage.SetTheme();
         }
     }
-
-     public partial class ThemeChanger
-    {
-        public string Name { get; set; }
-        public object Value { get; set; }
-        public ThemeChanger(string ObjectName, object originalcolor)
-        {
-            Name = ObjectName;
-            Value = originalcolor;
-        }
-    }
+   
 }

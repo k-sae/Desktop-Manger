@@ -14,7 +14,7 @@ namespace Desktop_Manger
         {
             if (Directory.Exists(SaveFiles.Location()))
             {
-                if (File.Exists(SaveFiles.Location() + SaveFiles.ThemeFile))
+                if (File.Exists(SaveFiles.Location() + SaveFiles.MainThemeFile))
                 {
                     return false;
                 }
@@ -42,13 +42,16 @@ namespace Desktop_Manger
         }
         public static void SetCustomTheme()
         {
-            string data = File.ReadAllText(SaveFiles.Location() + SaveFiles.ThemeFile);
-            try{AppTheme.Background = Data.GetVariable("MainAppBackground", data); }catch (Exception) { }
-            try { AppTheme.Foreground = Data.GetVariable("MainAppForeground", data); } catch (Exception) { }
-            try {AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", data); }catch (Exception) { }
-            try{AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground",  data); }catch (Exception) { }
-            try{AppTheme.NavBarHover = Data.GetVariable("NavBarHover",  data); }catch (Exception) { }
-            try{AppTheme.NavBarActive = Data.GetVariable("NavBarActive",  data); }catch (Exception) { }
+            string ThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.MainThemeFile);
+            string HomePageThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.HomePageThemeFile);
+            try{AppTheme.Background = Data.GetVariable("MainAppBackground", ThemeFile); }catch (Exception) { }
+            try { AppTheme.Foreground = Data.GetVariable("MainAppForeground", ThemeFile); } catch (Exception) { }
+            try {AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", ThemeFile); }catch (Exception) { }
+            try{AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground",  ThemeFile); }catch (Exception) { }
+            try{AppTheme.NavBarHover = Data.GetVariable("NavBarHover",  ThemeFile); }catch (Exception) { }
+            try{AppTheme.NavBarActive = Data.GetVariable("NavBarActive",  ThemeFile); }catch (Exception) { }
+            try { AppTheme.HomePageShortCutsHover = Data.GetVariable("ItemHover", HomePageThemeFile); } catch (Exception) { }
+            try { AppTheme.HomePageShortCutFontColor = Data.GetVariable("HomePageFontColor", HomePageThemeFile); } catch (Exception) { }
         }
         public static void Check()
         {
