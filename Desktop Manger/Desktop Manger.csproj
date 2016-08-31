@@ -258,6 +258,10 @@
   <ItemGroup />
   <ItemGroup>
     <Resource Include="Resources\power button.png" />
+    <Resource Include="Resources\customize icon.png" />
+    <Resource Include="Resources\highper icon.png" />
+    <Resource Include="Resources\balance-icon.png" />
+    <Resource Include="Resources\powersaver.png" />
     <Content Include="Resources\Videos\p4fun_intro0.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

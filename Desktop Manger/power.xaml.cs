@@ -29,9 +29,10 @@ namespace Desktop_Manger
             InitializeComponent();
             GETplans();
             divdeplans();
-            CreateStackpanel();
+            SetTheme();
+
         }
-       
+
 
         private static void GETplans()
         {
@@ -70,27 +71,28 @@ namespace Desktop_Manger
                 process.WaitForExit();
             }
         }
-        private static void divdeplans()
+        private void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
-            for (int i = 0; i < lines.Count()-4; i++)
-            {
-                PowerPlan bed = new PowerPlan();
-                bed.Name = GetStrBetweenTags(lines[i+3], "(", ")");
-                bed.Id = GetStrBetweenTags(lines[i+3], "GUID: ", "  (");
-                CurrentPowerPlanes.Add(bed);
-                char xz;
-                xz = bed.Id[0];
-                MessageBox.Show("xz");
-
-            }
+            PowerPlan bed = new PowerPlan();
             
+                for (int i = 0; i < lines.Count() - 3; i++)
+                {
+                    
+                    bed.Name = GetStrBetweenTags(lines[i + 3], "(", ")");
+                    bed.Id = GetStrBetweenTags(lines[i + 3], "GUID: ", "  (");
+                    CurrentPowerPlanes.Add(bed);
+                    CreateStackpanel(i + 1);
+                    EdiT_Layout(i + 1, CurrentPowerPlanes[i].Name);
+                }
+            
+
         }
         public static string GetStrBetweenTags(string value,
                                        string startTag,
                                        string endTag)
         {
-            
+
             if (value.Contains(startTag) && value.Contains(endTag))
             {
                 int index = value.IndexOf(startTag) + startTag.Length;
@@ -99,24 +101,109 @@ namespace Desktop_Manger
             else
                 return null;
         }
-         private void CreateStackpanel(){
+
+        public StackPanel CreateStackpanel(int row)
+        {
             StackPanel ST = new StackPanel();
             Grid.SetColumn(ST, 1);
-            Grid.SetRow(ST, 1);
-            ST.Height = 100;
-            ST.Orientation = Orientation.Vertical;
-            ST.Margin= new Thickness(5, 10, 0, 0);
-            ST.Background = new SolidColorBrush(Colors.Red);
+            Grid.SetRow(ST, row + 1);
+            ST.Height = 50;
+            ST.Orientation = Orientation.Horizontal;
+            ST.Margin = new Thickness(5,0, 0, 0);
             ST.VerticalAlignment = VerticalAlignment.Top;
-            Grid1.Children.Add(ST);
-            TextBlock pbname = new TextBlock();
-            
-            ST.Children.Add(pbname);
-           
-
+            ST.MouseLeftButtonUp += new MouseButtonEventHandler(stackpanel_click);
+         
+            St1.Children.Add(ST);
+        
+            return ST;
         }
+        public TextBlock CreateTXTblock(string content)
+        {
+            TextBlock tb = new TextBlock();
+            tb.Text = content;
+            tb.FontSize = 18;
+            tb.Name = "tb1";
+            tb.Margin = new Thickness(10, 20, 0, 0);
+
+            return tb;
+        }
+        public Image DefaultImages(string name)
+        {
+            Image img = new Image();
+            img.MaxHeight = 50;
+            img.MaxWidth = 50;
+            img.HorizontalAlignment = HorizontalAlignment.Left;
+
+            if (name == "Balanced")
+
+                img.Source = new BitmapImage(new Uri(@"Resources\balance-icon.png", UriKind.RelativeOrAbsolute));
+
+            else if (name == "High performance")
+
+                img.Source = new BitmapImage(new Uri(@"Resources\highper icon.png", UriKind.RelativeOrAbsolute));
+
+
+            else if (name == "Power saver")
+                img.Source = new BitmapImage(new Uri(@"Resources\powersaver.png", UriKind.RelativeOrAbsolute));
+
+            else
+                img.Source = new BitmapImage(new Uri(@"Resources\power button.png", UriKind.RelativeOrAbsolute));
+
+            return img;
+        }
+        public void EdiT_Layout(int num, string content)
+        {
+            StackPanel stp = CreateStackpanel(num);
+            TextBlock tb = CreateTXTblock(content);
+            Image im = DefaultImages(content);
+            stp.Children.Add(im);
+            stp.Children.Add(tb);
+          
+        }
+        private void SetTheme()
+        {
+           
+            Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerBackground));
+            foreach (object obj1 in St1.Children)
+            {
+                if (obj1 is StackPanel)
+                {
+                    foreach (object obj2 in (obj1 as StackPanel).Children)
+                    {
+                        if (obj2 is TextBlock)
+                        {
+
+                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerTxtforeground));
+                        }
+                    }
+                }
+            }
+            foreach (object obj1 in Grid1.Children)
+            {
+                if (obj1 is StackPanel)
+                {
+                    foreach (object obj2 in (obj1 as StackPanel).Children)
+                    {
+                        if (obj2 is TextBlock)
+                        {
+
+                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerTxtforeground));
+                        }
+                    }
+                }
+            }
+        }
+        public void stackpanel_click(object sender, EventArgs e)
+        {
+           
+        }
+        
+       
+
+
+
     }
+}
     
 
  
-}

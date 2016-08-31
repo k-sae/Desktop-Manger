@@ -57,7 +57,7 @@ namespace Desktop_Manger
             Apps_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
             Power_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
             Power_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ForeGround));
-
+            
         }
         
         // Maximize Widno
