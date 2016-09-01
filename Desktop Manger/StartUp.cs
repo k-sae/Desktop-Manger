@@ -39,6 +39,7 @@ namespace Desktop_Manger
             AppTheme.HomePageShortCutFontColor = "#ffffffff";
             AppTheme.Background = "#000";
             AppTheme.Foreground = "#fff";
+            AppTheme.HomePageBackground = "Resources/Videos/p4fun_intro0.mp4";
         }
         public static void SetCustomTheme()
         {
@@ -52,6 +53,7 @@ namespace Desktop_Manger
             try{AppTheme.NavBarActive = Data.GetVariable("NavBarActive",  ThemeFile); }catch (Exception) { }
             try { AppTheme.HomePageShortCutsHover = Data.GetVariable("ItemHover", HomePageThemeFile); } catch (Exception) { }
             try { AppTheme.HomePageShortCutFontColor = Data.GetVariable("HomePageFontColor", HomePageThemeFile); } catch (Exception) { }
+            try { AppTheme.HomePageBackground = Data.GetVariable("HomePageBackground", HomePageThemeFile); } catch (Exception) { }
         }
         public static void Check()
         {

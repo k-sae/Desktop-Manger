@@ -17,4 +17,9 @@
         <Setter Property="FontWeight" Value="ExtraBold"/>
         <Setter Property="TextAlignment" Value="Center"/>
     </Style>
+    <Style TargetType="Button" x:Key="MyButton">
+        <Setter Property="Width" Value="100"/>
+        <Setter Property="Height" Value="25"/>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
 </ResourceDictionary>

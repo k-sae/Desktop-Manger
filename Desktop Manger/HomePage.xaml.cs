@@ -32,8 +32,8 @@ namespace Desktop_Manger
             canv1.Height = height;
             canv1.Width = width;
             HomePageLayout.ParentCanvas = canv1;
-            HomePageLayout.SetVideoAsBackground(@"Resources/Videos/p4fun_intro0.mp4");
-           AppsList = Data.LoadIcons(canv1);
+            HomePageLayout.SetBackground();
+            AppsList = Data.LoadIcons(canv1);
         }
 
         private void canv1_Drop(object sender, DragEventArgs e)
@@ -57,7 +57,7 @@ namespace Desktop_Manger
         {
             canv1.Focus();
         }
-
+        
        
     }
 }

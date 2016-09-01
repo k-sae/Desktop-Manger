@@ -48,6 +48,11 @@ namespace Desktop_Manger
                             (obj2 as TextBox).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(stp1.Background.ToString())));
                             (obj2 as TextBox).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
                         }
+                        else if(obj2 is Button)
+                        {
+                          (obj2 as Button).Background =  new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
+                          (obj2 as Button).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+                        }
                     }
                 }
                 if (obj1 is TextBlock)
@@ -76,17 +81,21 @@ namespace Desktop_Manger
             {
                 color.Text = "";
                 color.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString((sender as TextBox).Text));
-                ChangeColor((sender as TextBox).Name, (sender as TextBox).Text);
+                ChangeValue((sender as TextBox).Name, (sender as TextBox).Text);
             }
             //if not change its text tp "?"
             catch (Exception)
             {
-                color.Text = "?";
-                color.Background = Brushes.Transparent;
+                if (color != null)
+                {
+                    color.Text = "?";
+                    color.Background = Brushes.Transparent;
+                }
+               
             }
         }
         //irritate through the ThemeChanger Class to find the object that should be changed
-        private void ChangeColor(string Objectname, string Objectvalue)
+        private void ChangeValue(string Objectname, string Objectvalue)
         {
             foreach (ThemeChanger th in MyThemeChanger)
             {
@@ -103,16 +112,40 @@ namespace Desktop_Manger
             ItemHover_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.HomePageShortCutsHover));
             HomePageFontColor.Text = AppTheme.HomePageShortCutFontColor;
             HomePageFontColor_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.HomePageShortCutFontColor));
+            HomePageBackground.Text = AppTheme.HomePageBackground;
         }
         private void Initialize()
         {
-            MyThemeChanger.Add(new ThemeChanger(ItemHover.Name, AppTheme.NavBarBackground));
-            MyThemeChanger.Add(new ThemeChanger(HomePageFontColor.Name, AppTheme.NavBarForeground));
+            MyThemeChanger.Add(new ThemeChanger(ItemHover.Name, AppTheme.HomePageShortCutsHover));
+            MyThemeChanger.Add(new ThemeChanger(HomePageFontColor.Name, AppTheme.HomePageShortCutFontColor));
+            MyThemeChanger.Add(new ThemeChanger(HomePageBackground.Name, AppTheme.HomePageBackground));
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
             Data.SaveMainWindowTheme(MyThemeChanger,SaveFiles.HomePageThemeFile);
             StartUp.SetCustomTheme();
+        }
+
+        private void HomePageBackground_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            StackPanel stp = (StackPanel)(sender as Button).Parent;
+            dlg.DefaultExt = ".mp4";
+            dlg.Filter = "Video (*.Mp4, avi)|*.Mp4;*.avi|Image Files (*.jp*, *.png,...)|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff";
+            dlg.Multiselect = true;
+            bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                foreach(object obj in stp.Children)
+                {
+                    if (obj is TextBox)
+                    {
+                        (obj as TextBox).Text = dlg.FileName;
+                        ChangeValue((obj as TextBox).Name, dlg.FileName);
+                    }
+                }
+            }
         }
     }
 }

@@ -48,6 +48,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Background: " Foreground="White" Grid.Column="1"  Grid.Row="1"/>
                     <StackPanel Orientation="Horizontal" Background="Transparent" Grid.Row="1" Grid.Column="2">

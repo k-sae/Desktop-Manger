@@ -46,7 +46,7 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="25"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Effects Color: " Grid.Column="1"  Grid.Row="1"/>
                     <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="2">
@@ -58,6 +58,11 @@
                         <TextBox Name="HomePageFontColor" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
                         <TextBlock Name="HomePageFontColor_TBlock" Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>
+                    <TextBlock Text="Background: " Style="{StaticResource ProperyName_TBlock}" Grid.Row="3" Grid.Column="1"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="3" Grid.Column="2">
+                        <TextBox Name="HomePageBackground" Style="{StaticResource ProperyValue_TBox}" Width="500" />
+                        <Button Name="HomePageBackground_Btn" Style="{StaticResource MyButton}" Content="Browse" Height="Auto" Margin="5,0,0,0" Click="HomePageBackground_Btn_Click"/>
+                    </StackPanel>
                     
                 </Grid>
             </StackPanel>
@@ -67,6 +72,6 @@
         </Border>
         <Border BorderBrush="#bbb" Height="25" Margin="-2,0,0,0" BorderThickness="1,0,0,0" Grid.Row="1" Grid.Column="2" />
         <!--End of theme Settings-->
-        <Button Background="#FF001636" Foreground="#FF2298FF" Content="Save" Name="Save_Button" Margin="2" Width="100" Height="25" Grid.Row="3" Click="Save_Button_Click" Grid.Column="3"/>
+        <Button Name="Save_Button" Style="{StaticResource MyButton}" Content="Save" Click="Save_Button_Click" Grid.Column="3" Grid.Row="3"/>
     </Grid>
 </Page>

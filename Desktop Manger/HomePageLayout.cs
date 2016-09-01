@@ -27,7 +27,7 @@ namespace Desktop_Manger
             ((MediaElement)sender).Play();
         }
         //set Video As BackGround
-        public static void SetVideoAsBackground(string Location)
+        private static void SetVideoAsBackground(string Location)
         {
             Uri vLocation = new Uri(Location,UriKind.RelativeOrAbsolute);
             MediaElement player = new MediaElement();
@@ -39,7 +39,52 @@ namespace Desktop_Manger
             ParentCanvas.Children.Add(player);
             player.Play();
         }
-      
+        //TODO
+        //use try and catch to check the validation of url
+        private static void SetImageAsBackground(string location)
+        {
+            Image img = new Image();
+            img.Source = LayoutObjects.GetImageSource(location);
+            img.Width = ParentCanvas.Width;
+            img.Height = ParentCanvas.Height;
+            img.Stretch = Stretch.Fill;
+            ParentCanvas.Children.Add(img);
+
+        }
+        public static void SetBackground()
+        {
+            if (IsVideo(System.IO.Path.GetExtension(AppTheme.HomePageBackground)))
+            {
+                SetVideoAsBackground(AppTheme.HomePageBackground);
+            }
+            else if(IsImage(System.IO.Path.GetExtension(AppTheme.HomePageBackground)))
+            {
+                SetImageAsBackground(AppTheme.HomePageBackground);
+            }
+            else
+            {
+                SetImageAsBackground(AppTheme.HomePageBackground);
+                //set default for unknow extenstions
+            }
+        }
+        private static bool IsVideo(string extension)
+        {
+            string videoextenstions = ".mp4 .avi";
+            if (videoextenstions.ToUpper().Contains(extension.ToUpper()))
+            {
+                return true;
+            }
+            else return false;
+        }
+        private static bool IsImage(string extension)
+        {
+            string ImageExtenstions = "*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Video (*.Mp4, avi)|*.Mp4;*.avi";
+            if(ImageExtenstions.ToUpper().Contains(extension.ToUpper()))
+            {
+                return true;
+            }
+            else return false;
+        }
     }
 }
  

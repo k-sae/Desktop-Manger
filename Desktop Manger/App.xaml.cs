@@ -25,6 +25,7 @@ namespace Desktop_Manger
         public static string NavBarActive { get; set; }
         public static string HomePageShortCutsHover { get; set; }
         public static string HomePageShortCutFontColor { get; set; }
+        public static string HomePageBackground { get; set; }
         public static string GetAnotherColor(string color)
         {
             
