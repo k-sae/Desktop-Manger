@@ -29,13 +29,31 @@
             </ScrollViewer>
 
             <Image Source="Resources\power button.png"></Image>
-        <TextBlock Grid.Column="1" Name="tb" Grid.Row="1" VerticalAlignment="Bottom" FontSize="20"  FontWeight="SemiBold"  Margin="10,0,0,0" Foreground="White">Power Settings</TextBlock>
-        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" Height="50">
+        <TextBlock Grid.Column="1" Name="tb" Grid.Row="1" VerticalAlignment="Bottom" FontSize="20"  FontWeight="SemiBold"  Margin="10,0,0,0" >Power Mangement </TextBlock>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" Height="50" Margin="50,0,0,0">
             <Image Source="Resources\customize icon.png" MaxHeight="50" MaxWidth="50" HorizontalAlignment="Left"></Image>
             <TextBlock Margin="10,20,0,0" FontSize="18" VerticalAlignment="Center">customize</TextBlock>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="6">
-            
+            <TextBlock FontSize="20"  FontWeight="SemiBold"  Margin="10,0,0,0">Power</TextBlock>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
+                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
+                    <TextBlock>hibernate</TextBlock>
+                </StackPanel>
+                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
+                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
+                    <TextBlock>hibernate</TextBlock>
+                </StackPanel>
+                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
+                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
+                    <TextBlock>hibernate</TextBlock>
+                </StackPanel>
+                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
+                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
+                    <TextBlock>hibernate</TextBlock>
+                </StackPanel>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </Page>

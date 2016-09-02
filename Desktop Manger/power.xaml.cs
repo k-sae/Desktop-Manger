@@ -108,7 +108,7 @@ namespace Desktop_Manger
             Grid.SetRow(ST, row + 1);
             ST.Height = 50;
             ST.Orientation = Orientation.Horizontal;
-            ST.Margin = new Thickness(5,0, 0, 0);
+            ST.Margin = new Thickness(50,0, 0, 0);
             ST.VerticalAlignment = VerticalAlignment.Top;
             ST.MouseLeftButtonUp += new MouseButtonEventHandler(stackpanel_click);
          
@@ -122,7 +122,7 @@ namespace Desktop_Manger
             tb.Text = content;
             tb.FontSize = 18;
             tb.Name = "tb1";
-            tb.Margin = new Thickness(10, 20, 0, 0);
+            tb.Margin = new Thickness(20, 5, 0, 0);
 
             return tb;
         }
@@ -178,6 +178,10 @@ namespace Desktop_Manger
             }
             foreach (object obj1 in Grid1.Children)
             {
+                if(obj1 is TextBlock)
+                {
+                    (obj1 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerTxtforeground));
+                }
                 if (obj1 is StackPanel)
                 {
                     foreach (object obj2 in (obj1 as StackPanel).Children)
