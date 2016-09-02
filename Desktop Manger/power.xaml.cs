@@ -79,10 +79,10 @@ namespace Desktop_Manger
             for (int i = 0; i < lines.Count() - 3; i++)
             {
                 //Constractor
-                PowerPlan bed = new PowerPlan("Put here the parent Panel", GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
+                PowerPlan bed = new PowerPlan(Grid1, GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"),i+1,1);
                 CurrentPowerPlanes.Add(bed);
-                CreateStackpanel(i + 1);
-                EdiT_Layout(i + 1, CurrentPowerPlanes[i].Name);
+                //CreateStackpanel(i + 1);
+                //EdiT_Layout(i + 1, CurrentPowerPlanes[i].Name);
             }
             
 
