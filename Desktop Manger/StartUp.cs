@@ -12,71 +12,57 @@ namespace Desktop_Manger
         //check if the app opened for the first time
         public static bool IsFirstTime()
         {
-            if (!Directory.Exists(Location()))
+            if (Directory.Exists(SaveFiles.Location()))
             {
-                Directory.CreateDirectory(Location());
+                if (File.Exists(SaveFiles.Location() + SaveFiles.MainThemeFile))
+                {
+                    return false;
+                }
+                else return true;
+                
+            }
+            else
+            {
+                Directory.CreateDirectory(SaveFiles.Location());
                 return true;
             }
-            return true;
+            
         }
         //set defualt dark theme
         public static void DarkTheme()
         {
-            AppTheme.ForeGround = "#ffffffff";
-            AppTheme.NavBarBackGround = "#ff000000";
-            AppTheme.Hover = "#FFEC670A"; 
-            AppTheme.Active = "#FFFF6C18";
+            AppTheme.NavBarForeground = "#ffffffff";
+            AppTheme.NavBarBackground = "#ff000000";
+            AppTheme.NavBarHover = "#FFEC670A"; 
+            AppTheme.NavBarActive = "#FFFF6C18";
             AppTheme.HomePageShortCutsHover = "#3FFF8000";
             AppTheme.HomePageShortCutFontColor = "#ffffffff";
-            AppTheme.PowerBackground = "#000";
-            AppTheme.PowerTxtforeground = "#ffffffff";
-
-
-
+            AppTheme.Background = "#000";
+            AppTheme.Foreground = "#fff";
+            AppTheme.HomePageBackground = "Resources/Videos/p4fun_intro0.mp4";
         }
-        public static void LightTheme()
+        public static void SetCustomTheme()
         {
-            AppTheme.ForeGround = "#000";
-            AppTheme.NavBarBackGround = "#fff";
-            AppTheme.Hover = "#f00"; // "#FFEC670A"
-            AppTheme.Active = "#FFFF6C18";
+            string ThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.MainThemeFile);
+            string HomePageThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.HomePageThemeFile);
+            try{AppTheme.Background = Data.GetVariable("MainAppBackground", ThemeFile); }catch (Exception) { }
+            try { AppTheme.Foreground = Data.GetVariable("MainAppForeground", ThemeFile); } catch (Exception) { }
+            try {AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", ThemeFile); }catch (Exception) { }
+            try{AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground",  ThemeFile); }catch (Exception) { }
+            try{AppTheme.NavBarHover = Data.GetVariable("NavBarHover",  ThemeFile); }catch (Exception) { }
+            try{AppTheme.NavBarActive = Data.GetVariable("NavBarActive",  ThemeFile); }catch (Exception) { }
+            try { AppTheme.HomePageShortCutsHover = Data.GetVariable("ItemHover", HomePageThemeFile); } catch (Exception) { }
+            try { AppTheme.HomePageShortCutFontColor = Data.GetVariable("HomePageFontColor", HomePageThemeFile); } catch (Exception) { }
+            try { AppTheme.HomePageBackground = Data.GetVariable("HomePageBackground", HomePageThemeFile); } catch (Exception) { }
         }
         public static void Check()
         {
-            if (IsFirstTime())
+            DarkTheme();
+            if (!IsFirstTime())
             {
-                DarkTheme();
-
-            }
+                SetCustomTheme();
+            }  
         }
-        public static string Location()
-        {
-            string path = Path.GetPathRoot(Environment.SystemDirectory);
-            string userName = pickusername();
-            string URI = path + @"Users\" + userName + @"\Documents\Desktop Manger\";
-            return URI;
-        }
-        private static string pickusername()
-        {
-            string userName = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            userName = ReverseString(userName);
-            string temp = "";
-            foreach (char item in userName)
-            {
-                if (item == '\\')
-                {
-                    break;
-                }
-                temp += item;
-            }
-            userName = ReverseString(temp);
-            return userName;
-        }
-        private static string ReverseString(string mystring)
-        {
-            char[] arr = mystring.ToCharArray();
-            Array.Reverse(arr);
-            return new string(arr);
-        }
+       
     }
 }

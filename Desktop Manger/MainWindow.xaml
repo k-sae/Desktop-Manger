@@ -40,9 +40,13 @@
                         <TextBlock Name="Power_Icon" FontSize="50" HorizontalAlignment="Center" Padding="0,20,0,0" FontFamily="Segoe MDL2 Assets" Text="&#xE858;" />
                         <TextBlock Name="Power_Text"  Text="power" HorizontalAlignment="Center" FontSize="20" Padding="10"  VerticalAlignment="Top"/>
                     </StackPanel>
+                    <StackPanel  Name="Settings_stp" Orientation="Vertical" MouseLeave="NaveItemsDefault" MouseEnter="NaveItemsHover" MouseLeftButtonUp="Settings_stp_MouseLeftButtonUp">
+                        <TextBlock Name="Settings_Icon" FontSize="50" HorizontalAlignment="Center" Padding="0,20,0,0" FontFamily="Segoe MDL2 Assets" Text="&#xE713;" />
+                        <TextBlock Name="Settings_Text"  Text="Settings" HorizontalAlignment="Center" FontSize="20" Padding="10"  VerticalAlignment="Top"/>
+                    </StackPanel>
                 </StackPanel>
             </Border>
-            <Rectangle Name="Extender" Fill="Green" HorizontalAlignment="Left" Width="40" Height="40" 
+            <Rectangle Name="Extender" Fill="Transparent" HorizontalAlignment="Left" Width="60" Height="60" 
                     VerticalAlignment="Top"/>
         </StackPanel>
     </Grid>
