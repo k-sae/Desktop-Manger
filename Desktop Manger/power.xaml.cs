@@ -22,7 +22,7 @@ namespace Desktop_Manger
     /// </summary>
     public partial class power : Page
     {
-        public static string loc = StartUp.Location() + "file.txt";
+        public static string loc = SaveFiles.Location() + "file.txt";
         private static List<PowerPlan> CurrentPowerPlanes = new List<PowerPlan>();
         public power()
         {
@@ -162,7 +162,7 @@ namespace Desktop_Manger
         private void SetTheme()
         {
            
-            Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerBackground));
+            Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
             foreach (object obj1 in St1.Children)
             {
                 if (obj1 is StackPanel)
@@ -171,7 +171,7 @@ namespace Desktop_Manger
                     {
                         if (obj2 is TextBlock)
                         {
-                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerTxtforeground));
+                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
                         }
                     }
                 }
@@ -189,7 +189,7 @@ namespace Desktop_Manger
                         if (obj2 is TextBlock)
                         {
 
-                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.PowerTxtforeground));
+                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
                         }
                     }
                 }
