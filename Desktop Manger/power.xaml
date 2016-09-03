@@ -9,51 +9,23 @@
       Title="power">
    
         <Grid Margin="100,0,0,0" Name="Grid1">
-      
-            <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition Height="2*"></RowDefinition>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.5*"></ColumnDefinition>
-            <ColumnDefinition Width="4*"></ColumnDefinition>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"  Grid.Row="2" Grid.Column="1" Grid.RowSpan="3"  Height="Auto"  Name="myscroll">
-            <StackPanel Name="St1"></StackPanel>
-            </ScrollViewer>
-
-            <Image Source="Resources\power button.png"></Image>
-        <TextBlock Grid.Column="1" Name="tb" Grid.Row="1" VerticalAlignment="Bottom" FontSize="20"  FontWeight="SemiBold"  Margin="10,0,0,0" >Power Mangement </TextBlock>
-        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" Height="50" Margin="50,0,0,0">
-            <Image Source="Resources\customize icon.png" MaxHeight="50" MaxWidth="50" HorizontalAlignment="Left"></Image>
-            <TextBlock Margin="10,20,0,0" FontSize="18" VerticalAlignment="Center">customize</TextBlock>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Image Source="Resources\power button.png"></Image>
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Center">Power Mangement</TextBlock>
+        <StackPanel Name="St1">
+            
         </StackPanel>
-        <StackPanel Grid.Column="1" Grid.Row="6">
-            <TextBlock FontSize="20"  FontWeight="SemiBold"  Margin="10,0,0,0">Power</TextBlock>
-            <StackPanel Orientation="Vertical">
-                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
-                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
-                    <TextBlock>hibernate</TextBlock>
-                </StackPanel>
-                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
-                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
-                    <TextBlock>hibernate</TextBlock>
-                </StackPanel>
-                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
-                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
-                    <TextBlock>hibernate</TextBlock>
-                </StackPanel>
-                <StackPanel Margin="30,10,0,0" Orientation="Horizontal">
-                    <Image Source="C:\Users\mosta\Desktop\orange-hibernate-512.ico" Height="20" Width="20" HorizontalAlignment="Left"></Image>
-                    <TextBlock>hibernate</TextBlock>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
+   
     </Grid>
 </Page>

@@ -20,18 +20,20 @@ namespace Desktop_Manger
             this.Id = Id;
             this.Name = Name;
             StackPanel stp = CreateStackPanel();
-            Grid.SetRow(stp, Row);
-            (Parent as Grid).Children.Add(stp);
+          (Parent as StackPanel).Children.Add(stp);
+
             //Here create stackpanel 
             // create the textblock 
-            //create the image 
+
         }
         private StackPanel CreateStackPanel()
         {
             //create stp
             StackPanel stp = new StackPanel();
-            stp.Height = 200;
-            stp.Width = 200;
+            stp.Height = 60;
+            stp.Width = 120;
+            stp.Margin = new Thickness(5,10, 5, 0);
+            stp.VerticalAlignment = VerticalAlignment.Top;
             stp.MouseEnter += Stp_MouseEnter;
             stp.Background = Brushes.Red;
             stp.MouseLeftButtonUp += Stp_MouseLeftButtonUp;
