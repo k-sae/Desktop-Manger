@@ -20,7 +20,7 @@ namespace Desktop_Manger
     /// </summary>
     public partial class HomePage_Settings : Page
     {
-        public  List<ThemeChanger> MyThemeChanger = new List<ThemeChanger>();
+        public  List<SettingsHolder> MySettingsHolder = new List<SettingsHolder>();
         public HomePage_Settings()
         {
             InitializeComponent();
@@ -37,6 +37,7 @@ namespace Desktop_Manger
             ThemeSettings_Tb.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Foreground)));
             Save_Button.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
             Save_Button.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+            //Irritate through the the parent Holder and set the proper theme to the children
             foreach (object obj1 in Grid2.Children)
             {
                 if (obj1 is StackPanel)
@@ -81,7 +82,6 @@ namespace Desktop_Manger
             {
                 color.Text = "";
                 color.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString((sender as TextBox).Text));
-                ChangeValue((sender as TextBox).Name, (sender as TextBox).Text);
             }
             //if not change its text tp "?"
             catch (Exception)
@@ -97,7 +97,7 @@ namespace Desktop_Manger
         //irritate through the ThemeChanger Class to find the object that should be changed
         private void ChangeValue(string Objectname, string Objectvalue)
         {
-            foreach (ThemeChanger th in MyThemeChanger)
+            foreach (SettingsHolder th in MySettingsHolder)
             {
                 if (th.Name == Objectname)
                 {
@@ -113,16 +113,19 @@ namespace Desktop_Manger
             HomePageFontColor.Text = AppTheme.HomePageShortCutFontColor;
             HomePageFontColor_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.HomePageShortCutFontColor));
             HomePageBackground.Text = AppTheme.HomePageBackground;
+            IsMuted.IsChecked = bool.Parse(AppTheme.HomePageVideoSound);
         }
         private void Initialize()
         {
-            MyThemeChanger.Add(new ThemeChanger(ItemHover.Name, AppTheme.HomePageShortCutsHover));
-            MyThemeChanger.Add(new ThemeChanger(HomePageFontColor.Name, AppTheme.HomePageShortCutFontColor));
-            MyThemeChanger.Add(new ThemeChanger(HomePageBackground.Name, AppTheme.HomePageBackground));
+            MySettingsHolder.Add(new SettingsHolder(ItemHover.Name, AppTheme.HomePageShortCutsHover));
+            MySettingsHolder.Add(new SettingsHolder(HomePageFontColor.Name, AppTheme.HomePageShortCutFontColor));
+            MySettingsHolder.Add(new SettingsHolder(HomePageBackground.Name, AppTheme.HomePageBackground));
+            MySettingsHolder.Add(new SettingsHolder(IsMuted.Name, AppTheme.HomePageVideoSound));
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {
-            Data.SaveMainWindowTheme(MyThemeChanger,SaveFiles.HomePageThemeFile);
+            Crawl();
+            Data.SaveMainWindowTheme(MySettingsHolder,SaveFiles.HomePageThemeFile);
             StartUp.SetCustomTheme();
         }
 
@@ -147,5 +150,27 @@ namespace Desktop_Manger
                 }
             }
         }
+        //crawl through objects in the parent in order to save the last changes
+        private void Crawl()
+        {
+            foreach(object obj1 in Grid2.Children)
+            {
+                if (obj1 is StackPanel)
+                {
+                    foreach (object obj2 in (obj1 as StackPanel).Children)
+                    {
+                        if (obj2 is TextBox)
+                        {
+                            ChangeValue((obj2 as TextBox).Name, (obj2 as TextBox).Text);
+                        }
+                        else if (obj2 is CheckBox)
+                        {
+                            ChangeValue((obj2 as CheckBox).Name, (obj2 as CheckBox).IsChecked.ToString());
+                        }
+                    }
+                }
+            }
+        }
+        //Thats All folks
     }
 }

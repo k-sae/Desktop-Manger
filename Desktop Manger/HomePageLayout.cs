@@ -33,6 +33,7 @@ namespace Desktop_Manger
             MediaElement player = new MediaElement();
             player.Source = vLocation;
             player.MediaEnded += BackGroundPlayer_MediaEnded;
+            player.IsMuted = bool.Parse(AppTheme.HomePageVideoSound);
             player.Width = ParentCanvas.Width;
             player.Height = ParentCanvas.Height;
             player.LoadedBehavior = MediaState.Manual;

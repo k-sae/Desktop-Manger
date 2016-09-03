@@ -116,11 +116,11 @@ namespace Desktop_Manger
             Data.SaveIcons(AppsList);
             return AppsList;
         }
-        public static void SaveMainWindowTheme(List<ThemeChanger> data, string FileName)
+        public static void SaveMainWindowTheme(List<SettingsHolder> data, string FileName)
         {
             string[] Variable = new string[data.Count()];
             int i = 0;
-            foreach (ThemeChanger item in data)
+            foreach (SettingsHolder item in data)
             {
                 Variable[i] = item.Name + "=\"" + item.Value + "\"";
                 i++; 

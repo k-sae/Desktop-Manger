@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Desktop_Manger
 {
-    public partial class ThemeChanger
+    public partial class SettingsHolder
     {
         public string Name { get; set; }
         public object Value { get; set; }
-        public ThemeChanger(string ObjectName, object originalcolor)
+        public SettingsHolder(string ObjectName, object originalcolor)
         {
             Name = ObjectName;
             Value = originalcolor;
