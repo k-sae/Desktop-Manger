@@ -10,21 +10,29 @@
    
         <Grid Margin="100,0,0,0" Name="Grid1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"></RowDefinition>
-            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition ></RowDefinition>
             <RowDefinition></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="Resources\power button.png"></Image>
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Center">Power Mangement</TextBlock>
-        <StackPanel Name="St1">
-            
+        <StackPanel Name="St1" Grid.Row="2" Grid.Column="1">
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+                <StackPanel Background="Red" Height="50"/>
+            </Grid>
         </StackPanel>
    
     </Grid>
