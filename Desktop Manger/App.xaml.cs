@@ -17,11 +17,37 @@ namespace Desktop_Manger
     //set app theme
     public static class AppTheme
     {
-        public static string NavBarBackGround { get; set; }
-        public static string ForeGround { get; set; }
-        public static string Hover { get; set; }
-        public static string Active { get; set; }
+        public static string Foreground { get; set; }
+        public static string Background { get; set; }
+        public static string NavBarBackground { get; set; }
+        public static string NavBarForeground { get; set; }
+        public static string NavBarHover { get; set; }
+        public static string NavBarActive { get; set; }
         public static string HomePageShortCutsHover { get; set; }
         public static string HomePageShortCutFontColor { get; set; }
+        public static string HomePageBackground { get; set; }
+        public static string HomePageVideoSound { get; set; }
+        public static string GetAnotherColor(string color)
+        {
+            
+            color = color.ToUpper();
+            string temp = "#";
+            for (int i = 1; i < color.Length; i++)
+            {
+                if (color[i] != 'F' && color[i] != '9')
+                {
+                    temp += (char)((int)color[i] + 1);
+                }
+                else if (color[i] == '9')
+                {
+                    temp += 'A';
+                }
+                else
+                {
+                    temp += color[i];
+                }
+            }
+            return temp;
+        }
     }
 }

@@ -31,11 +31,9 @@ namespace Desktop_Manger
             PageWidth = width;
             canv1.Height = height;
             canv1.Width = width;
-            HomePageLayout layout = new HomePageLayout();
-            layout.ParentCanvas = canv1;
-            layout.onStart(canv1);
-            layout.SetVideoAsBackground(@"Resources/Videos/p4fun_intro0.mp4");
-           AppsList = Data.Load(canv1);
+            HomePageLayout.ParentCanvas = canv1;
+            HomePageLayout.SetBackground();
+            AppsList = Data.LoadIcons(canv1);
         }
 
         private void canv1_Drop(object sender, DragEventArgs e)
@@ -50,7 +48,7 @@ namespace Desktop_Manger
                 canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
                 AppsList.Add(app);
-                Data.save(AppsList);
+                Data.SaveIcons(AppsList);
             }
         }
       
@@ -59,7 +57,7 @@ namespace Desktop_Manger
         {
             canv1.Focus();
         }
-
+        
        
     }
 }
