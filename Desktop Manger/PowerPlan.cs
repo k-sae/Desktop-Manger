@@ -30,16 +30,23 @@ namespace Desktop_Manger
         {
             //create stp
             StackPanel stp = new StackPanel();
-            stp.Height = 60;
-            stp.Width = 120;
+            stp.Height = 100;
             stp.Margin = new Thickness(5,10, 5, 0);
             stp.VerticalAlignment = VerticalAlignment.Top;
             stp.MouseEnter += Stp_MouseEnter;
             stp.Background = Brushes.Red;
             stp.MouseLeftButtonUp += Stp_MouseLeftButtonUp;
+           
+            
             return stp;
         }
 
+        private TextBlock CreateTxtBlock()
+        {
+            TextBlock Txt = new TextBlock();
+            Txt.Text = Name;
+            return Txt;
+        }
         private void Stp_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             

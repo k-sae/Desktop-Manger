@@ -79,12 +79,11 @@ namespace Desktop_Manger
             for (int i = 0; i < lines.Count() - 3; i++)
             {
                 //Constractor
-                PowerPlan bed = new PowerPlan(St1, GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"),i+1,1);
+                PowerPlan bed = new PowerPlan(St1, GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"), i + 1, 1);
                 CurrentPowerPlanes.Add(bed);
-                //CreateStackpanel(i + 1);
-                //EdiT_Layout(i + 1, CurrentPowerPlanes[i].Name);
+
             }
-            
+
 
         }
         public static string GetStrBetweenTags(string value,
@@ -100,110 +99,21 @@ namespace Desktop_Manger
             else
                 return null;
         }
-
-        public StackPanel CreateStackpanel(int row)
-        {
-            StackPanel ST = new StackPanel();
-            Grid.SetColumn(ST, 1);
-            Grid.SetRow(ST, row + 1);
-            ST.Height = 50;
-            ST.Orientation = Orientation.Horizontal;
-            ST.Margin = new Thickness(50,0, 0, 0);
-            ST.VerticalAlignment = VerticalAlignment.Top;
-            ST.MouseLeftButtonUp += new MouseButtonEventHandler(stackpanel_click);
-         
-            St1.Children.Add(ST);
-        
-            return ST;
-        }
-        public TextBlock CreateTXTblock(string content)
-        {
-            TextBlock tb = new TextBlock();
-            tb.Text = content;
-            tb.FontSize = 18;
-            tb.Name = "tb1";
-            tb.Margin = new Thickness(20, 5, 0, 0);
-
-            return tb;
-        }
-        public Image DefaultImages(string name)
-        {
-            Image img = new Image();
-            img.MaxHeight = 50;
-            img.MaxWidth = 50;
-            img.HorizontalAlignment = HorizontalAlignment.Left;
-
-            if (name == "Balanced")
-
-                img.Source = new BitmapImage(new Uri(@"Resources\balance-icon.png", UriKind.RelativeOrAbsolute));
-
-            else if (name == "High performance")
-
-                img.Source = new BitmapImage(new Uri(@"Resources\highper icon.png", UriKind.RelativeOrAbsolute));
-
-
-            else if (name == "Power saver")
-                img.Source = new BitmapImage(new Uri(@"Resources\powersaver.png", UriKind.RelativeOrAbsolute));
-
-            else
-                img.Source = new BitmapImage(new Uri(@"Resources\power button.png", UriKind.RelativeOrAbsolute));
-
-            return img;
-        }
-        public void EdiT_Layout(int num, string content)
-        {
-            StackPanel stp = CreateStackpanel(num);
-            TextBlock tb = CreateTXTblock(content);
-            Image im = DefaultImages(content);
-            stp.Children.Add(im);
-            stp.Children.Add(tb);
-          
-        }
         private void SetTheme()
         {
-           
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
+            St.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(Grid1.Background.ToString())));
+            St_text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+            St_text1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
             foreach (object obj1 in St1.Children)
             {
-                if (obj1 is StackPanel)
+                if(obj1 is StackPanel)
                 {
-                    foreach (object obj2 in (obj1 as StackPanel).Children)
-                    {
-                        if (obj2 is TextBlock)
-                        {
-                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
-                        }
-                    }
+                    (obj1 as StackPanel).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
                 }
             }
-            foreach (object obj1 in Grid1.Children)
-            {
-                if(obj1 is TextBlock)
-                {
-                    (obj1 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
-                }
-                if (obj1 is StackPanel)
-                {
-                    foreach (object obj2 in (obj1 as StackPanel).Children)
-                    {
-                        if (obj2 is TextBlock)
-                        {
 
-                            (obj2 as TextBlock).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
-                        }
-                    }
-                }
-            }
         }
-        public void stackpanel_click(object sender, EventArgs e)
-        {
-            
-        }
-        
-       
-
-
-
     }
 }
     

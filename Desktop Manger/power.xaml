@@ -7,33 +7,38 @@
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1300"
       Title="power">
-   
-        <Grid Margin="100,0,0,0" Name="Grid1">
+
+    <Grid Name="Grid1" Background="#111">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"></RowDefinition>
-            <RowDefinition ></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="50" ></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="Resources\power button.png"></Image>
-        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="18" VerticalAlignment="Center">Power Mangement</TextBlock>
-        <StackPanel Name="St1" Grid.Row="2" Grid.Column="1">
-            <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-                <ColumnDefinition></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-                <StackPanel Background="Red" Height="50"/>
-            </Grid>
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Name="St_text1">Power Mangement</TextBlock>
+        <StackPanel Grid.Column="1" Grid.Row="2" >
+            <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
+                <StackPanel Width="100" Name="St" Height="30">
+                    <TextBlock HorizontalAlignment="Center" FontSize="16" Name="St_text">Power plans</TextBlock>
+                </StackPanel>
+               
+            </StackPanel>
+            <Border BorderThickness="1" BorderBrush="#bbb" CornerRadius="2">
+                <StackPanel Name="St1">
+                   
+                </StackPanel>
+            </Border>
         </StackPanel>
+          
+          
    
     </Grid>
 </Page>
