@@ -7,14 +7,15 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1366"
       Title="Apps">
-    <Grid Name="Grid1" Background="Black">
+    <Grid Name="Grid1" Background="Yellow">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
+            <!--<RowDefinition Height="2*"/>-->
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Button Grid.Column="1" Click="Button_Click"/>
     </Grid>
 </Page>

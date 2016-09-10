@@ -20,18 +20,24 @@ namespace Desktop_Manger
     /// </summary>
     public partial class Apps : Page
     {
-        Tile tl = null;
+        TileLayout tl = null;
         int index = 0;
         public Apps()
         {
             InitializeComponent();
             // Tile ti = new Tile();
-            printwidth();
+            TileLayout ti = new TileLayout();
+            ti.Background = Brushes.Blue;
+            Grid1.Children.Add(ti);
+            tl = ti;
+            changesize(500,5000);
+            
+            changesize(1366, 10000);
         }
-        private async void printwidth()
+        private async void changesize(double size, int time)
         {
-          await  MainWindow.sleep(1);
-            MessageBox.Show(Grid1.ActualWidth.ToString());
+            await MainWindow.sleep(time);
+            Grid1.Width = size;
         }
         private void SetTheme()
         {
@@ -41,20 +47,18 @@ namespace Desktop_Manger
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             StackPanel stp = new StackPanel();
-            stp.Margin = new Thickness(5);
             stp.Background = Brushes.Red;
             TextBlock tb = new TextBlock();
             tb.Text = index.ToString();
             tb.TextAlignment = TextAlignment.Center;
             index++;
             stp.Children.Add(tb);
-            stp.Height = 50;
             tl.Add(stp);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-           tl.Remove((Panel)tl.Children[0]);
+           
         }
     }
 }
