@@ -92,7 +92,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Animator.cs" />
     <Compile Include="AppInfo.cs" />
     <Compile Include="Apps.xaml.cs">
       <DependentUpon>Apps.xaml</DependentUpon>

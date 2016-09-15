@@ -31,6 +31,8 @@ namespace Desktop_Manger
             ti.Background = Brushes.Blue;
             Grid1.Children.Add(ti);
             tl = ti;
+            tl.AllowDrop = true;
+            
         }
      
         private void SetTheme()
