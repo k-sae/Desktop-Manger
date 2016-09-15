@@ -92,6 +92,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Animator.cs" />
     <Compile Include="AppInfo.cs" />
     <Compile Include="Apps.xaml.cs">
       <DependentUpon>Apps.xaml</DependentUpon>
@@ -114,12 +115,8 @@
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="StartUp.cs" />
-
-    <Compile Include="Tile.cs" />
     <Compile Include="TileLayout.cs" />
-
     <Compile Include="SettingsHolder.cs" />
-
     <Page Include="Apps.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

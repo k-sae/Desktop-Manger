@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TileLayout;
 
 namespace Desktop_Manger
 {
@@ -20,25 +21,18 @@ namespace Desktop_Manger
     /// </summary>
     public partial class Apps : Page
     {
-        TileLayout tl = null;
+        Tile tl = null;
         int index = 0;
         public Apps()
         {
             InitializeComponent();
             // Tile ti = new Tile();
-            TileLayout ti = new TileLayout();
+            Tile ti = new Tile();
             ti.Background = Brushes.Blue;
             Grid1.Children.Add(ti);
             tl = ti;
-            changesize(500,5000);
-            
-            changesize(1366, 10000);
         }
-        private async void changesize(double size, int time)
-        {
-            await MainWindow.sleep(time);
-            Grid1.Width = size;
-        }
+     
         private void SetTheme()
         {
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
