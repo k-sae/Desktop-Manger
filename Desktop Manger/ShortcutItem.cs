@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace Desktop_Manger
 {
-    class WindowShortcut
+    class ShortcutItem : Canvas
     {
+        public ShortcutItem()
+        {
+            
+        }
     }
 }

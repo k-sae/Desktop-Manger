@@ -113,7 +113,7 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="WidnowShortcut.cs" />
+    <Compile Include="ShortcutItem.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="TileLayout.cs" />
     <Compile Include="SettingsHolder.cs" />
