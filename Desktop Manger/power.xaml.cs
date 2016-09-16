@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
 
+
 namespace Desktop_Manger
 {
     /// <summary>
@@ -104,6 +105,7 @@ namespace Desktop_Manger
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
             St.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(Grid1.Background.ToString())));
             St_text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+            power_txt.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
             St_text1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
             foreach (object obj1 in St1.Children)
             {
@@ -114,8 +116,42 @@ namespace Desktop_Manger
             }
 
         }
+
+        private void StackPanel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            (sender as StackPanel).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
+        }
+        private void StackPanel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            (sender as StackPanel).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString((AppTheme.Background)));
+        }
+
+        private void Shutdown_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            var process = new Process { StartInfo = startInfo };
+            process.Start();
+            process.StandardInput.WriteLine(@"shutdown /s /f /t 600");
+            process.StandardInput.WriteLine("exit");
+            process.WaitForExit();
+
+        }
+       
+
+        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+         
+        }
     }
-}
+    }
+
     
 
  
