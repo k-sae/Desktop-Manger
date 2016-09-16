@@ -40,21 +40,30 @@ namespace Desktop_Manger
             AppTheme.Background = "#000";
             AppTheme.Foreground = "#fff";
             AppTheme.HomePageBackground = "Resources/Videos/p4fun_intro0.mp4";
+            AppTheme.HomePageVideoSound = "true";
         }
         public static void SetCustomTheme()
         {
-            string ThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.MainThemeFile);
-            string HomePageThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.HomePageThemeFile);
-            try{AppTheme.Background = Data.GetVariable("MainAppBackground", ThemeFile); }catch (Exception) { }
-            try { AppTheme.Foreground = Data.GetVariable("MainAppForeground", ThemeFile); } catch (Exception) { }
-            try {AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", ThemeFile); }catch (Exception) { }
-            try{AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground",  ThemeFile); }catch (Exception) { }
-            try{AppTheme.NavBarHover = Data.GetVariable("NavBarHover",  ThemeFile); }catch (Exception) { }
-            try{AppTheme.NavBarActive = Data.GetVariable("NavBarActive",  ThemeFile); }catch (Exception) { }
-            try { AppTheme.HomePageShortCutsHover = Data.GetVariable("ItemHover", HomePageThemeFile); } catch (Exception) { }
-            try { AppTheme.HomePageShortCutFontColor = Data.GetVariable("HomePageFontColor", HomePageThemeFile); } catch (Exception) { }
-            try { AppTheme.HomePageBackground = Data.GetVariable("HomePageBackground", HomePageThemeFile); } catch (Exception) { }
-            try { AppTheme.HomePageVideoSound = Data.GetVariable("IsMuted", HomePageThemeFile); } catch (Exception) { }
+            if(File.Exists((SaveFiles.Location() + SaveFiles.MainThemeFile)))
+            {
+                string ThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.MainThemeFile);
+               
+                try { AppTheme.Background = Data.GetVariable("MainAppBackground", ThemeFile); } catch (Exception) { }
+                try { AppTheme.Foreground = Data.GetVariable("MainAppForeground", ThemeFile); } catch (Exception) { }
+                try { AppTheme.NavBarBackground = Data.GetVariable("NavBarBackground", ThemeFile); } catch (Exception) { }
+                try { AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground", ThemeFile); } catch (Exception) { }
+                try { AppTheme.NavBarHover = Data.GetVariable("NavBarHover", ThemeFile); } catch (Exception) { }
+                try { AppTheme.NavBarActive = Data.GetVariable("NavBarActive", ThemeFile); } catch (Exception) { }
+            }
+            if(File.Exists(SaveFiles.Location() + SaveFiles.HomePageThemeFile))
+            {
+                string HomePageThemeFile = File.ReadAllText(SaveFiles.Location() + SaveFiles.HomePageThemeFile);
+                try { AppTheme.HomePageShortCutsHover = Data.GetVariable("ItemHover", HomePageThemeFile); } catch (Exception) { }
+                try { AppTheme.HomePageShortCutFontColor = Data.GetVariable("HomePageFontColor", HomePageThemeFile); } catch (Exception) { }
+                try { AppTheme.HomePageBackground = Data.GetVariable("HomePageBackground", HomePageThemeFile); } catch (Exception) { }
+                try { AppTheme.HomePageVideoSound = Data.GetVariable("IsMuted", HomePageThemeFile); } catch (Exception) { }
+            }
+            
         }
         public static void Check()
         {
