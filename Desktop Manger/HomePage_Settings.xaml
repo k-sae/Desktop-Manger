@@ -63,7 +63,11 @@
                         <TextBox Name="HomePageBackground" Style="{StaticResource ProperyValue_TBox}" Width="500" />
                         <Button Name="HomePageBackground_Btn" Style="{StaticResource MyButton}" Content="Browse" Height="Auto" Margin="5,0,0,0" Click="HomePageBackground_Btn_Click"/>
                     </StackPanel>
-                    
+                    <TextBlock Text="Mute: " Style="{StaticResource ProperyName_TBlock}" Grid.Row="4" Grid.Column="1"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="4" Grid.Column="2">
+                        <CheckBox Name="IsMuted" Margin="20,0" IsChecked="True"/>
+                    </StackPanel>
+
                 </Grid>
             </StackPanel>
         </Border>

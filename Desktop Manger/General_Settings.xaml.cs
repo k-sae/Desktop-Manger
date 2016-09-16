@@ -28,7 +28,7 @@ namespace Desktop_Manger
     public partial class General_Settings : Page
     {
         private Settings SettingsPage { get; set; }
-        public List<ThemeChanger> MyThemeChanger = new List<ThemeChanger>();
+        public List<SettingsHolder> MyThemeChanger = new List<SettingsHolder>();
         //get the parent settings page as parameters to endable editing its theme after pressing the save button
         public General_Settings(Settings Page)
         {
@@ -112,7 +112,7 @@ namespace Desktop_Manger
         //irritate through the ThemeChanger Class to find the object that should be changed
         private void ChangeColor(string Objectname, string Objectvalue)
         {
-            foreach(ThemeChanger th in MyThemeChanger)
+            foreach(SettingsHolder th in MyThemeChanger)
             {
                 if (th.Name == Objectname)
                 {
@@ -123,12 +123,12 @@ namespace Desktop_Manger
         //Initiallize the mytheme changer class with string name and and color
         private void Initiallize()
         {
-            MyThemeChanger.Add(new ThemeChanger(NavBarBackground.Name, AppTheme.NavBarBackground));
-            MyThemeChanger.Add(new ThemeChanger(NavBarForeground.Name, AppTheme.NavBarForeground));
-            MyThemeChanger.Add(new ThemeChanger(NavBarHover.Name, AppTheme.NavBarHover));
-            MyThemeChanger.Add(new ThemeChanger(NavBarActive.Name, AppTheme.NavBarActive));
-            MyThemeChanger.Add(new ThemeChanger(MainAppBackground.Name, AppTheme.Background));
-            MyThemeChanger.Add(new ThemeChanger(MainAppForeground.Name, AppTheme.Foreground));
+            MyThemeChanger.Add(new SettingsHolder(NavBarBackground.Name, AppTheme.NavBarBackground));
+            MyThemeChanger.Add(new SettingsHolder(NavBarForeground.Name, AppTheme.NavBarForeground));
+            MyThemeChanger.Add(new SettingsHolder(NavBarHover.Name, AppTheme.NavBarHover));
+            MyThemeChanger.Add(new SettingsHolder(NavBarActive.Name, AppTheme.NavBarActive));
+            MyThemeChanger.Add(new SettingsHolder(MainAppBackground.Name, AppTheme.Background));
+            MyThemeChanger.Add(new SettingsHolder(MainAppForeground.Name, AppTheme.Foreground));
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {

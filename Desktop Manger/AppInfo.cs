@@ -298,6 +298,7 @@ namespace Desktop_Manger
         }
         private async void CreateParamerers_Removestp(StackPanel stp)
         {
+			//defined this so data is saved before closing the stp
             await MainWindow.sleep(100);
             ParentCanvas.Children.Remove(stp);
         }

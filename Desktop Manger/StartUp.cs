@@ -54,6 +54,7 @@ namespace Desktop_Manger
             try { AppTheme.HomePageShortCutsHover = Data.GetVariable("ItemHover", HomePageThemeFile); } catch (Exception) { }
             try { AppTheme.HomePageShortCutFontColor = Data.GetVariable("HomePageFontColor", HomePageThemeFile); } catch (Exception) { }
             try { AppTheme.HomePageBackground = Data.GetVariable("HomePageBackground", HomePageThemeFile); } catch (Exception) { }
+            try { AppTheme.HomePageVideoSound = Data.GetVariable("IsMuted", HomePageThemeFile); } catch (Exception) { }
         }
         public static void Check()
         {

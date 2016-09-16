@@ -42,7 +42,7 @@
             <StackPanel Orientation="Horizontal" Height="40" Margin="20,20,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Shutdown_MouseLeftButtonUp">
                 <Image Height="30" Width="50"  Source="Resources\3498db-shutdown-512.ico"></Image>
                 <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">shutdown in</TextBlock>
-                <TextBox Height="20" Width="20"  KeyDown="textBox1_KeyPress">00</TextBox>
+                <TextBox Height="20" Width="20">00</TextBox>
                 <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave">

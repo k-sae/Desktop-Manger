@@ -78,6 +78,7 @@ namespace Desktop_Manger
         {
             //did it two times so if the first one failed
             await MaximizeWindow(this);
+            await sleep(500);
             await MaximizeWindow(this);
         }
         //make the app maximized at the center of the screen
@@ -169,7 +170,7 @@ namespace Desktop_Manger
         {
             RemoveSelection();
             SelectStP(sender);
-            Apps page1 = new Apps();
+            Shortcuts page1 = new Shortcuts();
             mainframe.Navigate(page1);
         }
         

@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 namespace Desktop_Manger
 {
     /// <summary>
+
     /// Interaction logic for power.xaml
     /// </summary>
     public partial class Settings : Page
