@@ -47,7 +47,11 @@ namespace Desktop_Manger
                 AppInfo.autoCorrectLocation(app);
                 canv1.Children.Add(app);
                 app.ParentCanvas = canv1;
-                AppsList.Add(app);
+                if (!app.IsThereisErrors)
+                {
+                    AppsList.Add(app);
+                }
+               
             }
             Data.SaveIcons(AppsList);
         }

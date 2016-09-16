@@ -1,10 +1,12 @@
-﻿using System;
+﻿using IWshRuntimeLibrary;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -34,6 +36,41 @@ namespace Desktop_Manger
             var converter = new ImageSourceConverter();
 
             return (ImageSource)converter.ConvertFromString(Location); ;
+        }
+        //get the original exe file Location instead of the shortcut
+        public static string GetOriginalFileURL(string Location)
+        {
+            if (System.IO.File.Exists(Location))
+            {
+                // WshShellClass shell = new WshShellClass();
+                WshShell shell = new WshShell();
+                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(Location);
+
+                return link.TargetPath;
+            }
+            else return "";
+        }
+        //Create TextBlock
+        public static TextBlock CreateTextBlock(string text)
+        {
+
+            TextBlock tb = new TextBlock();
+            if (text.Length > 31)
+            {
+                text = text.Substring(0, 31) + "... " + text[text.Length - 4] + text[text.Length - 3] + text[text.Length - 2] + text[text.Length - 1];
+            }
+            tb.Text = text;
+            tb.FontSize = 12;
+            tb.Background = System.Windows.Media.Brushes.Transparent;
+            tb.Foreground = new SolidColorBrush((System.Windows.Media.Color)
+                System.Windows.Media.ColorConverter.ConvertFromString
+                (AppTheme.HomePageShortCutFontColor));
+            tb.TextAlignment = TextAlignment.Center;
+            tb.VerticalAlignment = VerticalAlignment.Center;
+            tb.TextWrapping = TextWrapping.Wrap;
+            tb.Margin = new Thickness(2, 2, 2, 5);
+            return tb;
+
         }
 
     }

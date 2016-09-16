@@ -47,6 +47,7 @@ namespace Desktop_Manger
                     app.Parameters = GetVariable("Parameters", line);
                     Parent.Children.Add(app);
                     app.ParentCanvas = Parent;
+                    if(!app.IsThereisErrors)
                     AppsList.Add(app);
                 }
             }
@@ -54,6 +55,7 @@ namespace Desktop_Manger
             {
                 AppsList = Initialize(AppsList, Parent);
             }
+            SaveIcons(AppsList);
             return AppsList;
         }
 

@@ -17,11 +17,11 @@ namespace Desktop_Manger
 {
 
     // to do: 
-    //       add the close button 
-    //       add close on lost focus function
+    //       1-add run as admin to Context menue
     public class AppInfo : Canvas
 
     {
+        public bool IsThereisErrors = false;
         public Canvas ParentCanvas { get; set; }
         public  System.Windows.Controls.Image ShortcutIcon { get; set; }
         public TextBlock FileName { get; set; }
@@ -50,34 +50,54 @@ namespace Desktop_Manger
         public AppInfo(string file, string IconSource = "Default") : this()
         {
             //To get the original exe file instead of shortcut
-            ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? GetOriginalFileURL(file) : file;
-            CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
-            
+            ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(file) : file;
+            Debug.WriteLine(ShortCutLocation);
+            FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
 
             //Check if a directory
-            if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
+            try
             {
-                CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
-            }
-            else
-            {
-                //check If Icon is new created or loaded 
-                file = IconSource == "Default" ? file : IconSource; //if loaded the Icon will Be change
-                IconSourceLocation = GetExtensionIconUrl(file);
-
-                if (!Object.ReferenceEquals(IconSourceLocation, null))
+                if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
                 {
-                    IconSourceLocation = IconSourceLocation != "" ? IconSourceLocation : file;
-                    CreateIconFromImage(IconSourceLocation != "" ? IconSourceLocation : file);
+                    CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
                 }
                 else
                 {
-                    IconSourceLocation = file;
-                    CreateIconFromexe(file);
+                    //check If Icon is new created or loaded 
+                    file = IconSource == "Default" ? file : IconSource; //if loaded the Icon will Be change
+                    IconSourceLocation = GetExtensionIconUrl(file);
+
+                    if (!Object.ReferenceEquals(IconSourceLocation, null))
+                    {
+                        IconSourceLocation = IconSourceLocation != "" ? IconSourceLocation : file;
+                        CreateIconFromImage(IconSourceLocation != "" ? IconSourceLocation : file);
+                    }
+                    else
+                    {
+                        IconSourceLocation = ShortCutLocation;
+                        CreateIconFromexe(ShortCutLocation);
+                    }
                 }
+
+                AddElements();
             }
+            catch(FileNotFoundException)
+            {
+                MessageBox.Show("A file is missing\nCan't find " + file);
+                IsThereisErrors = true;
+            }
+            catch(DirectoryNotFoundException)
+            {
+                MessageBox.Show("Directory is missing\n Cant find " + file);
+                IsThereisErrors = true;
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("error happened while adding " + file + "/n deleted shortcut from DM\nerror: " + e.ToString());
+                IsThereisErrors = true;
+            }
+           
             
-            AddElements();
             return;
 
         }
@@ -96,19 +116,7 @@ namespace Desktop_Manger
             Extensions.Add(new Extension(".html", "pack://application:,,,/Resources/Html_Icon.png"));
         }
 
-        //get the original exe file Location instead of the shortcut
-        private string GetOriginalFileURL(string Location)
-        {
-            if (System.IO.File.Exists(Location))
-            {
-                // WshShellClass shell = new WshShellClass();
-                WshShell shell = new WshShell(); 
-                IWshShortcut link = (IWshShortcut)shell.CreateShortcut(Location);
-
-                return link.TargetPath;
-            }
-            else return "";
-        }
+        
         private string GetExtensionIconUrl(string fileExt)
         {
             string extension = System.IO.Path.GetExtension(fileExt);
@@ -154,27 +162,7 @@ namespace Desktop_Manger
             ShortcutIcon = img;
         }
         
-        public void CreateTextBlock(string text)
-        {
-           
-            TextBlock tb = new TextBlock();
-            if (text.Length > 31)
-            {
-                text = text.Substring(0, 31) + "... " + text[text.Length - 4] + text[text.Length - 3] + text[text.Length - 2] + text[text.Length - 1];
-            }
-            tb.Text = text;
-            tb.FontSize = 12;
-            tb.Background = System.Windows.Media.Brushes.Transparent;
-            tb.Foreground = new SolidColorBrush((System.Windows.Media.Color)
-                System.Windows.Media.ColorConverter.ConvertFromString
-                (AppTheme.HomePageShortCutFontColor));
-            tb.TextAlignment = TextAlignment.Center;
-            tb.VerticalAlignment = VerticalAlignment.Center;
-            tb.TextWrapping = TextWrapping.Wrap;
-            tb.Margin = new Thickness(2,2,2,5);
-            FileName = tb;
-
-        }
+        
         public void AddElements()
         {
             StackPanel stp = CreateStackPanel();
@@ -421,7 +409,6 @@ namespace Desktop_Manger
             }
             Canvas mycanvas = (Canvas)mystp.Parent;
             //Remove it from the List as well as from the parent Canvas
-            Debug.WriteLine(ParentCanvas.Children.IndexOf(mycanvas));
             HomePage.AppsList.Remove((AppInfo)mycanvas);
             ParentCanvas.Children.Remove(mycanvas);
             Data.SaveIcons(HomePage.AppsList);
@@ -501,13 +488,32 @@ namespace Desktop_Manger
         {
             try
             {
-                Process.Start(ShortCutLocation, Parameters);
+                if (Path.GetExtension(ShortCutLocation).ToUpper() == ".EXE" || Path.GetExtension(ShortCutLocation).ToUpper() == ".BAT")
+                {
+
+
+                    ProcessStartInfo info = new ProcessStartInfo();
+                    info.UseShellExecute = false;
+                    info.Arguments = Parameters;
+                    info.FileName = ShortCutLocation;
+                    info.WorkingDirectory = Path.GetDirectoryName(ShortCutLocation);
+                    Process.Start(info);
+                }
+                else
+                {
+                    Process.Start(ShortCutLocation);
+                }
             }
             catch(System.IO.FileNotFoundException)
             {
                 MessageBox.Show("File Not Found");
             }
-            catch(Exception ex)
+            catch (System.ComponentModel.Win32Exception e)
+            {
+                
+                MessageBox.Show(e.Message);
+            }
+            catch (Exception ex)
             {
                 MessageBox.Show("error " + ex.ToString());
             }
