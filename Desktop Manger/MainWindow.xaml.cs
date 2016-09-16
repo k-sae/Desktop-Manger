@@ -170,7 +170,7 @@ namespace Desktop_Manger
         {
             RemoveSelection();
             SelectStP(sender);
-            Apps page1 = new Apps();
+            Shortcuts page1 = new Shortcuts();
             mainframe.Navigate(page1);
         }
         

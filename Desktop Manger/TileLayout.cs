@@ -24,7 +24,7 @@ namespace TileLayout
         double Childheight = 100;
         double MarginLeft = 5;
         double MarginTop = 5;
-        public bool AnimateChildren = false;
+        public bool AllowAnimation = false;
         public double AnimationSpeed = 4;
         //Constructor
         public Tile()
@@ -60,7 +60,7 @@ namespace TileLayout
             await sleep(100);
             for (int i = index; i < Children.Count - 1; i++)
             {
-                if (AnimateChildren)
+                if (AllowAnimation)
                 {
                     while (Animator.Worker.IsBusy)
                     {
@@ -75,7 +75,7 @@ namespace TileLayout
         }
         private void ChangeChildLocation(FrameworkElement Child, Location location)
         {
-            if (AnimateChildren)
+            if (AllowAnimation)
             {
                 Animator animator = new Animator();
                 animator.AnimationSpeed = AnimationSpeed;

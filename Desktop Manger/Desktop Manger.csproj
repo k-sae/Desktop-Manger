@@ -93,8 +93,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
-    <Compile Include="Apps.xaml.cs">
-      <DependentUpon>Apps.xaml</DependentUpon>
+    <Compile Include="Shortcuts.xaml.cs">
+      <DependentUpon>Shortcuts.xaml</DependentUpon>
     </Compile>
     <Compile Include="data.cs" />
     <Compile Include="Extension.cs" />
@@ -113,10 +113,11 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="WidnowShortcut.cs" />
     <Compile Include="StartUp.cs" />
     <Compile Include="TileLayout.cs" />
     <Compile Include="SettingsHolder.cs" />
-    <Page Include="Apps.xaml">
+    <Page Include="Shortcuts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

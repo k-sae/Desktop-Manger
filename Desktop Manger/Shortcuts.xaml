@@ -1,4 +1,4 @@
-﻿<Page x:Class="Desktop_Manger.Apps"
+﻿<Page x:Class="Desktop_Manger.Shortcuts"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,15 +7,14 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1366"
       Title="Apps">
-    <Grid Name="Grid1" Background="Yellow">
+    <Grid Name="Grid1" Background="Black">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="20"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <!--<RowDefinition Height="2*"/>-->
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <Button Grid.Column="1" Click="Button_Click"/>
     </Grid>
 </Page>
