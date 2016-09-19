@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
+
 
 
 namespace Desktop_Manger
@@ -109,7 +111,7 @@ namespace Desktop_Manger
             St_text1.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
             foreach (object obj1 in St1.Children)
             {
-                if(obj1 is StackPanel)
+                if (obj1 is StackPanel)
                 {
                     (obj1 as StackPanel).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
                 }
@@ -128,6 +130,8 @@ namespace Desktop_Manger
 
         private void Shutdown_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+
+            int x = Int32.Parse(SD_TextBox.Text);
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -138,19 +142,64 @@ namespace Desktop_Manger
 
             var process = new Process { StartInfo = startInfo };
             process.Start();
-            process.StandardInput.WriteLine(@"shutdown /s /f /t 600");
+            process.StandardInput.WriteLine(@"shutdown /s /f /t " + x * 60);
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
 
         }
-       
 
-        private void TextBox_KeyDown(object sender, KeyEventArgs e)
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-         
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void Restart_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int x = Int32.Parse(Re_TextBox.Text);
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            var process = new Process { StartInfo = startInfo };
+            process.Start();
+            process.StandardInput.WriteLine(@"shutdown /r /f /t " + x * 60);
+            process.StandardInput.WriteLine("exit");
+            process.WaitForExit();
+        }
+
+        private async void Sleep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int x = Int32.Parse(Sl_TextBox.Text) * 60000;
+            await (MainWindow.sleep(x));
+
+        }
+
+        private  async void Hibernate_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            int x = Int32.Parse(Sl_TextBox.Text) * 60000;
+            await(MainWindow.sleep(x));
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            var process = new Process { StartInfo = startInfo };
+            process.Start();
+            process.StandardInput.WriteLine(@"shutdown /h /f");
+            process.StandardInput.WriteLine("exit");
+            process.WaitForExit();
         }
     }
-    }
+}
 
     
 
