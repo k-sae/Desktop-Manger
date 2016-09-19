@@ -42,6 +42,7 @@ namespace Desktop_Manger
         private Tile CreateTile(int row, int col)
         {
             Tile ti = new Tile();
+            ti.ChildMinWidth = 200;
             ti.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
             ti.Margin = new Thickness(5);
             Grid.SetRow(ti, row);
@@ -57,7 +58,8 @@ namespace Desktop_Manger
             string[] Files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach(string File in Files)
             {
-                StackPanel canv = new StackPanel();
+                //Dont Forget to Check for errors
+                ShortcutItem canv = new ShortcutItem(File);
                 canv.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((sender as Tile).Background.ToString())));
                 (sender as Tile).Add(canv);
             }

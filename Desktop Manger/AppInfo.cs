@@ -18,18 +18,11 @@ namespace Desktop_Manger
 
     // to do: 
     //       1-add run as admin to Context menue
-    public class AppInfo : Canvas
+    public class AppInfo : DMShortcutItem
 
     {
-        public bool IsThereisErrors = false;
-        public Canvas ParentCanvas { get; set; }
-        public  System.Windows.Controls.Image ShortcutIcon { get; set; }
-        public TextBlock FileName { get; set; }
-        public string ShortCutLocation { get; set; }
-        public string IconSourceLocation { get; set; }
         private Stopwatch stp = new Stopwatch();
         private static List<Extension> Extensions = null;
-        public string Parameters = "";
         //Constructor
         public AppInfo()
         {
@@ -51,7 +44,6 @@ namespace Desktop_Manger
         {
             //To get the original exe file instead of shortcut
             ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(file) : file;
-            Debug.WriteLine(ShortCutLocation);
             FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
 
             //Check if a directory
@@ -93,7 +85,7 @@ namespace Desktop_Manger
             }
             catch(Exception e)
             {
-                MessageBox.Show("error happened while adding " + file + "/n deleted shortcut from DM\nerror: " + e.ToString());
+                MessageBox.Show("error happened while adding " + file + "/n deleted shortcut from DM\nerror: " + e.Message);
                 IsThereisErrors = true;
             }
            
@@ -155,12 +147,7 @@ namespace Desktop_Manger
             ShortcutIcon = img;
             
         }
-        public void CreateIconFromImage(string Location)
-        {
-            System.Windows.Controls.Image img = LayoutObjects.CreateImage();
-            img.Source = LayoutObjects.GetImageSource(Location);
-            ShortcutIcon = img;
-        }
+       
         
         
         public void AddElements()
@@ -196,10 +183,12 @@ namespace Desktop_Manger
             MenuItem Rename = new MenuItem();
             Rename.Header = "Rename";
             Rename.Click += Rename_Click;
+            //Add Change Icon to ContextMenue
             MenuItem ChangeIcon = new MenuItem();
             ChangeIcon.Header = "Change Icon";
             ChangeIcon.Click += ChangeIcon_Click;
             MenuItem EditParameters = new MenuItem();
+            //Add EditParameters to ContextMenue
             EditParameters.Header = "Edit Parameters";
             EditParameters.Click += EditParameters_Click;
             mnu.Items.Add(OpenWith);
@@ -293,7 +282,7 @@ namespace Desktop_Manger
         private void CreateParameters_SaveButton_LeftButtonUp(object sender, TextBox mytb)
         {
             Parameters = mytb.Text;
-            Debug.WriteLine(Parameters);
+            Data.SaveIcons(HomePage.AppsList);
         }
         private void ChangeIcon_Click(object sender, RoutedEventArgs e)
         {
@@ -350,9 +339,9 @@ namespace Desktop_Manger
                 mystp = MyContextMenu.PlacementTarget as StackPanel;
             }
             TextBox mytb = CreateRenameTextBox();
-            FileName.Visibility = Visibility.Collapsed;
-            mytb.Focus();
+            FileName.Visibility = Visibility.Collapsed;           
             mystp.Children.Add(mytb);
+            mytb.Focus();
         }
         //change the class of this later
         private TextBox CreateRenameTextBox()
@@ -483,43 +472,6 @@ namespace Desktop_Manger
             }
 
         }
-
-        private void StartProccess()
-        {
-            try
-            {
-                if (Path.GetExtension(ShortCutLocation).ToUpper() == ".EXE" || Path.GetExtension(ShortCutLocation).ToUpper() == ".BAT")
-                {
-
-
-                    ProcessStartInfo info = new ProcessStartInfo();
-                    info.UseShellExecute = false;
-                    info.Arguments = Parameters;
-                    info.FileName = ShortCutLocation;
-                    info.WorkingDirectory = Path.GetDirectoryName(ShortCutLocation);
-                    Process.Start(info);
-                }
-                else
-                {
-                    Process.Start(ShortCutLocation);
-                }
-            }
-            catch(System.IO.FileNotFoundException)
-            {
-                MessageBox.Show("File Not Found");
-            }
-            catch (System.ComponentModel.Win32Exception e)
-            {
-                
-                MessageBox.Show(e.Message);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("error " + ex.ToString());
-            }
-           
-        }
-
-        //save the changes made by User to Local drive
+        //That's All Folks
     }
 }

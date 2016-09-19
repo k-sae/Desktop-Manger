@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Desktop_Manger
 {
@@ -72,6 +73,15 @@ namespace Desktop_Manger
             return tb;
 
         }
-
+        public static Ellipse CreateEllipse()
+        {
+            Ellipse ellipse = new Ellipse();
+            ellipse.Height = 20;
+            ellipse.Width = 20;
+            ellipse.Fill = new SolidColorBrush((System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#70ffffff"));
+            Canvas.SetTop(ellipse, ellipse.Height * -1);
+            Panel.SetZIndex(ellipse, 10);
+            return ellipse;
+        }
     }
 }

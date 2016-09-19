@@ -19,6 +19,8 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for HomePage.xaml
     /// </summary>
+    /// Update 2
+    ///         1-The ADD Function should passed to the drag over event instead of ondrop fun
     public partial class HomePage : Page
     {
         double PageHeight, PageWidth;

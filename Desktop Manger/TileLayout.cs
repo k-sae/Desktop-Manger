@@ -14,16 +14,15 @@ namespace TileLayout
 {
     //TODO
     //1-upgrade the remove fun
-    //2- Try the Animation Class
-    //3- if Animation Class failed Try to make My Own Animation Class
+    
     class Tile : Canvas
     {
         int ColNo = 0;
-        double ChildMinWidth = 200;
+        public double ChildMinWidth = 200;
         double ChildWidth = 300;
-        double Childheight = 100;
-        double MarginLeft = 5;
-        double MarginTop = 5;
+        public double Childheight = 100;
+        public double MarginLeft = 5;
+        public  double MarginTop = 5;
         public bool AllowAnimation = false;
         public double AnimationSpeed = 4;
         //Constructor

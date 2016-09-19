@@ -93,6 +93,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
+    <Compile Include="DMShortcutItem.cs" />
     <Compile Include="Shortcuts.xaml.cs">
       <DependentUpon>Shortcuts.xaml</DependentUpon>
     </Compile>
