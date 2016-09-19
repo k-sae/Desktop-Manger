@@ -23,9 +23,9 @@ namespace Desktop_Manger
     ///     1-In TileLyout I have to Extend Its Height According to the summ of its Children Height
     public partial class Shortcuts : Page
     {
-        Tile Tile1 = null;
-        Tile Tile2 = null;
-        Tile Tile3 = null;
+       static Tile Tile1 = null;
+       static Tile Tile2 = null;
+       static Tile Tile3 = null;
         public Shortcuts()
         {
             InitializeComponent();
@@ -50,6 +50,7 @@ namespace Desktop_Manger
             ti.AllowAnimation = true;
             ti.AllowDrop = true;
             ti.Drop += Tile_Drop;
+            ti.AnimationSpeed = 5;
             return ti;
         }
 
@@ -70,7 +71,11 @@ namespace Desktop_Manger
         {
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
         }
-
+        public static void RemoveChild(ShortcutItem item)
+        {
+            Tile parent = (item.Parent as Tile);
+            parent.Remove(item);
+        }
      
     }
 }

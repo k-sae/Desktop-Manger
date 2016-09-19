@@ -21,7 +21,7 @@ using System.Windows.Shapes;
 //          1-enable the drag of elements from tile to another tile
 namespace Desktop_Manger
 {
-    class ShortcutItem : DMShortcutItem
+    public class ShortcutItem : DMShortcutItem
     {
         bool AnimationInProgress = false;
         Grid EditParametersButton = null;
@@ -37,6 +37,7 @@ namespace Desktop_Manger
             //this will hold the events and the visual elements
             Grid Grid2 = new Grid();
             TheEventsHolder = Grid2;
+            TheEventsHolder.Background = Brushes.Transparent;
             TheItemHolder = Grid1;
             TheItemHolder.Children.Add(TheEventsHolder);
             TheEventsHolder.MouseLeftButtonUp += TheEventsHolder_MouseLeftButtonUp;
@@ -202,7 +203,8 @@ namespace Desktop_Manger
 
         private void DelButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Delete!!");
+            Shortcuts.RemoveChild(this);
+            
         }
 
         private void ShortcutItem_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -237,25 +239,25 @@ namespace Desktop_Manger
             DoubleAnimation an = new DoubleAnimation();
             an.From = GetTop(DeleteButton);
             an.To = DeleteButton.Height;
-            an.Duration = new Duration(TimeSpan.FromMilliseconds(300));
+            an.Duration = new Duration(TimeSpan.FromMilliseconds(200));
             DeleteButton.BeginAnimation(TopProperty,an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(100);
+            await MainWindow.sleep(80);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(100);
+            await MainWindow.sleep(80);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(100);
+            await MainWindow.sleep(80);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             //<<<<<<<
             //>>>>>>From Middle To (zero) Top
             an.From = GetTop(DeleteButton);
-            an.To = 5;
-            an.Duration = new Duration(TimeSpan.FromMilliseconds(200));
+            an.To = 2;
+            an.Duration = new Duration(TimeSpan.FromMilliseconds(100));
             DeleteButton.BeginAnimation(TopProperty,an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(100);
+            await MainWindow.sleep(80);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(100);
+            await MainWindow.sleep(80);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(100);
+            await MainWindow.sleep(80);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             //<<<<<<<<<
             AnimationInProgress = false;

@@ -141,6 +141,12 @@ namespace TileLayout
             Children.RemoveAt(index);
             ChangeChildrenLocation(index - 1);
         }
+        public void Remove(FrameworkElement Child)
+        {
+            int index = Children.IndexOf(Child);
+            Children.Remove(Child);
+            ChangeChildrenLocation(index - 1);
+        }
         private Location GetLocation(int Index)
         {
             Location location = new Location();
