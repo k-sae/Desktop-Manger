@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
@@ -82,6 +83,23 @@ namespace Desktop_Manger
             Canvas.SetTop(ellipse, ellipse.Height * -1);
             Panel.SetZIndex(ellipse, 10);
             return ellipse;
+        }
+        public static void MakeTextBoxEditable(TextBox textbox)
+        {
+            textbox.Cursor = Cursors.IBeam;
+            textbox.Background = System.Windows.Media.Brushes.White;
+            textbox.BorderThickness = new Thickness(1);
+            textbox.IsReadOnly = false;
+            textbox.Focusable = true;
+            textbox.Focus();
+        }
+        public static void SealTextBox(TextBox textbox)
+        {
+            textbox.Background = System.Windows.Media.Brushes.Transparent;
+            textbox.BorderThickness = new Thickness(0);
+            textbox.Cursor = Cursors.Hand;
+            textbox.IsReadOnly = true;
+            textbox.Focusable = false;
         }
     }
 }

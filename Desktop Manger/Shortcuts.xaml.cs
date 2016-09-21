@@ -30,9 +30,9 @@ namespace Desktop_Manger
         {
             InitializeComponent();
             SetTheme();
-            Tile1 = CreateTile(0, 0);
-            Tile2 = CreateTile(0, 1);
-            Tile3 = CreateTile(1, 0);
+            Tile1 = CreateTile(1, 0);
+            Tile2 = CreateTile(1, 1);
+            Tile3 = CreateTile(3, 0);
             Grid.SetColumnSpan(Tile3, 2);
             Grid1.Children.Add(Tile1);
             Grid1.Children.Add(Tile2);
@@ -77,12 +77,27 @@ namespace Desktop_Manger
         private void SetTheme()
         {
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
+            foreach(object child in Grid1.Children)
+            {
+                if (child is TextBox)
+                {
+                    (child as TextBox).Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+                }
+            }
         }
         public static void RemoveChild(ShortcutItem item)
         {
             Tile parent = (item.Parent as Tile);
             parent.Remove(item);
         }
-     
+        private void Groups_tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            LayoutObjects.MakeTextBoxEditable(sender as TextBox);
+        }
+
+        private void Groups_tb_LostFocus(object sender, RoutedEventArgs e)
+        {
+            LayoutObjects.SealTextBox(sender as TextBox);
+        }
     }
 }

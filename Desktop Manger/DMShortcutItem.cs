@@ -114,11 +114,7 @@ namespace Desktop_Manger
 
         private void TextBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            FileName_beta.Background = Brushes.Transparent;
-            FileName_beta.BorderThickness = new Thickness(0);
-            FileName_beta.Cursor = Cursors.Hand;
-            FileName_beta.IsReadOnly = true;
-            FileName_beta.Focusable = false;
+            LayoutObjects.SealTextBox(sender as TextBox);
         }
     }
 }

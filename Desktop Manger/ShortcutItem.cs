@@ -24,7 +24,9 @@ namespace Desktop_Manger
     public class ShortcutItem : DMShortcutItem
     {
         bool AnimationInProgress = false;
-        Grid EditParametersButton = null;
+        /* Temporary remove the edit parameters button
+        Grid EditParametersButton = null; 
+        */
         Grid EditTextButton = null;
         Grid EditBackgroundButton = null;
         Grid DeleteButton = null;
@@ -154,10 +156,12 @@ namespace Desktop_Manger
             canv.Children.Add(EditTextButton_g);
             //<<<<<<<<<<
             //>>>>>>>>>>EditParameters
+            /* EditParameters
             Grid EditParametersButton_g = CreateRoundButton("\xE78B", 4);
             EditParametersButton_g.MouseLeftButtonUp += EditParametersButton_g_MouseLeftButtonUp;
             EditParametersButton = EditParametersButton_g;
             canv.Children.Add(EditParametersButton);
+            */
             //<<<<<<<<<<
             TheEventsHolder.Children.Add(FileName_beta);
         }
@@ -200,12 +204,7 @@ namespace Desktop_Manger
         }
         private void EditTextButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            FileName_beta.Cursor = Cursors.IBeam;
-            FileName_beta.Background = Brushes.White;
-            FileName_beta.BorderThickness = new Thickness(1);
-            FileName_beta.IsReadOnly = false;
-            FileName_beta.Focusable = true;
-            FileName_beta.Focus();
+            LayoutObjects.MakeTextBoxEditable(FileName_beta);
 
         }
         private void EditBackgroundButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -251,7 +250,9 @@ namespace Desktop_Manger
             SetLeft(DeleteButton, e.NewSize.Width - DeleteButton.Width - 2);
             SetLeft(EditBackgroundButton, e.NewSize.Width - (EditBackgroundButton.Width) * 2 - 2 * 2);
             SetLeft(EditTextButton, e.NewSize.Width - (EditTextButton.Width) * 3 - 2 * 3);
+            /* EditParameters
             SetLeft(EditParametersButton, e.NewSize.Width - (EditParametersButton.Width) * 4 - 2 * 4);
+            */
         }
         private void TheEventsHolder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
@@ -276,26 +277,30 @@ namespace Desktop_Manger
             DoubleAnimation an = new DoubleAnimation();
             an.From = GetTop(DeleteButton);
             an.To = DeleteButton.Height;
-            an.Duration = new Duration(TimeSpan.FromMilliseconds(200));
+            an.Duration = new Duration(TimeSpan.FromMilliseconds(150));
             DeleteButton.BeginAnimation(TopProperty,an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(66);
+            await MainWindow.sleep(75);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(66);
+            await MainWindow.sleep(75);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
+            /* EditParameters
             await MainWindow.sleep(66);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
+            */
             //<<<<<<<
             //>>>>>>From Middle To (zero) Top
             an.From = GetTop(DeleteButton);
             an.To = 2;
             an.Duration = new Duration(TimeSpan.FromMilliseconds(100));
             DeleteButton.BeginAnimation(TopProperty,an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(66);
+            await MainWindow.sleep(75);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(66);
+            await MainWindow.sleep(75);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
+            /*
             await MainWindow.sleep(66);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
+            */
             //<<<<<<<<<
             AnimationInProgress = false;
         }
@@ -308,14 +313,16 @@ namespace Desktop_Manger
             DoubleAnimation an = new DoubleAnimation();
             an.From = GetTop(DeleteButton);
             an.To = DeleteButton.Height * -1;
-            an.Duration = new Duration(TimeSpan.FromMilliseconds(300));
+            an.Duration = new Duration(TimeSpan.FromMilliseconds(200));
             DeleteButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             await MainWindow.sleep(100);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             await MainWindow.sleep(100);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
+            /* EditParameters
             await MainWindow.sleep(100);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
+            */
         }
     }
 }

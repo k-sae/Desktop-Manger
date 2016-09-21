@@ -7,14 +7,29 @@
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1366"
       Title="Apps">
+    <Page.Resources>
+        <Style TargetType="TextBox" x:Key="Group_tb_styles">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Arrow"/>
+            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Margin" Value="10,15,5,5"/>
+            <Setter Property="Focusable" Value="False"/>
+        </Style>
+    </Page.Resources>
     <Grid Name="Grid1" Background="Black">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="4*"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
+        <TextBox Text="Click To Edit Group Name" Name="Group1_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" />
+        <TextBox Text="Click To Edit Group Name" Name="Group2_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" Grid.Column="1" />
+        <TextBox Text="Click To Edit Group Name" Name="Group3_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" Grid.Row="2" />
     </Grid>
 </Page>
