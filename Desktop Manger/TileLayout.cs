@@ -73,12 +73,18 @@ namespace TileLayout
                 //      1-Check if the Child exists # some times the child is deleted in other thread 
                 try
                 {
-                    ChangeChildLocation(Children[i + 1] as FrameworkElement, location);
+                    if (i + 1 >= Children.Count)
+                    {
+                        return;
+                    }
+                    FrameworkElement element = (Children[i + 1] as FrameworkElement);
+                    ChangeChildLocation(element, location);
                 }
                 catch (Exception)
                 {
+                    return;
                 }
-               
+                
             }
         }
         private void ChangeChildLocation(FrameworkElement Child, Location location)
@@ -159,11 +165,11 @@ namespace TileLayout
         private Location GetLocation(int Index)
         {
             Location location = new Location();
-            if (Index >= 0 && FindColNo() > 0)
+            if (Index >= 0 && FindColNo() > 0 && Index < Children.Count)
             {
-                UIElement element = Children[Index];
-                location.Left = Canvas.GetLeft(element) + ChildWidth;
-                location.Top = Canvas.GetTop(element);
+                 UIElement element = Children[Index];
+                 location.Left = Canvas.GetLeft(element) + ChildWidth;
+                 location.Top = Canvas.GetTop(element);
                 if ((Index + 1) % FindColNo() == 0)
                 {
                     location.Left = MarginLeft;

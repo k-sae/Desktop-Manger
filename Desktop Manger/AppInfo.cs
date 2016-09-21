@@ -297,7 +297,7 @@ namespace Desktop_Manger
 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.DefaultExt = ".jpg";
-            dlg.Filter = "Image Files (*.jp*, *.png,...)|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Icon (*.ico)|*.Ico|Excutable file (*.exe) |*.exe|BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
+            dlg.Filter = SupportedIconExtensions;
             bool? result = dlg.ShowDialog();
             if (result == true)
             {

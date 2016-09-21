@@ -12,7 +12,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 //TODO NextProject
-// After Creatin the Logic tree builder Create A logic tree builder file
+// After Creating the Logic tree builder Create A logic tree builder file
 //    Logic Tree:  
 //                  ItemShortcut ------> Grid ItemHolder |---> Grid EventsHolder--> Image + TB
 //                                                       |---> Canvas -->  Grid |--> ellipse
@@ -58,7 +58,8 @@ namespace Desktop_Manger
         public ShortcutItem(string file, string IconSource = "Default") : this()
         {
             ShortCutLocation = System.IO.Path.GetExtension(file).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(file) : file;
-            FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
+            // FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
+            FileName_beta = CreateTextBox(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
             LoadGeneralDesign();
             //Check if a directory
             try
@@ -103,7 +104,6 @@ namespace Desktop_Manger
             ShortcutIcon.Stretch = Stretch.Fill;
             ShortcutIcon.Width = 50;
             ShortcutIcon.Height = 50;
-            //TheEventsHolder.Children.Add(ShortcutIcon);
         }
         private void LoadDefaultDesign()
         {
@@ -127,9 +127,9 @@ namespace Desktop_Manger
             ShortcutIcon = new Image();
             ShortcutIcon.Stretch = Stretch.Fill;
             TheEventsHolder.Children.Add(ShortcutIcon);
-            FileName.TextAlignment = TextAlignment.Left;
-            FileName.VerticalAlignment = VerticalAlignment.Bottom;
-            FileName.Foreground = new SolidColorBrush((System.Windows.Media.Color)
+            FileName_beta.TextAlignment = TextAlignment.Left;
+            FileName_beta.VerticalAlignment = VerticalAlignment.Bottom;
+            FileName_beta.Foreground = new SolidColorBrush((System.Windows.Media.Color)
                 System.Windows.Media.ColorConverter.ConvertFromString
                 (AppTheme.Foreground));
             Canvas canv = new Canvas();
@@ -159,7 +159,7 @@ namespace Desktop_Manger
             EditParametersButton = EditParametersButton_g;
             canv.Children.Add(EditParametersButton);
             //<<<<<<<<<<
-            TheEventsHolder.Children.Add(FileName);
+            TheEventsHolder.Children.Add(FileName_beta);
         }
 
         
@@ -200,15 +200,21 @@ namespace Desktop_Manger
         }
         private void EditTextButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Edit Text!!");
+            FileName_beta.Cursor = Cursors.IBeam;
+            FileName_beta.Background = Brushes.White;
+            FileName_beta.BorderThickness = new Thickness(1);
+            FileName_beta.IsReadOnly = false;
+            FileName_beta.Focusable = true;
+            FileName_beta.Focus();
+
         }
         private void EditBackgroundButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             
-                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
-                dlg.DefaultExt = ".jpg";
-                dlg.Filter = "Image Files (*.jp*, *.png,...)|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Icon (*.ico)|*.Ico|Excutable file (*.exe) |*.exe|BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
-                bool? result = dlg.ShowDialog();
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = SupportedIconExtensions;
+            bool? result = dlg.ShowDialog();
             if (result == true)
             {
                 IconSourceLocation = dlg.FileName;
@@ -220,8 +226,6 @@ namespace Desktop_Manger
                 {
                     ChangeImage(LayoutObjects.GetImageSource(dlg.FileName));
                 }
-            }
-
                 //Remove the Text Before Replacing it with an Image
                 foreach (object child in TheEventsHolder.Children)
                 {
@@ -233,15 +237,13 @@ namespace Desktop_Manger
                         break;
                     }
                 }
+            }  
             }
-        
-
         private void DelButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Shortcuts.RemoveChild(this);
             
         }
-
         private void ShortcutItem_SizeChanged(object sender, SizeChangedEventArgs e)
         {
             TheItemHolder.Width = e.NewSize.Width;
@@ -276,11 +278,11 @@ namespace Desktop_Manger
             an.To = DeleteButton.Height;
             an.Duration = new Duration(TimeSpan.FromMilliseconds(200));
             DeleteButton.BeginAnimation(TopProperty,an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(80);
+            await MainWindow.sleep(66);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(80);
+            await MainWindow.sleep(66);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(80);
+            await MainWindow.sleep(66);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             //<<<<<<<
             //>>>>>>From Middle To (zero) Top
@@ -288,11 +290,11 @@ namespace Desktop_Manger
             an.To = 2;
             an.Duration = new Duration(TimeSpan.FromMilliseconds(100));
             DeleteButton.BeginAnimation(TopProperty,an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(80);
+            await MainWindow.sleep(66);
             EditBackgroundButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(80);
+            await MainWindow.sleep(66);
             EditTextButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
-            await MainWindow.sleep(80);
+            await MainWindow.sleep(66);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             //<<<<<<<<<
             AnimationInProgress = false;

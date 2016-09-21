@@ -7,18 +7,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Desktop_Manger
 {
     public class DMShortcutItem : Canvas
     {
+        public readonly string SupportedIconExtensions = "Supported Extensions|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff;*.Ico;*.exe|Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Icon (*.ico)|*.Ico|Excutable file (*.exe) |*.exe|BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
+
         public bool IsThereisErrors = false;
         public Canvas ParentCanvas { get; set; }
         public System.Windows.Controls.Image ShortcutIcon { get; set; }
         //TODO update 1:
         //              1-Try to Change FileName to uneditable Textbox instead of TextBlock
         public TextBlock FileName { get; set; }
+        //Testing this with ShortcutItem apply it later to AppInfo
+        public TextBox FileName_beta { get; set; }
         public string ShortCutLocation { get; set; }
         public string IconSourceLocation { get; set; }
         public string Parameters = "";
@@ -81,6 +86,39 @@ namespace Desktop_Manger
             (img as System.Windows.Controls.Image).Source = imgsrc;*/
             ShortcutIcon.Source = imgsrc;
 
+        }
+        public TextBox CreateTextBox(string text)
+        {
+            TextBox tb = new TextBox();
+            if (text.Length > 31)
+            {
+                text = text.Substring(0, 31) + "... " + text[text.Length - 4] + text[text.Length - 3] + text[text.Length - 2] + text[text.Length - 1];
+            }
+            tb.Text = text;
+            tb.Focusable = false;
+            tb.BorderThickness = new Thickness(0);
+            tb.Cursor = Cursors.Hand;
+            tb.IsReadOnly = true;
+            tb.FontSize = 12;
+            tb.Background = System.Windows.Media.Brushes.Transparent;
+            tb.Foreground = new SolidColorBrush((System.Windows.Media.Color)
+                System.Windows.Media.ColorConverter.ConvertFromString
+                (AppTheme.HomePageShortCutFontColor));
+            tb.TextAlignment = TextAlignment.Center;
+            tb.VerticalAlignment = VerticalAlignment.Center;
+            tb.TextWrapping = TextWrapping.Wrap;
+            tb.Margin = new Thickness(2, 2, 2, 5);
+            tb.LostFocus += TextBox_LostFocus;
+            return tb;
+        }
+
+        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            FileName_beta.Background = Brushes.Transparent;
+            FileName_beta.BorderThickness = new Thickness(0);
+            FileName_beta.Cursor = Cursors.Hand;
+            FileName_beta.IsReadOnly = true;
+            FileName_beta.Focusable = false;
         }
     }
 }
