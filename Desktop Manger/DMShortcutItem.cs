@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace Desktop_Manger
 {
@@ -15,6 +16,8 @@ namespace Desktop_Manger
         public bool IsThereisErrors = false;
         public Canvas ParentCanvas { get; set; }
         public System.Windows.Controls.Image ShortcutIcon { get; set; }
+        //TODO update 1:
+        //              1-Try to Change FileName to uneditable Textbox instead of TextBlock
         public TextBlock FileName { get; set; }
         public string ShortCutLocation { get; set; }
         public string IconSourceLocation { get; set; }
@@ -58,6 +61,25 @@ namespace Desktop_Manger
             {
                 MessageBox.Show("error " + ex.Message);
             }
+
+        }
+        public void ChangeImage(/*StackPanel mystp,*/ ImageSource imgsrc)
+        {
+            //TODO: update 2:
+            //              1-Remove this unnessarcy code seems useless
+            /*
+            object img = new object();
+            foreach (object child in mystp.Children)
+            {
+                
+               if (child is System.Windows.Controls.Image)
+                {
+                    img = child;
+                    break;
+                }
+            }
+            (img as System.Windows.Controls.Image).Source = imgsrc;*/
+            ShortcutIcon.Source = imgsrc;
 
         }
     }

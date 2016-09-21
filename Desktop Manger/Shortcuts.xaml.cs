@@ -19,7 +19,7 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for Apps.xaml
     /// </summary>
-    /// TODO:
+    /// TODO: update 0:
     ///     1-In TileLyout I have to Extend Its Height According to the summ of its Children Height
     public partial class Shortcuts : Page
     {
@@ -49,9 +49,16 @@ namespace Desktop_Manger
             Grid.SetColumn(ti, col);
             ti.AllowAnimation = true;
             ti.AllowDrop = true;
+            ti.Focusable = true;
+            ti.MouseDown += Ti_MouseDown;
             ti.Drop += Tile_Drop;
             ti.AnimationSpeed = 5;
             return ti;
+        }
+
+        private void Ti_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            (sender as Tile).Focus();
         }
 
         private void Tile_Drop(object sender, DragEventArgs e)

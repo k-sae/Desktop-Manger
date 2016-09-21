@@ -12,8 +12,6 @@ namespace Desktop_Manger
 {
     class Data
     {
-        //TODO:
-        //      Fix the error for ShotcutSource For exe and icon files
         public static void SaveIcons(List<AppInfo> AppsList)
         {
             string[] lines = new string[AppsList.Count];

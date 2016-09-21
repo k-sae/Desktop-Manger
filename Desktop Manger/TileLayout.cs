@@ -12,8 +12,8 @@ using System.Windows.Media.Animation;
 
 namespace TileLayout
 {
-    //TODO
-    //1-upgrade the remove fun
+    //TODO: update 1:
+    //              1-upgrade the remove fun
     
     class Tile : Canvas
     {
@@ -69,7 +69,16 @@ namespace TileLayout
                 }
                
                 Location location = GetLocation(i);
-                ChangeChildLocation(Children[i + 1] as FrameworkElement, location);
+                //TODO: update 1:
+                //      1-Check if the Child exists # some times the child is deleted in other thread 
+                try
+                {
+                    ChangeChildLocation(Children[i + 1] as FrameworkElement, location);
+                }
+                catch (Exception)
+                {
+                }
+               
             }
         }
         private void ChangeChildLocation(FrameworkElement Child, Location location)

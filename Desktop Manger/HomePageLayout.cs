@@ -40,8 +40,6 @@ namespace Desktop_Manger
             ParentCanvas.Children.Add(player);
             player.Play();
         }
-        //TODO
-        //use try and catch to check the validation of url
         private static void SetImageAsBackground(string location)
         {
             Image img = new Image();

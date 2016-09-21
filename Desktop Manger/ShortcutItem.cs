@@ -11,13 +11,13 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
-//TODO
+//TODO NextProject
 // After Creatin the Logic tree builder Create A logic tree builder file
 //    Logic Tree:  
 //                  ItemShortcut ------> Grid ItemHolder |---> Grid EventsHolder--> Image + TB
 //                                                       |---> Canvas -->  Grid |--> ellipse
 //                                                                              |--> TextBlock
-//update 1:
+//TODO: update 1:
 //          1-enable the drag of elements from tile to another tile
 namespace Desktop_Manger
 {
@@ -66,7 +66,8 @@ namespace Desktop_Manger
                 //set the default folder Image
                 if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
                 {
-                    CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
+                    //CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
+                    ShortcutIcon.Source = LayoutObjects.GetImageSource("pack://application:,,,/Resources/Folder_Icon.png");
                     LoadFolderDesign();
                 }
                 //else set the the Default Design
@@ -100,8 +101,9 @@ namespace Desktop_Manger
         private void LoadFolderDesign()
         {
             ShortcutIcon.Stretch = Stretch.Fill;
-            ShortcutIcon.Margin = new Thickness(0, 5, 0, 0);
-            TheEventsHolder.Children.Add(ShortcutIcon);
+            ShortcutIcon.Width = 50;
+            ShortcutIcon.Height = 50;
+            //TheEventsHolder.Children.Add(ShortcutIcon);
         }
         private void LoadDefaultDesign()
         {
@@ -121,6 +123,10 @@ namespace Desktop_Manger
         }
         private void LoadGeneralDesign()
         {
+            //Add Transperent Image so user be able to change it later
+            ShortcutIcon = new Image();
+            ShortcutIcon.Stretch = Stretch.Fill;
+            TheEventsHolder.Children.Add(ShortcutIcon);
             FileName.TextAlignment = TextAlignment.Left;
             FileName.VerticalAlignment = VerticalAlignment.Bottom;
             FileName.Foreground = new SolidColorBrush((System.Windows.Media.Color)
@@ -140,7 +146,7 @@ namespace Desktop_Manger
             EditBackgroundButton_g.MouseLeftButtonUp += EditBackgroundButton_g_MouseLeftButtonUp;
             EditBackgroundButton = EditBackgroundButton_g;
             canv.Children.Add(EditBackgroundButton_g);
-            //<<<<<<<<<<<<<<<<
+            //<<<<<<<<<<
             //>>>>>>>>>> Edit Text Section
             Grid EditTextButton_g = CreateRoundButton("\xE70F", 3);
             EditTextButton_g.MouseLeftButtonUp += EditTextButton_g_MouseLeftButtonUp;
@@ -198,8 +204,37 @@ namespace Desktop_Manger
         }
         private void EditBackgroundButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("Edit Backgorund!!");
-        }
+            
+                Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+                dlg.DefaultExt = ".jpg";
+                dlg.Filter = "Image Files (*.jp*, *.png,...)|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Icon (*.ico)|*.Ico|Excutable file (*.exe) |*.exe|BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
+                bool? result = dlg.ShowDialog();
+            if (result == true)
+            {
+                IconSourceLocation = dlg.FileName;
+                if (System.IO.Path.GetExtension(dlg.FileName).ToUpper() == ".ICO" || System.IO.Path.GetExtension(dlg.FileName).ToUpper() == ".EXE")
+                {
+                    ChangeImage(LayoutObjects.GetIcon(dlg.FileName));
+                }
+                else
+                {
+                    ChangeImage(LayoutObjects.GetImageSource(dlg.FileName));
+                }
+            }
+
+                //Remove the Text Before Replacing it with an Image
+                foreach (object child in TheEventsHolder.Children)
+                {
+                    //TODO update 1.1
+                    //               1-Change This to TextBox And search for there the same to theme
+                    if (child is Viewbox)
+                    {
+                        TheEventsHolder.Children.Remove(child as UIElement);
+                        break;
+                    }
+                }
+            }
+        
 
         private void DelButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {

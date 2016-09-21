@@ -68,7 +68,7 @@ namespace Desktop_Manger
             {
                 this.Dispatcher.Invoke((Action)(() =>
                 {
-                    Thread.Sleep(100);
+                    Thread.Sleep(50);
                     CenterScreen();
                 }));
             });
@@ -78,7 +78,7 @@ namespace Desktop_Manger
         {
             //did it two times so if the first one failed
             await MaximizeWindow(this);
-            await sleep(500);
+            await sleep(200);
             await MaximizeWindow(this);
         }
         //make the app maximized at the center of the screen
@@ -106,6 +106,9 @@ namespace Desktop_Manger
                      Thread.Sleep(time);  
              });
         }
+        //TODO: update 0:
+        //              1-have to figure another way for apearance of it
+        //              2-make it run in background worker for better performance
         private async void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
         {
             if (isNavBarShown) return;

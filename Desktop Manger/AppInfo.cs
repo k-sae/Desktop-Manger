@@ -97,7 +97,8 @@ namespace Desktop_Manger
         private void LoadCustomExtensionsIcons()
         {
             Debug.WriteLine("Loading Extensions ...");
-            //TODO Load from a file
+            //TODO: Update 2
+            //Load from a file
             Extensions.Add(new Extension(".mp3 .wav", "pack://application:,,,/Resources/Audio_Icon.png"));
             Extensions.Add(new Extension(".gif .png .jpg .jpeg", ""));
             Extensions.Add(new Extension(".mp4 .avi .mkv", "pack://application:,,,/Resources/Video_Icon.png"));
@@ -303,31 +304,17 @@ namespace Desktop_Manger
                 IconSourceLocation = dlg.FileName;
                 if (Path.GetExtension(dlg.FileName).ToUpper() == ".ICO" || Path.GetExtension(dlg.FileName).ToUpper() == ".EXE")
                 {
-                    ChangeImage(mystp, LayoutObjects.GetIcon(dlg.FileName));
+                    ChangeImage(LayoutObjects.GetIcon(dlg.FileName));
                 }
                 else
                 {
-                    ChangeImage(mystp, LayoutObjects.GetImageSource(dlg.FileName));
+                    ChangeImage( LayoutObjects.GetImageSource(dlg.FileName));
                 }
                 
             }
             Data.SaveIcons(HomePage.AppsList);
         }
-        private void ChangeImage(StackPanel mystp, ImageSource imgsrc)
-        {
-
-            object img = new object();
-            foreach (object child in mystp.Children)
-            {
-                
-               if (child is System.Windows.Controls.Image)
-                {
-                    img = child;
-                    break;
-                }
-            }
-            (img as System.Windows.Controls.Image).Source = imgsrc;
-        }
+       
 
         private void Rename_Click(object sender, RoutedEventArgs e)
         {
