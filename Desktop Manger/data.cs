@@ -16,19 +16,62 @@ namespace Desktop_Manger
         {
             string[] lines = new string[AppsList.Count];
             int i = 0;
-            foreach (AppInfo App in AppsList)
+            foreach (AppInfo app in AppsList)
             {
-                lines[i] += "Top=\"" + Canvas.GetTop(App) + "\"\t";
-                lines[i] += "Left=\"" + Canvas.GetLeft(App) + "\"\t";
-                lines[i] += "Width=\"" + App.Width + "\"\t";
-                lines[i] += "Height=\"" + App.Height + "\"\t";
-                lines[i] += "ShortCutLocation=\"" + App.ShortCutLocation + "\"\t";
-                lines[i] += "ShortCutIcon=\"" + App.IconSourceLocation + "\"\t";
-                lines[i] += "Text=\"" + App.FileName.Text + "\"\t";
-                lines[i] += "Parameters=\"" + App.Parameters + "\"\t";
+                lines[i] += "Top=\"" + Canvas.GetTop(app) + "\"\t";
+                lines[i] += "Left=\"" + Canvas.GetLeft(app) + "\"\t";
+                lines[i] += "Text=\"" + app.FileName.Text + "\"\t";
+                lines[i] += GetBasicInfo(app);
                 i++;
             }
             File.WriteAllLines(SaveFiles.Location() + SaveFiles.AppInfoFile, lines);
+        }
+        //gets the common info
+        private static string GetBasicInfo(DMShortcutItem app)
+        {
+            string line = "Width=\"" + app.Width + "\"\t";
+            line += "Height=\"" + app.Height + "\"\t";
+            line += "ShortCutLocation=\"" + app.ShortCutLocation + "\"\t";
+            line += "ShortCutIcon=\"" + app.IconSourceLocation + "\"\t";
+            line += "Parameters=\"" + app.Parameters + "\"\t";
+            return line;
+        }
+        public static void SaveShortcuts(List<ShortcutsSaveData> shortcuts)
+        {
+            string[] lines = new string[shortcuts.Count];
+            int i = 0;
+            foreach(ShortcutsSaveData shortcut in shortcuts)
+            {
+                lines[i] += "Group=\"" + shortcut.ParentTile + "\"\t";
+                lines[i] += "Text=\"" + shortcut.item.FileName_beta.Text + "\"\t";
+                lines[i] += GetBasicInfo(shortcut.item);
+                i++;
+            }
+            File.WriteAllLines(SaveFiles.Location() + SaveFiles.ShortcutsFile, lines);
+        }
+        public static List<ShortcutsSaveData> LoadShortcuts()
+        {
+            List<ShortcutsSaveData> shortcuts = new List<ShortcutsSaveData>();
+            if (File.Exists(SaveFiles.Location() + SaveFiles.ShortcutsFile))
+            {
+                string[] lines = File.ReadAllLines(SaveFiles.Location() + SaveFiles.ShortcutsFile);
+                foreach(string line in lines)
+                {
+                    try
+                    {
+                        ShortcutItem app = new ShortcutItem(GetVariable("ShortCutLocation", line), GetVariable("ShortCutIcon", line));
+                        app.FileName_beta.Text = GetVariable("Text", line);
+                        app.Parameters = GetVariable("Parameters", line);
+                        if (!app.IsThereisErrors)
+                        {
+                            shortcuts.Add(new ShortcutsSaveData(GetVariable("Group", line), app));
+                        }
+                        
+                    }
+                    catch (Exception) { }
+                }
+            }
+                return shortcuts;
         }
         public static List<AppInfo> LoadIcons(Canvas Parent)
         {
@@ -38,15 +81,19 @@ namespace Desktop_Manger
                 string[] lines = File.ReadAllLines(SaveFiles.Location() + SaveFiles.AppInfoFile);
                 foreach (string line in lines)
                 {
-                    AppInfo app = new AppInfo(GetVariable("ShortCutLocation", line), GetVariable("ShortCutIcon", line));
-                    Canvas.SetTop(app, Int32.Parse(GetVariable("Top", line)));
-                    Canvas.SetLeft(app, Int32.Parse(GetVariable("Left", line)));
-                    app.FileName.Text = GetVariable("Text", line);
-                    app.Parameters = GetVariable("Parameters", line);
-                    Parent.Children.Add(app);
-                    app.ParentCanvas = Parent;
-                    if(!app.IsThereisErrors)
-                    AppsList.Add(app);
+                    try
+                    {
+                        AppInfo app = new AppInfo(GetVariable("ShortCutLocation", line), GetVariable("ShortCutIcon", line));
+                        Canvas.SetTop(app, int.Parse(GetVariable("Top", line)));
+                        Canvas.SetLeft(app, int.Parse(GetVariable("Left", line)));
+                        app.FileName.Text = GetVariable("Text", line);
+                        app.Parameters = GetVariable("Parameters", line);
+                        Parent.Children.Add(app);
+                        app.ParentCanvas = Parent;
+                        if (!app.IsThereisErrors)
+                            AppsList.Add(app);
+                    }
+                    catch (Exception) { }
                 }
             }
             else

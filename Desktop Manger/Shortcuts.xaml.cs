@@ -19,11 +19,14 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for Apps.xaml
     /// </summary>
-    /// TODO: update 0:
+    /// NOTE: Load Function here act little bit diffrent from the Appinfo Load Funtion
+    /// TODO: update 1:
     ///     1-In TileLyout I have to Extend Its Height According to the summ of its Children Height
+    ///     2-although have to find a solution for the overflow of left in canvas 
+    ///                                                                             # where items have -ve margin on left at the begaining 
     public partial class Shortcuts : Page
     {
-       public static List<ShortcutsSaveData> ShortcutItemsSaveData = new List<ShortcutsSaveData>();
+       public static List<ShortcutsSaveData> ShortcutItems = new List<ShortcutsSaveData>();
        static Tile Tile1 = null;
        static Tile Tile2 = null;
        static Tile Tile3 = null;
@@ -38,6 +41,30 @@ namespace Desktop_Manger
             Grid1.Children.Add(Tile1);
             Grid1.Children.Add(Tile2);
             Grid1.Children.Add(Tile3);
+            Load();
+        }
+        private void Load()
+        {
+            ShortcutItems = Data.LoadShortcuts();
+            foreach(ShortcutsSaveData item in ShortcutItems)
+            {
+                Tile parent = GetParent(item.ParentTile);
+                item.item.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((parent as Tile).Background.ToString())));
+                parent.Add(item.item);
+            }
+            Data.SaveShortcuts(ShortcutItems);
+        }
+        private Tile GetParent(string group)
+        {
+            if (group == "Tile2")
+            {
+                return Tile2;
+            }
+            else if (group == "Tile1")
+            {
+                return Tile1;
+            }
+            else return Tile3;
             
         }
         private Tile CreateTile(int row, int col)
@@ -70,12 +97,13 @@ namespace Desktop_Manger
                 
                 ShortcutItem shortcutitem = new ShortcutItem(File);
                 shortcutitem.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((sender as Tile).Background.ToString())));
-                //TODO: update 0:
-                //Dont Forget to Check for errors
-                (sender as Tile).Add(shortcutitem);
-                ShortcutItemsSaveData.Add(new ShortcutsSaveData(FindTileName(sender as Tile), shortcutitem));
+                if (!shortcutitem.IsThereisErrors)
+                {
+                    (sender as Tile).Add(shortcutitem);
+                    ShortcutItems.Add(new ShortcutsSaveData(FindTileName(sender as Tile), shortcutitem));
+                }
             }
-           
+            Data.SaveShortcuts(ShortcutItems);
         }
         private string FindTileName(Tile tile)
         {
@@ -101,6 +129,14 @@ namespace Desktop_Manger
         {
             Tile parent = (item.Parent as Tile);
             parent.Remove(item);
+            foreach(ShortcutsSaveData shortcutitem in ShortcutItems)
+            {
+                if (shortcutitem.item == item)
+                {
+                    ShortcutItems.Remove(shortcutitem);break;
+                }
+            }
+            Data.SaveShortcuts(ShortcutItems);
         }
         private void Groups_tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -119,8 +155,8 @@ namespace Desktop_Manger
             this.ParentTile = ParentTile;
             this.item = item;
         }
-        string ParentTile { get; set; }
-        ShortcutItem item { get; set; }
+        public string ParentTile { get; set; }
+        public ShortcutItem item { get; set; }
     }
 
 }

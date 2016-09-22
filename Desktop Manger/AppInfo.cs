@@ -85,7 +85,7 @@ namespace Desktop_Manger
             }
             catch(Exception e)
             {
-                MessageBox.Show("error happened while adding " + file + "/n deleted shortcut from DM\nerror: " + e.Message);
+                MessageBox.Show("Error happened while adding " + file + " \nMay save File corrupted or no permission to access this file\ndeleted shortcut from DM\nerror: " + e.Message);
                 IsThereisErrors = true;
             }
            

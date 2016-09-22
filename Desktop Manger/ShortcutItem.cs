@@ -34,7 +34,7 @@ namespace Desktop_Manger
         Grid TheEventsHolder = null;
         public ShortcutItem()
         {
-            //this will hold the main children
+            //this will hold the main children  Take a Look AT The visual logic tree 
             Grid Grid1 = new Grid();
             //this will hold the events and the visual elements
             Grid Grid2 = new Grid();
@@ -80,7 +80,7 @@ namespace Desktop_Manger
                     {
                         LoadDefaultDesign();
                     }
-                    else LoadCustomDesign();
+                    else LoadCustomDesign(IconSource);
                 }
             }
             catch (FileNotFoundException)
@@ -95,7 +95,7 @@ namespace Desktop_Manger
             }
             catch (Exception e)
             {
-                MessageBox.Show("error happened while adding " + file + "/n deleted shortcut from DM\nerror: " + e.Message);
+                MessageBox.Show("Error happened while adding " + file + " \nMay save File corrupted or no permission to access this file\ndeleted shortcut from DM\nerror: " + e.Message);
                 IsThereisErrors = true;
             }
             SizeChanged += ShortcutItem_SizeChanged;
@@ -109,6 +109,7 @@ namespace Desktop_Manger
         }
         private void LoadDefaultDesign()
         {
+            IconSourceLocation = "Default";
             //add them to the holder
             Viewbox viewbox = new Viewbox();
             TextBlock tb = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
@@ -119,10 +120,18 @@ namespace Desktop_Manger
             TheEventsHolder.Children.Add(viewbox);
         }
         //Load The Image which The User Have Choosen
-        private void LoadCustomDesign()
+        private void LoadCustomDesign(string ImageLocation)
         {
-
+            if (System.IO.Path.GetExtension(ImageLocation).ToUpper() == ".ICO" || System.IO.Path.GetExtension(ImageLocation).ToUpper() == ".EXE")
+            {
+                ChangeImage(LayoutObjects.GetIcon(ImageLocation));
+            }
+            else
+            {
+                ChangeImage(LayoutObjects.GetImageSource(ImageLocation));
+            }
         }
+        //General Design
         private void LoadGeneralDesign()
         {
             //Add Transperent Image so user be able to change it later
@@ -152,6 +161,7 @@ namespace Desktop_Manger
             //>>>>>>>>>> Edit Text Section
             Grid EditTextButton_g = CreateRoundButton("\xE70F", 3);
             EditTextButton_g.MouseLeftButtonUp += EditTextButton_g_MouseLeftButtonUp;
+            FileName_beta.LostFocus += FileName_beta_LostFocus;
             EditTextButton = EditTextButton_g;
             canv.Children.Add(EditTextButton_g);
             //<<<<<<<<<<
@@ -166,7 +176,10 @@ namespace Desktop_Manger
             TheEventsHolder.Children.Add(FileName_beta);
         }
 
-        
+        private void FileName_beta_LostFocus(object sender, RoutedEventArgs e)
+        {
+            Data.SaveShortcuts(Shortcuts.ShortcutItems);
+        }
 
         private Grid CreateRoundButton(string Text, int Order)
         {
@@ -234,12 +247,13 @@ namespace Desktop_Manger
                         break;
                     }
                 }
+                Data.SaveShortcuts(Shortcuts.ShortcutItems);
             }  
             }
         private void DelButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             Shortcuts.RemoveChild(this);
-            
+            Data.SaveShortcuts(Shortcuts.ShortcutItems);
         }
         private void ShortcutItem_SizeChanged(object sender, SizeChangedEventArgs e)
         {
