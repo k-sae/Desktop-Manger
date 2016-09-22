@@ -20,6 +20,8 @@ namespace Desktop_Manger
 
     /// Interaction logic for power.xaml
     /// </summary>
+    /// TODO: update 3:
+    ///                 1-Use A color Picker
     public partial class Settings : Page
     {
         StackPanel selectedStP = new StackPanel();

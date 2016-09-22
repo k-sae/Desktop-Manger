@@ -204,7 +204,7 @@ namespace Desktop_Manger
         }
         private void EditTextButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            LayoutObjects.MakeTextBoxEditable(FileName_beta);
+            LayoutObjects.UnSealTextBox(FileName_beta);
 
         }
         private void EditBackgroundButton_g_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -228,8 +228,6 @@ namespace Desktop_Manger
                 //Remove the Text Before Replacing it with an Image
                 foreach (object child in TheEventsHolder.Children)
                 {
-                    //TODO update 1.1
-                    //               1-Change This to TextBox And search for there the same to theme
                     if (child is Viewbox)
                     {
                         TheEventsHolder.Children.Remove(child as UIElement);

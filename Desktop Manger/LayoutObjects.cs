@@ -84,7 +84,7 @@ namespace Desktop_Manger
             Panel.SetZIndex(ellipse, 10);
             return ellipse;
         }
-        public static void MakeTextBoxEditable(TextBox textbox)
+        public static void UnSealTextBox(TextBox textbox)
         {
             textbox.Cursor = Cursors.IBeam;
             textbox.Background = System.Windows.Media.Brushes.White;

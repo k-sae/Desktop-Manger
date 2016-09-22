@@ -23,6 +23,7 @@ namespace Desktop_Manger
     ///     1-In TileLyout I have to Extend Its Height According to the summ of its Children Height
     public partial class Shortcuts : Page
     {
+       public static List<ShortcutsSaveData> ShortcutItemsSaveData = new List<ShortcutsSaveData>();
        static Tile Tile1 = null;
        static Tile Tile2 = null;
        static Tile Tile3 = null;
@@ -52,7 +53,7 @@ namespace Desktop_Manger
             ti.Focusable = true;
             ti.MouseDown += Ti_MouseDown;
             ti.Drop += Tile_Drop;
-            ti.AnimationSpeed = 5;
+            ti.AnimationSpeed = 6;
             return ti;
         }
 
@@ -66,14 +67,25 @@ namespace Desktop_Manger
             string[] Files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach(string File in Files)
             {
+                
+                ShortcutItem shortcutitem = new ShortcutItem(File);
+                shortcutitem.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((sender as Tile).Background.ToString())));
+                //TODO: update 0:
                 //Dont Forget to Check for errors
-                ShortcutItem canv = new ShortcutItem(File);
-                canv.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((sender as Tile).Background.ToString())));
-                (sender as Tile).Add(canv);
+                (sender as Tile).Add(shortcutitem);
+                ShortcutItemsSaveData.Add(new ShortcutsSaveData(FindTileName(sender as Tile), shortcutitem));
             }
            
         }
-
+        private string FindTileName(Tile tile)
+        {
+            if (tile == Tile1)
+            {
+                return "Tile1";
+            }
+            else if (tile == Tile2) { return "Tile2"; }
+            else return "Tile3";
+        }
         private void SetTheme()
         {
             Grid1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
@@ -92,7 +104,7 @@ namespace Desktop_Manger
         }
         private void Groups_tb_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            LayoutObjects.MakeTextBoxEditable(sender as TextBox);
+            LayoutObjects.UnSealTextBox(sender as TextBox);
         }
 
         private void Groups_tb_LostFocus(object sender, RoutedEventArgs e)
@@ -100,4 +112,15 @@ namespace Desktop_Manger
             LayoutObjects.SealTextBox(sender as TextBox);
         }
     }
+   public class ShortcutsSaveData
+    {
+        public ShortcutsSaveData(string ParentTile, ShortcutItem item)
+        {
+            this.ParentTile = ParentTile;
+            this.item = item;
+        }
+        string ParentTile { get; set; }
+        ShortcutItem item { get; set; }
+    }
+
 }
