@@ -15,47 +15,29 @@ namespace Desktop_Manger
         public string Id { get; set; }
         //contstactor 
         //see divideplanes funtion to see how to use it
-        public PowerPlan(object Parent, string Id, string Name, int Row, int Column )
+        public PowerPlan(object Parent, string Id, string Name)
         {
             this.Id = Id;
             this.Name = Name;
-            StackPanel stp = CreateStackPanel();
-          (Parent as StackPanel).Children.Add(stp);
+
+            (Parent as StackPanel).Children.Add(Createtitle());
 
             //Here create stackpanel 
             // create the textblock 
 
         }
-        private StackPanel CreateStackPanel()
+        private TileLayout.Tile Createtitle()
         {
-            //create stp
-            StackPanel stp = new StackPanel();
-            stp.Height = 100;
-            stp.Margin = new Thickness(5,10, 5, 0);
-            stp.VerticalAlignment = VerticalAlignment.Top;
-            stp.MouseEnter += Stp_MouseEnter;
-            stp.Background = Brushes.Red;
-            stp.MouseLeftButtonUp += Stp_MouseLeftButtonUp;
-           
-            
-            return stp;
+
+            TileLayout.Tile ti = new TileLayout.Tile();
+            ti.ChildMinWidth = 100;
+            ti.Height = 50;
+            ti.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
+            ti.Margin = new Thickness(5);
+            ti.AllowAnimation = true;
+            return ti;
+
         }
 
-        private TextBlock CreateTxtBlock()
-        {
-            TextBlock Txt = new TextBlock();
-            Txt.Text = Name;
-            return Txt;
-        }
-        private void Stp_MouseLeftButtonUp(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            
-            MessageBox.Show(this.Name);
-        }
-
-        private void Stp_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
-        {
-            (sender as StackPanel).Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#999"));
-        }
     }
 }

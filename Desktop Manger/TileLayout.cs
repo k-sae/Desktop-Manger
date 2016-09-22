@@ -19,9 +19,9 @@ namespace TileLayout
     class Tile : Canvas
     {
         int ColNo = 0;
-        double ChildMinWidth = 200;
-        double ChildWidth = 300;
-        double Childheight = 100;
+        public double ChildMinWidth = 200;
+         double ChildWidth = 300;
+        public double Childheight = 100;
         double MarginLeft = 5;
         double MarginTop = 5;
         public bool AllowAnimation = false;

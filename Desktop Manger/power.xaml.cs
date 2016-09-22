@@ -82,7 +82,7 @@ namespace Desktop_Manger
             for (int i = 0; i < lines.Count() - 3; i++)
             {
                 //Constractor
-                PowerPlan bed = new PowerPlan(St1, GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"), i + 1, 1);
+                PowerPlan bed = new PowerPlan(St1, GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
                 CurrentPowerPlanes.Add(bed);
 
             }
