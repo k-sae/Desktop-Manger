@@ -46,8 +46,7 @@
                     </StackPanel>
                 </StackPanel>
             </Border>
-            <Rectangle Name="Extender" Fill="Transparent" HorizontalAlignment="Left" Width="60" Height="60" 
-                    VerticalAlignment="Top"/>
+            <Rectangle Name="Extender" Fill="Transparent" HorizontalAlignment="Left" Width="5"/>
         </StackPanel>
     </Grid>
 </Controls:MetroWindow>

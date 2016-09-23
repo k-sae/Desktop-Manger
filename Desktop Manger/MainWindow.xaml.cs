@@ -15,6 +15,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Diagnostics;
+using System.Windows.Media.Animation;
 
 namespace Desktop_Manger
 {
@@ -24,8 +25,7 @@ namespace Desktop_Manger
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private bool isNavBarShown = false;
-        private readonly double NavBarWidth = 100;
+       
 
         StackPanel selectedStP = new StackPanel();
         public MainWindow()
@@ -57,7 +57,7 @@ namespace Desktop_Manger
             Apps_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
             Power_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
             Power_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
-           Settings_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
+            Settings_Text.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground));
             Settings_Icon.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.NavBarForeground)); ;
         }
         
@@ -109,26 +109,27 @@ namespace Desktop_Manger
         //TODO: update 0:
         //              1-have to figure another way for apearance of it
         //              2-make it run in background worker for better performance
-        private async void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
+        private  void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
         {
-            if (isNavBarShown) return;
-            for (int i = 0; i < NavBarWidth; i++)
-            {
-                await sleep(1);
-                NavBar.Width += 1;
-            }
-            isNavBarShown = true;
+            DoubleAnimation an = new DoubleAnimation();
+            an.From = NavBar.Width;
+            an.To = 100;
+            an.Duration = new Duration(TimeSpan.FromMilliseconds(250));
+            NavBar.BeginAnimation(WidthProperty, an, HandoffBehavior.SnapshotAndReplace);
+
         }
-        private async void NavBar_stpanel_MouseLeave(object sender, MouseEventArgs e)
+        private  void NavBar_stpanel_MouseLeave(object sender, MouseEventArgs e)
         {
             Trace.WriteLine(e.GetPosition(null).X);
-            if (e.GetPosition(null).X < NavBarWidth || !isNavBarShown) return;
-            for (int i = 0; i < NavBarWidth; i++)
+            if (e.GetPosition(null).X < 20)
             {
-                await sleep(1);
-                NavBar.Width -= 1;
+                return;
             }
-            isNavBarShown = false;
+            DoubleAnimation an = new DoubleAnimation();
+            an.From = NavBar.ActualWidth;
+            an.To = 0;
+            an.Duration = new Duration(TimeSpan.FromMilliseconds(250));
+            NavBar.BeginAnimation(WidthProperty, an, HandoffBehavior.SnapshotAndReplace);
         }
 
         private void NaveItemsHover(object sender, MouseEventArgs e)

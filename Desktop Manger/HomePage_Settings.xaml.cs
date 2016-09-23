@@ -18,6 +18,9 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for HomePage_Settings.xaml
     /// </summary>
+    /// TODO: update 2:
+    ///                 1-should make a list for backgrounds to change from
+    ///                 2-should make a folder where i trace all files in it 
     public partial class HomePage_Settings : Page
     {
         public  List<SettingsHolder> MySettingsHolder = new List<SettingsHolder>();
