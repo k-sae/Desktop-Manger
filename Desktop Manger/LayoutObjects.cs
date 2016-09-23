@@ -40,6 +40,10 @@ namespace Desktop_Manger
             return (ImageSource)converter.ConvertFromString(Location); ;
         }
         //get the original exe file Location instead of the shortcut
+        //TODO: update 1:
+        //Get the "start in" location
+        //get the parameters
+        //change its class to DMShortcutitem class
         public static string GetOriginalFileURL(string Location)
         {
             if (System.IO.File.Exists(Location))
@@ -47,7 +51,6 @@ namespace Desktop_Manger
                 // WshShellClass shell = new WshShellClass();
                 WshShell shell = new WshShell();
                 IWshShortcut link = (IWshShortcut)shell.CreateShortcut(Location);
-
                 return link.TargetPath;
             }
             else return "";
@@ -91,10 +94,14 @@ namespace Desktop_Manger
             textbox.BorderThickness = new Thickness(1);
             textbox.IsReadOnly = false;
             textbox.Focusable = true;
+            textbox.Foreground = System.Windows.Media.Brushes.Black;
             textbox.Focus();
         }
         public static void SealTextBox(TextBox textbox)
         {
+            textbox.Foreground = new SolidColorBrush((System.Windows.Media.Color)
+                System.Windows.Media.ColorConverter.ConvertFromString
+                (AppTheme.Foreground));
             textbox.Background = System.Windows.Media.Brushes.Transparent;
             textbox.BorderThickness = new Thickness(0);
             textbox.Cursor = Cursors.Hand;

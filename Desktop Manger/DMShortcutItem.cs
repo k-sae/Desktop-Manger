@@ -50,7 +50,7 @@ namespace Desktop_Manger
                 }
                 else
                 {
-                    Process.Start(ShortCutLocation);
+                    Process.Start(ShortCutLocation, Parameters);
                 }
             }
             catch (System.IO.FileNotFoundException)
