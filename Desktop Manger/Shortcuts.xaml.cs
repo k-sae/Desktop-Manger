@@ -37,10 +37,9 @@ namespace Desktop_Manger
             Tile1 = CreateTile(1, 0);
             Tile2 = CreateTile(1, 1);
             Tile3 = CreateTile(3, 0);
-            Grid.SetColumnSpan(Tile3, 2);
-            Grid1.Children.Add(Tile1);
-            Grid1.Children.Add(Tile2);
-            Grid1.Children.Add(Tile3);
+            Grid11.Children.Add(Tile1);
+            Grid12.Children.Add(Tile2);
+            Grid13.Children.Add(Tile3);
             Load();
         }
         private void Load()

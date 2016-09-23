@@ -28,6 +28,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
+        <Grid Name="Grid11" Grid.Row="1" ClipToBounds="True"/>
+        <Grid Name="Grid12" Grid.Row="1" Grid.Column="1" ClipToBounds="True"/>
+        <Grid Name="Grid13" Grid.Row="3" ClipToBounds="True" Grid.ColumnSpan="2"/>
         <TextBox Text="Click To Edit Group Name" Name="Group1_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" />
         <TextBox Text="Click To Edit Group Name" Name="Group2_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" Grid.Column="1" />
         <TextBox Text="Click To Edit Group Name" Name="Group3_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" Grid.Row="2" />

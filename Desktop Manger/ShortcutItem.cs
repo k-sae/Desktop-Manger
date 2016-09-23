@@ -144,6 +144,7 @@ namespace Desktop_Manger
                 System.Windows.Media.ColorConverter.ConvertFromString
                 (AppTheme.Foreground));
             Canvas canv = new Canvas();
+            //prevent the overflow of elements == overflow=hidden in html
             TheItemHolder.ClipToBounds = true;
             TheItemHolder.Children.Add(canv);
             //>>>>>>>Delete Button Section
