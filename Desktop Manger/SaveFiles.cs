@@ -13,6 +13,7 @@ namespace Desktop_Manger
         public static string HomePageThemeFile = "HomePage.dmt";
         public static string AppInfoFile = "AppInfo.dms";
         public static string ShortcutsFile = "Shortcuts.dms";
+        public static string ShortcutsGroupsNameFile = "GroupsName.dms";
         public static string Location()
         {
             string path = Path.GetPathRoot(Environment.SystemDirectory);

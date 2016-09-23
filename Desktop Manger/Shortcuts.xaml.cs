@@ -45,6 +45,22 @@ namespace Desktop_Manger
         }
         private void Load()
         {
+
+            List<TextBox> GroupsNames = Data.LoadGroupNames();
+            foreach(TextBox GroupName in GroupsNames)
+            {
+                foreach (object child in Grid1.Children)
+                {
+                    if (child is TextBox)
+                    {
+                        if ((child as TextBox).Name == GroupName.Name )
+                        {
+                            (child as TextBox).Text = GroupName.Text;
+                        }
+                    }
+                    //thats all folks
+                }
+            }
             ShortcutItems = Data.LoadShortcuts();
             foreach(ShortcutsSaveData item in ShortcutItems)
             {
@@ -146,6 +162,11 @@ namespace Desktop_Manger
         private void Groups_tb_LostFocus(object sender, RoutedEventArgs e)
         {
             LayoutObjects.SealTextBox(sender as TextBox);
+            List<TextBox> GroupNames = new List<TextBox>();
+            GroupNames.Add(Group1_tb);
+            GroupNames.Add(Group2_tb);
+            GroupNames.Add(Group3_tb);
+            Data.SaveGroupNames(GroupNames);
         }
     }
    public class ShortcutsSaveData

@@ -19,7 +19,7 @@ namespace Desktop_Manger
         public bool IsThereisErrors = false;
         public Canvas ParentCanvas { get; set; }
         public System.Windows.Controls.Image ShortcutIcon { get; set; }
-        //TODO update 1:
+        //TODO: update 1:
         //              1-Try to Change FileName to uneditable Textbox instead of TextBlock
         public TextBlock FileName { get; set; }
         //Testing this with ShortcutItem apply it later to AppInfo
