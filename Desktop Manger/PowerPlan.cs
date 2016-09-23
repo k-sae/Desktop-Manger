@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Desktop_Manger
@@ -15,29 +17,49 @@ namespace Desktop_Manger
         public string Id { get; set; }
         //contstactor 
         //see divideplanes funtion to see how to use it
-        public PowerPlan(object Parent, string Id, string Name)
+        public PowerPlan(string Id, string Name)
         {
             this.Id = Id;
             this.Name = Name;
 
-            (Parent as StackPanel).Children.Add(Createtitle());
+
 
             //Here create stackpanel 
             // create the textblock 
 
         }
-        private TileLayout.Tile Createtitle()
+        public StackPanel CreateElement()
         {
-
-            TileLayout.Tile ti = new TileLayout.Tile();
-            ti.ChildMinWidth = 100;
-            ti.Height = 50;
-            ti.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
-            ti.Margin = new Thickness(5);
-            ti.AllowAnimation = true;
-            return ti;
-
+            StackPanel St = new StackPanel();
+            string color = AppTheme.GetAnotherColor(AppTheme.Background);
+            St.Width = 150;
+            St.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
+            TextBlock Tb = new TextBlock();
+            Tb.FontSize = 20;
+            Tb.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+            Tb.HorizontalAlignment = HorizontalAlignment.Center;
+            Tb.VerticalAlignment = VerticalAlignment.Center;
+            Tb.Text = this.Name;
+            St.AddHandler(Control.MouseLeftButtonDownEvent, new MouseButtonEventHandler(click), true);
+            St.Children.Add(Tb);
+            return St;
         }
+       private void click(object sender, MouseEventArgs e)
+        {
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "cmd.exe",
+                RedirectStandardInput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
 
+            var process = new Process { StartInfo = startInfo };
+            process.Start();
+            process.StandardInput.WriteLine(@"powercfg /S "+this.Id);
+            process.StandardInput.WriteLine("exit");
+            process.WaitForExit();
+        }
     }
+       
 }

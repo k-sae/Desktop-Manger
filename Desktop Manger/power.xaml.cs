@@ -78,11 +78,20 @@ namespace Desktop_Manger
         {
             string[] lines = File.ReadAllLines(loc);
 
-
+            TileLayout.Tile ti = new TileLayout.Tile();
+            ti.Width = St1.Width;
+            ti.ChildMinWidth =400;
+            ti.Childheight = 100;
+            ti.Height = 300;
+            ti.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
+            ti.Margin = new Thickness(5);
+            ti.AllowAnimation = true;
+            St1.Children.Add(ti);
             for (int i = 0; i < lines.Count() - 3; i++)
             {
                 //Constractor
-                PowerPlan bed = new PowerPlan(St1, GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
+                PowerPlan bed = new PowerPlan(GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
+                ti.Add(bed.CreateElement());
                 CurrentPowerPlanes.Add(bed);
 
             }
@@ -198,7 +207,9 @@ namespace Desktop_Manger
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
         }
+   
     }
+
 }
 
     
