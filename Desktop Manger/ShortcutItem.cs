@@ -81,6 +81,8 @@ namespace Desktop_Manger
                         LoadDefaultDesign();
                     }
                     else LoadCustomDesign(IconSource);
+                    //to save Icons location when its loaded
+                    IconSourceLocation = IconSource;
                 }
             }
             catch (FileNotFoundException)
