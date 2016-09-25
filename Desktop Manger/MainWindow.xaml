@@ -15,7 +15,9 @@
                        ShowMinButton="False" 
                        ShowTitleBar="False" 
                        IgnoreTaskbarOnMaximize="False"
-                       ResizeMode="CanMinimize">
+                       ResizeMode="CanMinimize"
+    >
+    
     <Grid x:Name="grid1" Background="Black"   >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>

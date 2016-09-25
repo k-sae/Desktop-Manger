@@ -42,7 +42,8 @@ namespace Desktop_Manger
 
 
                     ProcessStartInfo info = new ProcessStartInfo();
-                    info.UseShellExecute = false;
+                    //use this to start app as admin if needed
+                    info.UseShellExecute = true;
                     info.Arguments = Parameters;
                     info.FileName = ShortCutLocation;
                     info.WorkingDirectory = Path.GetDirectoryName(ShortCutLocation);

@@ -23,6 +23,8 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
+    /// TODO: update 5:
+    //  <!-- ShowInTaskbar="False"--> 
     public partial class MainWindow : MetroWindow
     {
        
@@ -106,9 +108,6 @@ namespace Desktop_Manger
                      Thread.Sleep(time);  
              });
         }
-        //TODO: update 0:
-        //              1-have to figure another way for apearance of it
-        //              2-make it run in background worker for better performance
         private  void NavBar_stpanel_MouseEnter(object sender, MouseEventArgs e)
         {
             DoubleAnimation an = new DoubleAnimation();
@@ -204,6 +203,8 @@ namespace Desktop_Manger
             Settings page = new Settings();
             mainframe.Navigate(page);
         }
+
+     
     }
 
 }

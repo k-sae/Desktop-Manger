@@ -6,7 +6,8 @@
       xmlns:local="clr-namespace:Desktop_Manger"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1366"
-      Title="Apps">
+      Title="Apps"
+      >
     <Page.Resources>
         <Style TargetType="TextBox" x:Key="Group_tb_styles">
             <Setter Property="Background" Value="Transparent"/>
