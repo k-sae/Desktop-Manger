@@ -91,7 +91,9 @@ namespace Desktop_Manger
             {
                 //Constractor
                 PowerPlan bed = new PowerPlan(GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
-                ti.Add(bed.CreateElement());
+                ti.Add(new PowerItem(bed));
+                //if(line[i]) contains * 
+                //ti.Add(new PowerItem(bed,true)
                 CurrentPowerPlanes.Add(bed);
 
             }
@@ -191,8 +193,9 @@ namespace Desktop_Manger
 
         private  async void Hibernate_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            int x = Int32.Parse(Sl_TextBox.Text) * 60000;
-            await(MainWindow.sleep(x));
+            int x = Int32.Parse(HB_TextBox.Text) * 60000;
+            Trace.WriteLine(x.ToString());
+            await MainWindow.sleep(x);
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
