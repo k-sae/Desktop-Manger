@@ -91,10 +91,17 @@ namespace Desktop_Manger
             {
                 //Constractor
                 PowerPlan bed = new PowerPlan(GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
-                ti.Add(new PowerItem(bed));
-                //if(line[i]) contains * 
-                //ti.Add(new PowerItem(bed,true)
                 CurrentPowerPlanes.Add(bed);
+                if (lines[i].Contains("*"))
+                {
+                    ti.Add(new PowerItem(bed, true));
+
+                }else
+                {
+                    ti.Add(new PowerItem(bed));
+                }
+
+                
 
             }
 
@@ -210,7 +217,7 @@ namespace Desktop_Manger
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
         }
-   
+       
     }
 
 }

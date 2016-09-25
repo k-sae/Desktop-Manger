@@ -25,13 +25,19 @@ namespace Desktop_Manger
 
         private void PowerItem_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //TODO
+          
+                string color = AppTheme.GetAnotherColor(AppTheme.Background);
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
+
+          
         }
 
         private void PowerItem_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            //TODO
-
+            string color = AppTheme.GetAnotherColor(AppTheme.Background);
+            string anothercolor = AppTheme.GetAnotherColor(color);
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(anothercolor))); 
+        
         }
 
         private void PowerItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -55,9 +61,15 @@ namespace Desktop_Manger
         {
             this.Plan = MyPlan;
             Children.Add(CreateTextBlock());
-            //IsActive == true
-            //TODO
-            this.IsActive = IsActive;
+            if (IsActive == true)
+            {
+                string color = AppTheme.GetAnotherColor(AppTheme.Background);
+                string anothercolor = AppTheme.GetAnotherColor(color);
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(anothercolor)));
+            }
+            
+                this.IsActive = IsActive;
+            
         }
         private TextBlock CreateTextBlock()
         {

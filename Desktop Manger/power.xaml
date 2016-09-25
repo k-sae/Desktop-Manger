@@ -69,15 +69,8 @@
                     </StackPanel>
                 </StackPanel>
         </StackPanel>
-        <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Margin="10,30,0,0">
-            <TextBlock FontSize="20" TextAlignment="Center" Foreground="White" Margin="-10,20,0,0"> Battery </TextBlock>
-            <Image Source="C:\Users\mosta\Desktop\Battery-Power-Full-icon.png" Height="250" MaxWidth="200" Margin="0,20,0,0"></Image>
-            <StackPanel Orientation="Horizontal">
-                <StackPanel>
-                    
-                    <TextBlock> status wel battery remaining wel details  </TextBlock>
-                </StackPanel>
-            </StackPanel>
+        <StackPanel Grid.Row="2" Grid.Column="2" Grid.RowSpan="2">
+            <Image Source="Resources\goku.png"></Image>
         </StackPanel>
 
 
