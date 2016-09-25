@@ -19,6 +19,8 @@ namespace Desktop_Manger
     {
         public static string Foreground { get; set; }
         public static string Background { get; set; }
+        public static string Effects { get; set; }
+        public static string ActiveItems { get; set; }
         public static string NavBarBackground { get; set; }
         public static string NavBarForeground { get; set; }
         public static string NavBarHover { get; set; }

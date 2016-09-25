@@ -92,7 +92,8 @@ namespace Desktop_Manger
                 //Constractor
                 PowerPlan bed = new PowerPlan(GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
                 CurrentPowerPlanes.Add(bed);
-                if (lines[i].Contains("*"))
+                //u should have used (i + 3) instead of (i)
+                if (lines[i + 3].Contains("*"))
                 {
                     ti.Add(new PowerItem(bed, true));
 

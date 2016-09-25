@@ -25,23 +25,26 @@ namespace Desktop_Manger
 
         private void PowerItem_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
-          
-                string color = AppTheme.GetAnotherColor(AppTheme.Background);
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
+            if (IsActive) return;
+            string color = AppTheme.GetAnotherColor(AppTheme.Background);
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
 
           
         }
 
         private void PowerItem_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
-            string color = AppTheme.GetAnotherColor(AppTheme.Background);
-            string anothercolor = AppTheme.GetAnotherColor(color);
-            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(anothercolor))); 
-        
+            if (IsActive) return;
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Effects));
+
         }
 
         private void PowerItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            //TODO 
+            //      1-Change the is active to true
+            //      2-change its Background Color
+            //      3-Remind me to improve its performance
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -63,9 +66,7 @@ namespace Desktop_Manger
             Children.Add(CreateTextBlock());
             if (IsActive == true)
             {
-                string color = AppTheme.GetAnotherColor(AppTheme.Background);
-                string anothercolor = AppTheme.GetAnotherColor(color);
-                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(anothercolor)));
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ActiveItems));
             }
             
                 this.IsActive = IsActive;
@@ -78,7 +79,6 @@ namespace Desktop_Manger
             Tb.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
             Tb.HorizontalAlignment = HorizontalAlignment.Center;
             Tb.VerticalAlignment = VerticalAlignment.Center;
-            //Tb.Margin = new Thickness(0, 25, 0, 0);
             Tb.Text = Plan.Name;
             return Tb;
         }
