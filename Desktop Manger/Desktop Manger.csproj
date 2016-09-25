@@ -96,7 +96,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
+
     <Compile Include="DMShortcutItem.cs" />
+
+    <Compile Include="PowerItem.cs" />
     <Compile Include="Shortcuts.xaml.cs">
       <DependentUpon>Shortcuts.xaml</DependentUpon>
     </Compile>
@@ -113,6 +116,7 @@
     <Compile Include="power.xaml.cs">
       <DependentUpon>power.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PowerPlan.cs" />
     <Compile Include="SaveFiles.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -289,7 +293,19 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+
     <Resource Include="DM2.ico" />
+
+    <Resource Include="Resources\power button.png" />
+    <Resource Include="Resources\customize icon.png" />
+    <Resource Include="Resources\highper icon.png" />
+    <Resource Include="Resources\balance-icon.png" />
+    <Resource Include="Resources\powersaver.png" />
+    <Resource Include="Resources\restart-icon-48197.png" />
+    <Resource Include="Resources\3498db-shutdown-512.ico" />
+    <Resource Include="Resources\sleep-icon-10.png" />
+    <Resource Include="Resources\orange-hibernate-512.ico" />
+
     <Content Include="Resources\Videos\p4fun_intro0.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

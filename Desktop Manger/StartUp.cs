@@ -39,6 +39,8 @@ namespace Desktop_Manger
             AppTheme.HomePageShortCutFontColor = "#ffffffff";
             AppTheme.Background = "#000";
             AppTheme.Foreground = "#fff";
+            AppTheme.ActiveItems = "#FFEC670A";
+            AppTheme.Effects = "#FFEC670A";
             AppTheme.HomePageBackground = "Resources/Videos/p4fun_intro0.mp4";
             AppTheme.HomePageVideoSound = "true";
         }
@@ -71,10 +73,7 @@ namespace Desktop_Manger
             if (!IsFirstTime())
             {
                 SetCustomTheme();
-            }
-           
-                
-            
+            }  
         }
        
     }
