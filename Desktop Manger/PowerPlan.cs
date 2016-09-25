@@ -35,10 +35,11 @@ namespace Desktop_Manger
             St.Width = 150;
             St.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
             TextBlock Tb = new TextBlock();
-            Tb.FontSize = 20;
+            Tb.FontSize = 22;
             Tb.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
             Tb.HorizontalAlignment = HorizontalAlignment.Center;
             Tb.VerticalAlignment = VerticalAlignment.Center;
+            Tb.Margin = new Thickness(0,25,0,0);
             Tb.Text = this.Name;
             St.AddHandler(Control.MouseLeftButtonDownEvent, new MouseButtonEventHandler(click), true);
             St.Children.Add(Tb);

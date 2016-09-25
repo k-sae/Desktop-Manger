@@ -23,13 +23,16 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Image Source="Resources\power button.png"></Image>
-        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" FontSize="20" VerticalAlignment="Center" Margin="20,0,0,0" Name="St_text1">Power Mangement</TextBlock>
+        <TextBlock Grid.Row="1" Grid.Column="1" TextAlignment="Center"  FontSize="24" VerticalAlignment="Center" Margin="20,0,0,0" Name="St_text1" FontFamily="Resources\Quirko Oblique.otf">Power Mangement</TextBlock>
         <StackPanel Grid.Column="1" Grid.Row="2" >
-            <StackPanel Orientation="Horizontal" Margin="20,0,0,0">
-                <StackPanel Width="100" Name="St" Height="30">
-                    <TextBlock HorizontalAlignment="Center" FontSize="16" Name="St_text">Power plans</TextBlock>
-                </StackPanel>
-               
+            <StackPanel Orientation="Horizontal">
+                <Border BorderThickness="1,1,1,0" BorderBrush="#bbb" CornerRadius="2">
+                    <StackPanel Width="150" Name="St" Height="40">
+                        <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="16" Name="St_text" Margin="0,8,0,0" FontWeight="DemiBold">Power plans</TextBlock>
+                    </StackPanel>
+                </Border>
+
+
             </StackPanel>
             <Border BorderThickness="1" BorderBrush="#bbb" CornerRadius="2">
                 <StackPanel Name="St1">
@@ -38,34 +41,33 @@
             </Border>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="3">
-            <TextBlock  Name="power_txt"  FontSize="20" VerticalAlignment="Center" Margin="30,0,0,0">Power</TextBlock>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="20,20,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Shutdown_MouseLeftButtonUp">
-                <Image Height="30" Width="50"  Source="Resources\3498db-shutdown-512.ico"></Image>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">shutdown in</TextBlock>
-                <TextBox Height="20" Width="20" PreviewTextInput="TextBox_PreviewTextInput" Name="SD_TextBox">00</TextBox>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Restart_MouseLeftButtonUp">
-                <Image Height="30" Width="50" Source="Resources\restart-icon-48197.png"></Image>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">restart in</TextBlock>
-                <TextBox Height="20" Width="20" Name="Re_TextBox">00</TextBox>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Sleep_MouseLeftButtonUp">
-                <Image Height="30" Width="50" Source="Resources\sleep-icon-10.png"></Image>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">sleep in</TextBlock>
-                <TextBox Height="20" Width="20"  Name="Sl_TextBox">00</TextBox>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Hibernate_MouseLeftButtonUp">
-                <Image Height="30" Width="50" Source="Resources\orange-hibernate-512.ico"></Image>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">Hibernate in</TextBlock>
-                <TextBox Height="20" Width="20" Name="HB_TextBox">00</TextBox>
-                <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
-            </StackPanel>
-
-
-
+            <TextBlock  Name="power_txt"  FontSize="20" VerticalAlignment="Center" FontWeight="DemiBold" Margin="10,5,0,5">Power</TextBlock>
+            <StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Shutdown_MouseLeftButtonUp">
+                        <Image Height="30" Width="50"  Source="Resources\3498db-shutdown-512.ico"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">shutdown in</TextBlock>
+                        <TextBox Height="20" Width="20" PreviewTextInput="TextBox_PreviewTextInput" Name="SD_TextBox">00</TextBox>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Restart_MouseLeftButtonUp">
+                        <Image Height="30" Width="50" Source="Resources\restart-icon-48197.png"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">restart in</TextBlock>
+                        <TextBox Height="20" Width="20" Name="Re_TextBox">00</TextBox>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Sleep_MouseLeftButtonUp">
+                        <Image Height="30" Width="50" Source="Resources\sleep-icon-10.png"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">sleep in</TextBlock>
+                        <TextBox Height="20" Width="20"  Name="Sl_TextBox">00</TextBox>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Height="40" Margin="20,0,0,0" MouseEnter="StackPanel_MouseEnter" MouseLeave="StackPanel_MouseLeave" MouseLeftButtonUp="Hibernate_MouseLeftButtonUp">
+                        <Image Height="30" Width="50" Source="Resources\orange-hibernate-512.ico"></Image>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,5,0" Foreground="White">Hibernate in</TextBlock>
+                        <TextBox Height="20" Width="20" Name="HB_TextBox">00</TextBox>
+                        <TextBlock VerticalAlignment="Center" FontSize="16" Margin="5,0,0,0" Foreground="White">min</TextBlock>
+                    </StackPanel>
+                </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="1" Grid.RowSpan="3" Margin="10,30,0,0">
             <TextBlock FontSize="20" TextAlignment="Center" Foreground="White" Margin="-10,20,0,0"> Battery </TextBlock>
