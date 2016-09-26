@@ -192,7 +192,7 @@ namespace Desktop_Manger
         {
             RemoveSelection();
             SelectStP(sender);
-            power page = new power();
+            power page = new power(grid1);
             mainframe.Navigate(page);
         }
 

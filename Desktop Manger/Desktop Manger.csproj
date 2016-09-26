@@ -96,10 +96,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AppInfo.cs" />
-
     <Compile Include="DMShortcutItem.cs" />
-
     <Compile Include="PowerItem.cs" />
+    <Compile Include="PowerTimer.cs" />
     <Compile Include="Shortcuts.xaml.cs">
       <DependentUpon>Shortcuts.xaml</DependentUpon>
     </Compile>
@@ -293,9 +292,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-
     <Resource Include="DM2.ico" />
-
     <Resource Include="Resources\power button.png" />
     <Resource Include="Resources\customize icon.png" />
     <Resource Include="Resources\highper icon.png" />
@@ -305,7 +302,7 @@
     <Resource Include="Resources\3498db-shutdown-512.ico" />
     <Resource Include="Resources\sleep-icon-10.png" />
     <Resource Include="Resources\orange-hibernate-512.ico" />
-
+    <Resource Include="Resources\goku_.png" />
     <Content Include="Resources\Videos\p4fun_intro0.mp4">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -10,7 +10,7 @@ using System.Windows.Media;
 
 namespace Desktop_Manger
 {
-    class PowerItem : Grid
+   public class PowerItem : Grid
     {
         private bool IsActive { get; set; }
         private PowerPlan Plan { get; set; }
@@ -26,12 +26,15 @@ namespace Desktop_Manger
         private void PowerItem_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (IsActive) return;
-            string color = AppTheme.GetAnotherColor(AppTheme.Background);
-            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
 
+            SetColor(this);
           
         }
-
+        private void SetColor(PowerItem item)
+        {
+            string color = AppTheme.GetAnotherColor(AppTheme.Background);
+            item.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(color)));
+        }
         private void PowerItem_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
         {
             if (IsActive) return;
@@ -41,10 +44,20 @@ namespace Desktop_Manger
 
         private void PowerItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
+            foreach(PowerItem item in power.PowerItems)
+            {
+                if (item.IsActive == true)
+                {
+                    item.IsActive = false;
+                    SetColor(item);
+                }
+            }
             //TODO 
             //      1-Change the is active to true
             //      2-change its Background Color
             //      3-Remind me to improve its performance
+            IsActive = true;
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Effects));
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",

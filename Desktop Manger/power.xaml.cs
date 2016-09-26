@@ -15,8 +15,8 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
-
-
+using System.ComponentModel;
+using System.Threading;
 
 namespace Desktop_Manger
 {
@@ -25,21 +25,25 @@ namespace Desktop_Manger
     /// </summary>
     public partial class power : Page
     {
+        BackgroundWorker PowerWorker = new BackgroundWorker();
+        Thread PowerWorkerThread = null;
         public static string loc = SaveFiles.Location() + "file.txt";
-        private static List<PowerPlan> CurrentPowerPlanes = new List<PowerPlan>();
-        public power()
+        public static List<PowerItem> PowerItems = new List<PowerItem>();
+        Panel ParentGrid = null;
+        public power(Panel ParentGrid)
         {
             InitializeComponent();
             GETplans();
             divdeplans();
             SetTheme();
+            this.ParentGrid = ParentGrid;
 
         }
 
 
-        private static void GETplans()
+        private  void GETplans()
         {
-
+           
             if (File.Exists(loc))
             {
                 File.Delete(loc);
@@ -77,7 +81,6 @@ namespace Desktop_Manger
         private void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
-
             TileLayout.Tile ti = new TileLayout.Tile();
             ti.Width = St1.Width;
             ti.ChildMinWidth =400;
@@ -91,15 +94,16 @@ namespace Desktop_Manger
             {
                 //Constractor
                 PowerPlan bed = new PowerPlan(GetStrBetweenTags(lines[i + 3], "GUID: ", "  ("), GetStrBetweenTags(lines[i + 3], "(", ")"));
-                CurrentPowerPlanes.Add(bed);
                 //u should have used (i + 3) instead of (i)
                 if (lines[i + 3].Contains("*"))
                 {
-                    ti.Add(new PowerItem(bed, true));
+                    PowerItems.Add(new PowerItem(bed, true));
+                    ti.Add(PowerItems[PowerItems.Count - 1]);
 
                 }else
                 {
-                    ti.Add(new PowerItem(bed));
+                    PowerItems.Add(new PowerItem(bed));
+                    ti.Add(PowerItems[PowerItems.Count - 1]);
                 }
 
                 
@@ -150,21 +154,8 @@ namespace Desktop_Manger
         private void Shutdown_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
 
-            int x = Int32.Parse(SD_TextBox.Text);
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            var process = new Process { StartInfo = startInfo };
-            process.Start();
-            process.StandardInput.WriteLine(@"shutdown /s /f /t " + x * 60);
-            process.StandardInput.WriteLine("exit");
-            process.WaitForExit();
-
+            int x = Int32.Parse(CounterDown_tb.Text);
+            DoWork(x, "shutdown /s");
         }
 
 
@@ -176,34 +167,43 @@ namespace Desktop_Manger
 
         private void Restart_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            int x = Int32.Parse(Re_TextBox.Text);
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = "cmd.exe",
-                RedirectStandardInput = true,
-                UseShellExecute = false,
-                CreateNoWindow = true
-            };
-
-            var process = new Process { StartInfo = startInfo };
-            process.Start();
-            process.StandardInput.WriteLine(@"shutdown /r /f /t " + x * 60);
-            process.StandardInput.WriteLine("exit");
-            process.WaitForExit();
+            int x = Int32.Parse(CounterDown_tb.Text);
+            DoWork(x, "shutdown /r /f");
         }
 
         private async void Sleep_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            int x = Int32.Parse(Sl_TextBox.Text) * 60000;
+            int x = Int32.Parse(CounterDown_tb.Text) * 60000;
             await (MainWindow.sleep(x));
 
         }
 
-        private  async void Hibernate_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        private  void Hibernate_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            int x = Int32.Parse(HB_TextBox.Text) * 60000;
-            Trace.WriteLine(x.ToString());
-            await MainWindow.sleep(x);
+            int x = Int32.Parse(CounterDown_tb.Text);
+            DoWork(x, "shutdown /h /f");
+           
+        }
+       private void DoWork(int time, string Arguments)
+        {
+            if (PowerWorker.IsBusy)
+            {
+                PowerWorker.CancelAsync();
+                PowerWorkerThread.Abort();
+                PowerWorker = new BackgroundWorker();
+            }
+            PowerTimer Timer = new PowerTimer();
+            ParentGrid.Children.Add(Timer);
+            Grid.SetColumn(Timer, 1);
+            PowerWorker.WorkerReportsProgress = true;
+            PowerWorker.WorkerSupportsCancellation = true;
+            PowerWorker.DoWork += (sender, e) => DoBackGroundWork(PowerWorker, time, Timer);
+            PowerWorker.ProgressChanged += Bw_ProgressChanged;
+            PowerWorker.RunWorkerCompleted += (sender, e) => ProgressCompleted(Arguments);
+            PowerWorker.RunWorkerAsync();
+        }
+        private void ProgressCompleted(string args)
+        {
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -214,9 +214,24 @@ namespace Desktop_Manger
 
             var process = new Process { StartInfo = startInfo };
             process.Start();
-            process.StandardInput.WriteLine(@"shutdown /h /f");
+            //process.StandardInput.WriteLine(@"shutdown /h /f");
+            process.StandardInput.WriteLine(args);
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
+        }
+        private void Bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            (e.UserState as PowerTimer).Timer.Text = e.ProgressPercentage.ToString();
+               // (sender as BackgroundWorker).
+        }
+        private void DoBackGroundWork(object sender, int time, PowerTimer timer)
+        {
+            PowerWorkerThread = Thread.CurrentThread;
+            for (int i = time * 60; i > 0; i--)
+            {
+                Thread.Sleep(1000);
+                (sender as BackgroundWorker).ReportProgress(i, timer);
+            }
         }
        
     }
