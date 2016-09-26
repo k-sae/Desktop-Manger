@@ -23,6 +23,8 @@ namespace Desktop_Manger
     /// <summary>
     /// Interaction logic for power.xaml
     /// </summary>
+    /// TODO 
+    ///     1-Remind me To Fix performance TOMORROW
     public partial class power : Page
     {
         BackgroundWorker PowerWorker = new BackgroundWorker();
@@ -214,15 +216,15 @@ namespace Desktop_Manger
 
             var process = new Process { StartInfo = startInfo };
             process.Start();
-            //process.StandardInput.WriteLine(@"shutdown /h /f");
             process.StandardInput.WriteLine(args);
             process.StandardInput.WriteLine("exit");
             process.WaitForExit();
         }
         private void Bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            //TODO
+            //     1-Make TextBox Patterned as hh:mm:ss
             (e.UserState as PowerTimer).Timer.Text = e.ProgressPercentage.ToString();
-               // (sender as BackgroundWorker).
         }
         private void DoBackGroundWork(object sender, int time, PowerTimer timer)
         {

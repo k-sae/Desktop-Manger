@@ -10,9 +10,20 @@ namespace Desktop_Manger
 {
     class PowerTimer : StackPanel
     {
+        //TODO
+        //      1-make the close and minimize button functional
+        //      2-No need for reapearance of the PowerTimer after minimizing we will od it later
+        //      3-Add Hover Effects for the Buttons (u r free to do it later)
         public TextBlock Timer = null;
+        //HINT
+        //      U May need to take Worker Thread as Parameter to abort it whenever u want or (do whatever u want to make it fuctional)
+        //      UseThis(if u Had Choosen To take The Thread as Parameter):
+        //              public PowerTimer(Thread PowerTimerThread)
         public PowerTimer()
         {
+            //TODO
+            //     Code is Messy :)
+            //      if u got enough time fix it 
             Orientation = Orientation.Horizontal;
             VerticalAlignment = System.Windows.VerticalAlignment.Top;
             HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
