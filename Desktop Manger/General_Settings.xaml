@@ -48,6 +48,8 @@
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="Auto"></RowDefinition>
                         <RowDefinition Height="25"></RowDefinition>
                     </Grid.RowDefinitions>
                     <TextBlock Text="Background: " Foreground="White" Grid.Column="1"  Grid.Row="1"/>
@@ -60,23 +62,33 @@
                         <TextBox Name="MainAppForeground"  Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
                         <TextBlock Name="MainAppForeground_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>
-                    <TextBlock Text="Nav. Bar Background: "  Style="{StaticResource ProperyName_TBlock}" Grid.Column="1"  Grid.Row="3"/>
-                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="3"  Grid.Column="2">
+                    <TextBlock Text="Active Item: " Style="{StaticResource ProperyName_TBlock}" Grid.Column="1"  Grid.Row="3"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="3" Grid.Column="2">
+                        <TextBox Name="ActiveItem" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
+                        <TextBlock Name="ActiveItem_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
+                    </StackPanel>
+                    <TextBlock Text="Items Effects: " Style="{StaticResource ProperyName_TBlock}" Grid.Column="1"  Grid.Row="4"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="4" Grid.Column="2">
+                        <TextBox Name="ItemsEffect" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
+                        <TextBlock Name="ItemsEffect_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
+                    </StackPanel>
+                    <TextBlock Text="Nav. Bar Background: "  Style="{StaticResource ProperyName_TBlock}" Grid.Column="1"  Grid.Row="5"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="5"  Grid.Column="2">
                         <TextBox Name="NavBarBackground" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
                         <TextBlock Name="NavBarBackground_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>
-                    <TextBlock Text="Nav. Bar Foreground: "  Style="{StaticResource ProperyName_TBlock}" Grid.Column="1" Grid.Row="4"/>
-                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}"  Grid.Row="4" Grid.Column="2">
+                    <TextBlock Text="Nav. Bar Foreground: "  Style="{StaticResource ProperyName_TBlock}" Grid.Column="1" Grid.Row="6"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}"  Grid.Row="6" Grid.Column="2">
                         <TextBox Name="NavBarForeground" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
                         <TextBlock Name="NavBarForeground_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>
-                    <TextBlock Text="Nav. Bar Hover: "  Style="{StaticResource ProperyName_TBlock}" Grid.Column="1" Grid.Row="5"/>
-                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="5" Grid.Column="2">
+                    <TextBlock Text="Nav. Bar Hover: "  Style="{StaticResource ProperyName_TBlock}" Grid.Column="1" Grid.Row="7"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="7" Grid.Column="2">
                         <TextBox Name="NavBarHover" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
                         <TextBlock Name="NavBarHover_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>
-                    <TextBlock Text="Nav. Bar Active Element: " Style="{StaticResource ProperyName_TBlock}" Grid.Column="1" Grid.Row="6"/>
-                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="6" Grid.Column="2">
+                    <TextBlock Text="Nav. Bar Active Element: " Style="{StaticResource ProperyName_TBlock}" Grid.Column="1" Grid.Row="8"/>
+                    <StackPanel Orientation="Horizontal" Style="{StaticResource PropertyValue_Stp}" Grid.Row="8" Grid.Column="2">
                         <TextBox Name="NavBarActive" Style="{StaticResource ProperyValue_TBox}" TextChanged="TBox_TextChanged" />
                         <TextBlock Name="NavBarActive_TBlock"  Style="{StaticResource AppliedColor_TBlock}" />
                     </StackPanel>

@@ -52,6 +52,10 @@ namespace Desktop_Manger
             MainAppBackground_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Background));
             MainAppForeground.Text = AppTheme.Foreground;
             MainAppForeground_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Foreground));
+            ItemsEffect.Text = AppTheme.Effects;
+            ItemsEffect_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Effects));
+            ActiveItem.Text = AppTheme.ActiveItems;
+            ActiveItem_TBlock.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.ActiveItems));
         }
         private void SetTheme()
         {
@@ -129,6 +133,8 @@ namespace Desktop_Manger
             MyThemeChanger.Add(new SettingsHolder(NavBarActive.Name, AppTheme.NavBarActive));
             MyThemeChanger.Add(new SettingsHolder(MainAppBackground.Name, AppTheme.Background));
             MyThemeChanger.Add(new SettingsHolder(MainAppForeground.Name, AppTheme.Foreground));
+            MyThemeChanger.Add(new SettingsHolder(ActiveItem.Name, AppTheme.ActiveItems));
+            MyThemeChanger.Add(new SettingsHolder(ItemsEffect.Name, AppTheme.Effects));
         }
         private void Save_Button_Click(object sender, RoutedEventArgs e)
         {

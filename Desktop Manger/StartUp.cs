@@ -40,7 +40,7 @@ namespace Desktop_Manger
             AppTheme.Background = "#000";
             AppTheme.Foreground = "#fff";
             AppTheme.ActiveItems = "#FFEC670A";
-            AppTheme.Effects = "#FFEC670A";
+            AppTheme.Effects = "#FFEC672A";
             AppTheme.HomePageBackground = "Resources/Videos/p4fun_intro0.mp4";
             AppTheme.HomePageVideoSound = "true";
         }
@@ -56,6 +56,8 @@ namespace Desktop_Manger
                 try { AppTheme.NavBarForeground = Data.GetVariable("NavBarForeground", ThemeFile); } catch (Exception) { }
                 try { AppTheme.NavBarHover = Data.GetVariable("NavBarHover", ThemeFile); } catch (Exception) { }
                 try { AppTheme.NavBarActive = Data.GetVariable("NavBarActive", ThemeFile); } catch (Exception) { }
+                try { AppTheme.ActiveItems = Data.GetVariable("ActiveItem", ThemeFile); } catch (Exception) { }
+                try { AppTheme.Effects = Data.GetVariable("ItemsEffect", ThemeFile); } catch (Exception) { }
             }
             if(File.Exists(SaveFiles.Location() + SaveFiles.HomePageThemeFile))
             {
