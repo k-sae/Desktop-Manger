@@ -27,8 +27,8 @@ namespace Desktop_Manger
     ///     1-Remind me To Fix performance TOMORROW
     public partial class power : Page
     {
-        BackgroundWorker PowerWorker = new BackgroundWorker();
-        Thread PowerWorkerThread = null;
+        public static BackgroundWorker PowerWorker = new BackgroundWorker();
+        public static Thread PowerWorkerThread = null;
         public static string loc = SaveFiles.Location() + "file.txt";
         public static List<PowerItem> PowerItems = new List<PowerItem>();
         Panel ParentGrid = null;
@@ -36,7 +36,6 @@ namespace Desktop_Manger
         {
             InitializeComponent();
             GETplans();
-            divdeplans();
             SetTheme();
             this.ParentGrid = ParentGrid;
 
@@ -45,7 +44,20 @@ namespace Desktop_Manger
 
         private  void GETplans()
         {
-           
+            BackgroundWorker CmdWorkerThread = new BackgroundWorker();
+            CmdWorkerThread.DoWork += CmdWorkerThread_DoWork;
+            CmdWorkerThread.RunWorkerCompleted += CmdWorkerThread_RunWorkerCompleted;
+            CmdWorkerThread.RunWorkerAsync();
+
+        }
+
+        private void CmdWorkerThread_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            divdeplans();
+        }
+
+        private void CmdWorkerThread_DoWork(object sender, DoWorkEventArgs e)
+        {
             if (File.Exists(loc))
             {
                 File.Delete(loc);
@@ -79,7 +91,10 @@ namespace Desktop_Manger
                 process.StandardInput.WriteLine("exit");
                 process.WaitForExit();
             }
+
         }
+
+
         private void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
@@ -203,6 +218,7 @@ namespace Desktop_Manger
             PowerWorker.ProgressChanged += Bw_ProgressChanged;
             PowerWorker.RunWorkerCompleted += (sender, e) => ProgressCompleted(Arguments);
             PowerWorker.RunWorkerAsync();
+            Timer.WorkerThread = PowerWorkerThread;
         }
         private void ProgressCompleted(string args)
         {
@@ -222,10 +238,11 @@ namespace Desktop_Manger
         }
         private void Bw_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            //TODO
-            //     1-Make TextBox Patterned as hh:mm:ss
-            (e.UserState as PowerTimer).Timer.Text = e.ProgressPercentage.ToString();
+
+            (e.UserState as PowerTimer).Timer.Text = TimerDividor(e.ProgressPercentage);
         }
+
+
         private void DoBackGroundWork(object sender, int time, PowerTimer timer)
         {
             PowerWorkerThread = Thread.CurrentThread;
@@ -234,6 +251,18 @@ namespace Desktop_Manger
                 Thread.Sleep(1000);
                 (sender as BackgroundWorker).ReportProgress(i, timer);
             }
+        }
+        private  string TimerDividor(int time)
+        {
+            int h, m, sec;
+            h = (time / 3600);
+            time = time % 3600;
+            m = (time / 60);
+            sec = (time % 60);
+            string h1 = h < 10 ? "0" + h.ToString() : h.ToString();         
+            string m1 = m<10 ?"0"+m.ToString():m.ToString();
+            string sec1 = sec < 10 ? "0" + sec.ToString() : sec.ToString();
+            return h1 + ":" + m1 + ":" + sec1;
         }
        
     }
