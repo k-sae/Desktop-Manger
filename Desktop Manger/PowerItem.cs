@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -44,7 +45,17 @@ namespace Desktop_Manger
 
         private void PowerItem_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            foreach(PowerItem item in power.PowerItems)
+
+            BackgroundWorker CmdWorkerThread = new BackgroundWorker();
+            CmdWorkerThread.WorkerReportsProgress = true;
+            CmdWorkerThread.ProgressChanged += CmdWorkerThread_ProgressChanged;
+            CmdWorkerThread.DoWork += CmdWorkerThread_DoWork;
+            CmdWorkerThread.RunWorkerAsync();
+        }
+
+        private void CmdWorkerThread_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            foreach (PowerItem item in power.PowerItems)
             {
                 if (item.IsActive == true)
                 {
@@ -52,12 +63,13 @@ namespace Desktop_Manger
                     SetColor(item);
                 }
             }
-            //TODO 
-            //      1-Change the is active to true
-            //      2-change its Background Color
-            //      3-Remind me to improve its performance
             IsActive = true;
             Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.Effects));
+        }
+
+        private void CmdWorkerThread_DoWork(object sender, DoWorkEventArgs e)
+        {
+            (sender as BackgroundWorker).ReportProgress(100);
             var startInfo = new ProcessStartInfo
             {
                 FileName = "cmd.exe",
@@ -70,7 +82,7 @@ namespace Desktop_Manger
             process.Start();
             process.StandardInput.WriteLine(@"powercfg /S " + Plan.Id);
             process.StandardInput.WriteLine("exit");
-            process.WaitForExit();
+            process.WaitForExit(); 
         }
 
         public PowerItem(PowerPlan MyPlan, bool IsActive = false) : this()
