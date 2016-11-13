@@ -27,8 +27,8 @@ namespace Desktop_Manger
     //  <!-- ShowInTaskbar="False"--> 
     public partial class MainWindow : MetroWindow
     {
-       
 
+        Shortcuts shortcuts_page = null;
         StackPanel selectedStP = new StackPanel();
         public MainWindow()
         {
@@ -171,10 +171,13 @@ namespace Desktop_Manger
 
         private void Apps_stp_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
+            if(shortcuts_page == null)
+            {
+                shortcuts_page = new Shortcuts();
+            }
             RemoveSelection();
             SelectStP(sender);
-            Shortcuts page1 = new Shortcuts();
-            mainframe.Navigate(page1);
+            mainframe.Navigate(shortcuts_page);
         }
         
         private void SelectStP(object sender)
