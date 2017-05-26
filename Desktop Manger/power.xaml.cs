@@ -98,14 +98,15 @@ namespace Desktop_Manger
         private void divdeplans()
         {
             string[] lines = File.ReadAllLines(loc);
-            TileLayout.Tile ti = new TileLayout.Tile();
-            ti.Width = St1.Width;
-            ti.ChildMinWidth =400;
-            ti.Childheight = 100;
-            ti.Height = 300;
-            ti.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
-            ti.Margin = new Thickness(5);
-            ti.AllowAnimation = true;
+            TileLayout.Tile ti = new TileLayout.Tile()
+            {
+                Width = St1.Width,
+                ChildMinWidth = 400,
+                Childheight = 100,
+                Height = 300,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background))),
+                Margin = new Thickness(5)
+            };
             St1.Children.Add(ti);
             for (int i = 0; i < lines.Count() - 3; i++)
             {

@@ -38,7 +38,9 @@ namespace Desktop_Manger
             Tile2 = CreateTile(1, 1);
             Tile3 = CreateTile(3, 0);
             Grid11.Children.Add(Tile1);
-            Grid12.Children.Add(Tile2);
+            //Grid12.Children.Add(Tile2);
+            ScrollViewer1.Content = Tile2;
+            ScrollViewer1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
             Grid13.Children.Add(Tile3);
             Load();
         }
@@ -64,7 +66,7 @@ namespace Desktop_Manger
             foreach(ShortcutsSaveData item in ShortcutItems)
             {
                 Tile parent = GetParent(item.ParentTile);
-                item.item.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((parent as Tile).Background.ToString())));
+                item.item.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(ScrollViewer1.Background.ToString())));
                 parent.Add(item.item);
             }
             Data.SaveShortcuts(ShortcutItems);
@@ -84,18 +86,19 @@ namespace Desktop_Manger
         }
         private Tile CreateTile(int row, int col)
         {
-            Tile ti = new Tile();
-            ti.ChildMinWidth = 200;
-            ti.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
-            ti.Margin = new Thickness(5);
-            Grid.SetRow(ti, row);
-            Grid.SetColumn(ti, col);
-            ti.AllowAnimation = true;
-            ti.AllowDrop = true;
-            ti.Focusable = true;
+            Tile ti = new Tile()
+            {
+                ChildMinWidth = 200,
+
+                Margin = new Thickness(5),
+                AllowDrop = true,
+                Focusable = true,
+                AnimationDelay = 200
+            };
+            ti.VerticalAlignment = VerticalAlignment.Top;
             ti.MouseDown += Ti_MouseDown;
             ti.Drop += Tile_Drop;
-            ti.AnimationSpeed = 6;
+            
             return ti;
         }
 
