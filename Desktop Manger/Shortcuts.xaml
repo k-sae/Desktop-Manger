@@ -29,13 +29,9 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-        <Grid Name="Grid11"  ClipToBounds="True" />
-        </ScrollViewer>
-        <ScrollViewer Name="ScrollViewer1" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto"/>
-        <ScrollViewer Grid.Row="3" ClipToBounds="True" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
-        <Grid Name="Grid13" />
-        </ScrollViewer>
+        <ScrollViewer Name="ScrollViewer0" Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="5px"/>
+        <ScrollViewer Name="ScrollViewer1" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Auto" Margin="5px" />
+        <ScrollViewer Name="ScrollViewer2" Grid.Row="3" ClipToBounds="True" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto" Margin="5px"/>
         <TextBox Text="Click To Edit Group Name" Name="Group1_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" />
         <TextBox Text="Click To Edit Group Name" Name="Group2_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" Grid.Column="1" />
         <TextBox Text="Click To Edit Group Name" Name="Group3_tb" MouseLeftButtonDown="Groups_tb_MouseLeftButtonDown" LostFocus="Groups_tb_LostFocus" Style="{StaticResource Group_tb_styles}" Grid.Row="2" />

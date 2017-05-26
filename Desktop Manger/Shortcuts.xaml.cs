@@ -37,12 +37,23 @@ namespace Desktop_Manger
             Tile1 = CreateTile(1, 0);
             Tile2 = CreateTile(1, 1);
             Tile3 = CreateTile(3, 0);
-            Grid11.Children.Add(Tile1);
+            //Grid11.Children.Add(Tile1);
             //Grid12.Children.Add(Tile2);
+            ScrollViewer0.Content = Tile1;
             ScrollViewer1.Content = Tile2;
-            ScrollViewer1.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
-            Grid13.Children.Add(Tile3);
+            ScrollViewer2.Content = Tile3;
+            SetScrollViewer(ScrollViewer0);
+            SetScrollViewer(ScrollViewer1);
+            SetScrollViewer(ScrollViewer2);
+            //Grid13.Children.Add(Tile3);
             Load();
+        }
+        public void SetScrollViewer(ScrollViewer viewer)
+        {
+            viewer.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor(AppTheme.Background)));
+            viewer.AllowDrop = true;
+            viewer.Drop += Tile_Drop;
+            viewer.MouseDown += Ti_MouseDown;
         }
         private void Load()
         {
@@ -96,8 +107,8 @@ namespace Desktop_Manger
                 AnimationDelay = 200
             };
             ti.VerticalAlignment = VerticalAlignment.Top;
-            ti.MouseDown += Ti_MouseDown;
-            ti.Drop += Tile_Drop;
+            //ti.MouseDown += Ti_MouseDown;
+            //ti.Drop += Tile_Drop;
             
             return ti;
         }
@@ -112,12 +123,15 @@ namespace Desktop_Manger
             string[] Files = (string[])e.Data.GetData(DataFormats.FileDrop, false);
             foreach(string File in Files)
             {
-                
-                ShortcutItem shortcutitem = new ShortcutItem(File);
-                shortcutitem.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((sender as Tile).Background.ToString())));
+
+                ShortcutItem shortcutitem = new ShortcutItem(File)
+                {
+                    Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(AppTheme.GetAnotherColor((sender as ScrollViewer).Background.ToString())))
+                };
                 if (!shortcutitem.IsThereisErrors)
                 {
-                    (sender as Tile).Add(shortcutitem);
+                    Tile Tile = (sender as ScrollViewer).Content as Tile;
+                    Tile.Add(shortcutitem);
                     ShortcutItems.Add(new ShortcutsSaveData(FindTileName(sender as Tile), shortcutitem));
                 }
             }
