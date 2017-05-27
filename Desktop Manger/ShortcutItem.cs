@@ -78,7 +78,8 @@ namespace Desktop_Manger
                 {
                     if (IconSource == "Default")
                     {
-                        LoadDefaultDesign();
+                        //LoadDefaultDesign();
+                        LoadDefaultIcon(ShortCutLocation);
                     }
                     else LoadCustomDesign(IconSource);
                     //to save Icons location when its loaded
@@ -120,6 +121,12 @@ namespace Desktop_Manger
                 (AppTheme.Foreground));
             viewbox.Child = tb;
             TheEventsHolder.Children.Add(viewbox);
+        }
+        private void LoadDefaultIcon(string Location)
+        {
+            Image img = LayoutObjects.CreateImage();
+            img.Source = LayoutObjects.GetIcon(Location);
+            TheEventsHolder.Children.Add(img);
         }
         //Load The Image which The User Have Choosen
         private void LoadCustomDesign(string ImageLocation)
