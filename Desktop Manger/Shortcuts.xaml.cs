@@ -132,18 +132,18 @@ namespace Desktop_Manger
                 {
                     Tile Tile = (sender as ScrollViewer).Content as Tile;
                     Tile.Add(shortcutitem);
-                    ShortcutItems.Add(new ShortcutsSaveData(FindTileName(sender as Tile), shortcutitem));
+                    ShortcutItems.Add(new ShortcutsSaveData(FindTileName(sender as ScrollViewer), shortcutitem));
                 }
             }
             Data.SaveShortcuts(ShortcutItems);
         }
-        private string FindTileName(Tile tile)
+        private string FindTileName(ScrollViewer tile)
         {
-            if (tile == Tile1)
+            if (tile.Content as Tile == Tile1)
             {
                 return "Tile1";
             }
-            else if (tile == Tile2) { return "Tile2"; }
+            else if (tile.Content as Tile == Tile2) { return "Tile2"; }
             else return "Tile3";
         }
         private void SetTheme()
