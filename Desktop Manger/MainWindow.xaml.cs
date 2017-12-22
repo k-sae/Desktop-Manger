@@ -16,6 +16,7 @@ using System.Windows.Shapes;
 using MahApps.Metro.Controls;
 using System.Diagnostics;
 using System.Windows.Media.Animation;
+using System.Runtime.InteropServices;
 
 namespace Desktop_Manger
 {
@@ -27,6 +28,19 @@ namespace Desktop_Manger
     //  <!-- ShowInTaskbar="False"--> 
     public partial class MainWindow : MetroWindow
     {
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern int SetWindowLong(IntPtr hWnd, int nIndex, IntPtr dwNewLong);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindow(string lpWindowClass, string lpWindowName);
+
+        [DllImport("user32.dll", SetLastError = true)]
+        static extern IntPtr FindWindowEx(IntPtr parentHandle, IntPtr childAfter, string className, string windowTitle);
+
+
+        const int GWL_HWNDPARENT = -8;
+
 
         Shortcuts shortcuts_page = null;
         StackPanel selectedStP = new StackPanel();
@@ -41,6 +55,7 @@ namespace Desktop_Manger
             HomePage page1 = new HomePage(this.Height, this.Width);
             SelectStP(HomePage_stp);
             mainframe.Navigate(page1);
+            Loaded += MainWindow_Loaded;
         }
 
         //Disable Frame Nave Bar
@@ -79,9 +94,20 @@ namespace Desktop_Manger
         private async void win1_StateChanged(object sender, EventArgs e)
         {
             //did it two times so if the first one failed
-            await MaximizeWindow(this);
-            await sleep(200);
-            await MaximizeWindow(this);
+        }
+
+        void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            IntPtr hprog = FindWindowEx(
+                FindWindowEx(
+                    FindWindow("Progman", "Program Manager"),
+                    IntPtr.Zero, "SHELLDLL_DefView", ""
+                ),
+                IntPtr.Zero, "SysListView32", "FolderView"
+             );
+
+            SetWindowLong(new System.Windows.Interop.WindowInteropHelper(this).Handle, GWL_HWNDPARENT, hprog);
+
         }
         //make the app maximized at the center of the screen
         public void CenterScreen()
