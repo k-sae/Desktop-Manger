@@ -99,21 +99,28 @@ namespace Desktop_Manger
         private async void win1_StateChanged(object sender, EventArgs e)
         {
             //did it two times so if the first one failed
+            SetAsBackground();
         }
 
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
+
+            SetAsBackground();
+        }
+
+        private void SetAsBackground()
+        {
             IntPtr hprog = FindWindowEx(
-                FindWindowEx(
-                    FindWindow("Progman", "Program Manager"),
-                    IntPtr.Zero, "SHELLDLL_DefView", ""
+            FindWindowEx(
+                FindWindow("Progman", "Program Manager"),
+                IntPtr.Zero, "SHELLDLL_DefView", ""
                 ),
-                IntPtr.Zero, "SysListView32", "FolderView"
-             );
+            IntPtr.Zero, "SysListView32", "FolderView"
+         );
 
             SetWindowLong(new System.Windows.Interop.WindowInteropHelper(this).Handle, GWL_HWNDPARENT, hprog);
-
         }
+
         //make the app maximized at the center of the screen
         public void CenterScreen()
         {
