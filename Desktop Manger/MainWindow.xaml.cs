@@ -27,10 +27,11 @@ namespace Desktop_Manger
     /// TODO: update 5:
     // 1- improve the sidebar sensitivity
     // 2- read params from the imported item
-    // 3- improve the shortcut loading time by adding images and other things on another thread
+    // 3- improve the shortcut loading time by adding images and other things on another thread (under work)
     // 4- add icon pack
     // 5- improve item dragging on home screen use a whole new algo ( depend on the distance from the point of click for the item dragging)
     // 6- improve performance by storing the whole ui element as binary file (new caching folder saving snapshots of the current state)
+    // 7- DONT delete the shortcut if there is any error : add Enum that conatin possible errors and act differently according to the error type
     public partial class MainWindow : MetroWindow
     {
 

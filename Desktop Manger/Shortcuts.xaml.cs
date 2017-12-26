@@ -132,6 +132,7 @@ namespace Desktop_Manger
                 {
                     Tile Tile = (sender as ScrollViewer).Content as Tile;
                     Tile.Add(shortcutitem);
+                    
                     ShortcutItems.Add(new ShortcutsSaveData(FindTileName(sender as ScrollViewer), shortcutitem));
                 }
             }

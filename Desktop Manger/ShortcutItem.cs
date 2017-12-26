@@ -23,84 +23,20 @@ namespace Desktop_Manger
 {
     public class ShortcutItem : DMShortcutItem
     {
-        bool AnimationInProgress = false;
+        private bool AnimationInProgress = false;
         /* Temporary remove the edit parameters button
         Grid EditParametersButton = null; 
         */
-        Grid EditTextButton = null;
-        Grid EditBackgroundButton = null;
-        Grid DeleteButton = null;
-        Grid TheItemHolder = null;
-        Grid TheEventsHolder = null;
-        public ShortcutItem()
+        private Grid EditTextButton = null;
+        private Grid EditBackgroundButton = null;
+        private Grid DeleteButton = null;
+        private Grid TheItemHolder = null;
+        private Grid TheEventsHolder = null;
+
+
+        public ShortcutItem(string file, string IconSource = "Default") : base(file, IconSource)
         {
-            //this will hold the main children  Take a Look AT The visual logic tree 
-            Grid Grid1 = new Grid();
-            //this will hold the events and the visual elements
-            Grid Grid2 = new Grid();
-            TheEventsHolder = Grid2;
-            TheEventsHolder.Background = Brushes.Transparent;
-            TheItemHolder = Grid1;
-            TheItemHolder.Children.Add(TheEventsHolder);
-            TheEventsHolder.MouseLeftButtonUp += TheEventsHolder_MouseLeftButtonUp;
-            TheItemHolder.Width = Width;
-            TheItemHolder.Height = Height;
-            Children.Add(TheItemHolder);
-            MouseLeftButtonDown += Cnv_MouseLeftButtonDown;
-            MouseMove += Cnv_MouseMove;
            
-            //Responsible for the Appearance of edit Buttons
-            MouseEnter += ShortcutItem_MouseEnter;
-            MouseLeave += ShortcutItem_MouseLeave;
-            Cursor = Cursors.Hand;
-        }
-
-        
-
-        public ShortcutItem(string file, string IconSource = "Default") : this()
-        {
-            ShortCutLocation = System.IO.Path.GetExtension(file).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(file) : file;
-            // FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
-            FileName_beta = CreateTextBox(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
-            LoadGeneralDesign();
-            //Check if a directory
-            try
-            {
-                //set the default folder Image
-                if (((FileAttributes)System.IO.File.GetAttributes(file)).HasFlag(FileAttributes.Directory))
-                {
-                    //CreateIconFromImage("pack://application:,,,/Resources/Folder_Icon.png");
-                    ShortcutIcon.Source = LayoutObjects.GetImageSource("pack://application:,,,/Resources/Folder_Icon.png");
-                    LoadFolderDesign();
-                }
-                //else set the the Default Design
-                else
-                {
-                    if (IconSource == "Default")
-                    {
-                        //LoadDefaultDesign();
-                        LoadDefaultIcon(ShortCutLocation);
-                    }
-                    else LoadCustomDesign(IconSource);
-                    //to save Icons location when its loaded
-                    IconSourceLocation = IconSource;
-                }
-            }
-            catch (FileNotFoundException)
-            {
-                MessageBox.Show("A file is missing\nCan't find " + file);
-                IsThereisErrors = true;
-            }
-            catch (DirectoryNotFoundException)
-            {
-                MessageBox.Show("Directory is missing\n Cant find " + file);
-                IsThereisErrors = true;
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("Error happened while adding " + file + " \nMay save File corrupted or no permission to access this file\ndeleted shortcut from DM\nerror: " + e.Message);
-                IsThereisErrors = true;
-            }
             SizeChanged += ShortcutItem_SizeChanged;
             return;
         }
@@ -122,28 +58,42 @@ namespace Desktop_Manger
             viewbox.Child = tb;
             TheEventsHolder.Children.Add(viewbox);
         }
-        private void LoadDefaultIcon(string Location)
-        {
-            Image img = LayoutObjects.CreateImage();
-            img.Source = LayoutObjects.GetIcon(Location);
-            TheEventsHolder.Children.Add(img);
-        }
-        //Load The Image which The User Have Choosen
-        private void LoadCustomDesign(string ImageLocation)
+        //Load The Image which The User has Choosen
+        private ImageSource LoadCustomDesign(string ImageLocation)
         {
             if (System.IO.Path.GetExtension(ImageLocation).ToUpper() == ".ICO" || System.IO.Path.GetExtension(ImageLocation).ToUpper() == ".EXE")
             {
-                ChangeImage(LayoutObjects.GetIcon(ImageLocation));
+                return LayoutObjects.GetIcon(ImageLocation);
             }
             else
             {
-                ChangeImage(LayoutObjects.GetImageSource(ImageLocation));
+               return LayoutObjects.GetImageSource(ImageLocation);
             }
         }
         //General Design
-        private void LoadGeneralDesign()
+        protected override void LoadDesign()
         {
             //Add Transperent Image so user be able to change it later
+            Grid Grid1 = new Grid();
+            //this will hold the events and the visual elements
+            Grid Grid2 = new Grid();
+            TheEventsHolder = Grid2;
+            TheEventsHolder.Background = Brushes.Transparent;
+            TheItemHolder = Grid1;
+            TheItemHolder.Children.Add(TheEventsHolder);
+            TheEventsHolder.MouseLeftButtonUp += TheEventsHolder_MouseLeftButtonUp;
+            TheItemHolder.Width = Width;
+            TheItemHolder.Height = Height;
+            Children.Add(TheItemHolder);
+            MouseLeftButtonDown += Cnv_MouseLeftButtonDown;
+            MouseMove += Cnv_MouseMove;
+
+            //Responsible for the Appearance of edit Buttons
+            MouseEnter += ShortcutItem_MouseEnter;
+            MouseLeave += ShortcutItem_MouseLeave;
+            Cursor = Cursors.Hand;
+            FileName_beta = CreateTextBox(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
+
             ShortcutIcon = new Image();
             ShortcutIcon.Stretch = Stretch.Fill;
             TheEventsHolder.Children.Add(ShortcutIcon);
@@ -345,6 +295,51 @@ namespace Desktop_Manger
             await MainWindow.sleep(100);
             EditParametersButton.BeginAnimation(TopProperty, an, HandoffBehavior.SnapshotAndReplace);
             */
+        }
+
+        protected override ImageSource GetImageSource()
+        {
+            ShortCutLocation = System.IO.Path.GetExtension(ShortCutLocation).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(ShortCutLocation) : ShortCutLocation;
+            // FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
+            FileName_beta = CreateTextBox(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
+            //Check if a directory
+            ImageSource src = null;
+            try
+            {
+                //set the default folder Image
+                if (((FileAttributes)System.IO.File.GetAttributes(ShortCutLocation)).HasFlag(FileAttributes.Directory))
+                {
+                    src = LayoutObjects.GetImageSource("pack://application:,,,/Resources/Folder_Icon.png");
+                    LoadFolderDesign();
+                }
+                //else set the the Default Design
+                else
+                {
+                    if (IconSourceLocation == "Default")
+                    {
+                        //LoadDefaultDesign();
+                        src = LayoutObjects.GetIcon(ShortCutLocation);
+                    }
+                    else src = LoadCustomDesign(IconSourceLocation);
+                    //to save Icons location when its loaded
+                }
+            }
+            catch (FileNotFoundException)
+            {
+                MessageBox.Show("A file is missing\nCan't find " + IconSourceLocation);
+                IsThereisErrors = true;
+            }
+            catch (DirectoryNotFoundException)
+            {
+                MessageBox.Show("Directory is missing\n Cant find " + IconSourceLocation);
+                IsThereisErrors = true;
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Error happened while adding " + IconSourceLocation + " \nMay save File corrupted or no permission to access this file\ndeleted shortcut from DM\nerror: " + e.Message);
+                IsThereisErrors = true;
+            }
+            return src;
         }
     }
 }

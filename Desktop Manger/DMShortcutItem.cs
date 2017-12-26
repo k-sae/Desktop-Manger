@@ -12,7 +12,7 @@ using System.Windows.Media;
 
 namespace Desktop_Manger
 {
-    public class DMShortcutItem : Canvas
+    public abstract class DMShortcutItem : Canvas
     {
         public readonly string SupportedIconExtensions = "Supported Extensions|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff;*.Ico;*.exe|Image Files|*.bmp;*.jpg;*.jpeg;*.png;*.tif;*.tiff|Icon (*.ico)|*.Ico|Excutable file (*.exe) |*.exe|BMP|*.bmp|GIF|*.gif|JPG|*.jpg;*.jpeg|PNG|*.png|TIFF|*.tif;*.tiff";
 
@@ -27,6 +27,15 @@ namespace Desktop_Manger
         public string ShortCutLocation { get; set; }
         public string IconSourceLocation { get; set; }
         public string Parameters = "";
+
+        public DMShortcutItem(string ShortCutLocation, string IconSourceLocation)
+        {
+            this.ShortCutLocation = ShortCutLocation;
+            this.IconSourceLocation = IconSourceLocation;
+                LoadDesign();
+         //   ShortcutIcon.Source = GetImageSource();
+        }
+
         public void CreateIconFromImage(string Location)
         {
             System.Windows.Controls.Image img = LayoutObjects.CreateImage();
@@ -71,20 +80,6 @@ namespace Desktop_Manger
         }
         public void ChangeImage(/*StackPanel mystp,*/ ImageSource imgsrc)
         {
-            //TODO: update 2:
-            //              1-Remove this unnessarcy code seems useless
-            /*
-            object img = new object();
-            foreach (object child in mystp.Children)
-            {
-                
-               if (child is System.Windows.Controls.Image)
-                {
-                    img = child;
-                    break;
-                }
-            }
-            (img as System.Windows.Controls.Image).Source = imgsrc;*/
             ShortcutIcon.Source = imgsrc;
 
         }
@@ -117,5 +112,8 @@ namespace Desktop_Manger
         {
             LayoutObjects.SealTextBox(sender as TextBox);
         }
+
+        protected abstract ImageSource GetImageSource();
+        protected abstract void LoadDesign();
     }
 }

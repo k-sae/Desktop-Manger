@@ -24,7 +24,8 @@ namespace Desktop_Manger
         private Stopwatch stp = new Stopwatch();
         private static List<Extension> Extensions = null;
         //Constructor
-        public AppInfo()
+
+        public AppInfo(string file, string IconSource = "Default") : base(file, IconSource)
         {
             if (Object.ReferenceEquals(Extensions, null))
             {
@@ -38,10 +39,7 @@ namespace Desktop_Manger
             MouseMove += Cnv_MouseMove;
             MouseLeftButtonUp += Cnv_MouseLeftButtonUp;
             Cursor = Cursors.Hand;
-        }
 
-        public AppInfo(string file, string IconSource = "Default") : this()
-        {
             //To get the original exe file instead of shortcut
             ShortCutLocation = Path.GetExtension(file).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(file) : file;
             FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileName(ShortCutLocation));
@@ -458,6 +456,16 @@ namespace Desktop_Manger
 
             }
 
+        }
+
+        protected override ImageSource GetImageSource()
+        {
+            return null;
+        }
+
+        protected override void LoadDesign()
+        {
+           
         }
         //That's All Folks
     }
