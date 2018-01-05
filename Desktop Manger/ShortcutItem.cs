@@ -40,7 +40,7 @@ namespace Desktop_Manger
             SizeChanged += ShortcutItem_SizeChanged;
             return;
         }
-        private void LoadFolderDesign()
+        private void LoadIconDesign()
         {
             ShortcutIcon.Stretch = Stretch.Fill;
             ShortcutIcon.Width = 50;
@@ -134,6 +134,10 @@ namespace Desktop_Manger
             */
             //<<<<<<<<<<
             TheEventsHolder.Children.Add(FileName_beta);
+
+            if(IconSourceLocation == "Default" || (((FileAttributes)System.IO.File.GetAttributes(ShortCutLocation)).HasFlag(FileAttributes.Directory)))
+                LoadIconDesign();
+
         }
 
         private void FileName_beta_LostFocus(object sender, RoutedEventArgs e)
@@ -301,7 +305,6 @@ namespace Desktop_Manger
         {
             ShortCutLocation = System.IO.Path.GetExtension(ShortCutLocation).ToLower() == ".lnk" ? LayoutObjects.GetOriginalFileURL(ShortCutLocation) : ShortCutLocation;
             // FileName = LayoutObjects.CreateTextBlock(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
-            FileName_beta = CreateTextBox(System.IO.Path.GetFileNameWithoutExtension(ShortCutLocation));
             //Check if a directory
             ImageSource src = null;
             try
@@ -310,7 +313,6 @@ namespace Desktop_Manger
                 if (((FileAttributes)System.IO.File.GetAttributes(ShortCutLocation)).HasFlag(FileAttributes.Directory))
                 {
                     src = LayoutObjects.GetImageSource("pack://application:,,,/Resources/Folder_Icon.png");
-                    LoadFolderDesign();
                 }
                 //else set the the Default Design
                 else

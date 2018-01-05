@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,10 +20,15 @@ namespace Desktop_Manger
         public static ImageSource GetIcon(string fileName)
         {
             Icon icon = System.Drawing.Icon.ExtractAssociatedIcon(fileName);
-            return System.Windows.Interop.Imaging.CreateBitmapSourceFromHIcon(
-                        icon.Handle,
-                        new Int32Rect(0, 0, icon.Width, icon.Height),
-                        BitmapSizeOptions.FromEmptyOptions());
+            var ms = new MemoryStream();
+            icon.ToBitmap().Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+            ms.Position = 0;
+            var bmpi = new BitmapImage();
+            bmpi.BeginInit();
+            bmpi.StreamSource = ms;
+            bmpi.EndInit();
+            bmpi.Freeze();
+            return bmpi ;
         }
         public static System.Windows.Controls.Image CreateImage()
         {
