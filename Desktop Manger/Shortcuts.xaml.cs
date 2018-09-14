@@ -115,7 +115,7 @@ namespace Desktop_Manger
 
         private void Ti_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            (sender as Tile).Focus();
+            (sender as FrameworkElement).Focus();
         }
 
         private void Tile_Drop(object sender, DragEventArgs e)
